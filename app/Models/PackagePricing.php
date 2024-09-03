@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class PackagePricing extends Model
@@ -15,4 +15,4 @@ class PackagePricing extends Model
         return $this->belongsTo(Destination::class);
     }
 }
- ?>
+?>
