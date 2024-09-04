@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use App\Models\Destination;
@@ -82,7 +83,13 @@ class DestinationResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('category')
+                    ->label('Filter by Category')
+                    ->relationship('category', 'name'),
+
+                SelectFilter::make('region')
+                    ->label('Filter by Region')
+                    ->relationship('region', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
