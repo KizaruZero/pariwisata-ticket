@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: "resources/js/app.js",
-            refresh: [...refreshPaths, "app/Livewire/**"],
+            refresh: ["app/Livewire/**"],
             // klo error ganti true
         }),
         vue({

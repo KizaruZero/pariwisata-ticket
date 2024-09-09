@@ -2,7 +2,7 @@ import "./bootstrap";
 import "../css/app.css";
 
 import { createApp, h } from "vue";
-import { createInertiaApp } from "@inertiajs/inertia-vue3";
+import { createInertiaApp, Link } from "@inertiajs/vue3"; // Klo error ui, coba ganti ke @inertiajs/inertia-vue3c
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 
@@ -18,6 +18,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .component("Link", Link)
             .use(ZiggyVue)
             .mount(el);
     },

@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from "@/Components/NavbarView.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link } from "@inertiajs/inertia-vue3";
 </script>
 
 <template>
@@ -9,10 +9,7 @@ import { Link } from "@inertiajs/vue3";
         <Navbar />
 
         <!-- Hero Section -->
-        <div
-            class="relative bg-cover bg-center h-screen"
-            style="background-image: url('/path/to/your/hero-image.jpg')"
-        >
+        <div class="relative bg-cover bg-center h-screen">
             <div
                 class="flex items-center justify-center h-full bg-black bg-opacity-50"
             >
@@ -50,6 +47,7 @@ import Navbar from "@/Components/NavbarView.vue";
 export default {
     components: {
         Navbar,
+        Link,
     },
 };
 </script>
