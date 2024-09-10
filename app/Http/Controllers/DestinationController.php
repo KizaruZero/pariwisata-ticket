@@ -10,13 +10,18 @@ use Inertia\Inertia;
 class DestinationController extends Controller
 {
 
-    public function getAllDestination()
+    public function getDestinationDetail($id)
     {
-        $destinations = Destination::with(['region', 'category', 'reviews.user'])->get();
-        return response()->json([
-            'data' => $destinations
-        ], 200);
+        $destination = Destination::with('region', 'category', 'reviews.user')->findOrFail($id);
+        return response()->json($destination);
     }
+
+    public function getDestination() {
+        return response()->json([
+            'data' => Destination::all()
+        ]);
+    }    
+
     public function index(Request $request)
     {
         // Get filter criteria from the request

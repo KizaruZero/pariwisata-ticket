@@ -1,0 +1,83 @@
+<!-- resources/js/Pages/DestinationDetail.vue -->
+<template>
+    <div class="min-h-screen bg-white flex items-center justify-center">
+        <div
+            v-if="destination"
+            class="max-w-4xl w-full bg-blue-50 p-6 rounded-lg shadow-lg"
+        >
+            <img
+                :src="destination.image_url"
+                alt="Image"
+                class="w-full h-64 object-cover rounded-lg"
+            />
+            <h1 class="text-3xl font-bold text-blue-900 mt-4">
+                {{ destination.name }}
+            </h1>
+            <p class="text-gray-700 mt-2">{{ destination.description }}</p>
+            <p class="text-gray-500 mt-2">
+                Region: {{ destination.region.name }}
+            </p>
+            <p class="text-gray-500">
+                Category: {{ destination.category.name }}
+            </p>
+
+            <div v-if="destination.reviews.length > 0" class="mt-4">
+                <h2 class="text-xl font-semibold">Reviews</h2>
+                <div
+                    v-for="review in destination.reviews"
+                    :key="review.id"
+                    class="mt-2 p-4 bg-gray-100 rounded-lg"
+                >
+                    <p class="font-bold">{{ review.user.name }}</p>
+                    <p class="text-yellow-500">Rating: {{ review.rating }}/5</p>
+                    <p class="mt-2">{{ review.review_text }}</p>
+                </div>
+            </div>
+
+            <button @click="goBack" class="mt-4 btn-primary">
+                Back to Destinations
+            </button>
+        </div>
+        <div v-else>
+            <!-- Placeholder or loading state while fetching data -->
+            <p>Loading destination details...</p>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+// Accept 'id' as a prop
+const props = defineProps({
+    id: {
+        type: [Number, String], // Accept both Number and String
+        required: true,
+    },
+});
+
+// Define reactive destination object
+const destination = ref(null);
+
+// Fetch destination data from API when mounted
+onMounted(() => {
+    axios
+        .get(`/api/destination/${props.id}`) // Use the prop 'id' to fetch data
+        .then((response) => {
+            destination.value = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
+
+// Method to go back (using native history for simplicity)
+const goBack = () => {
+    window.history.back();
+};
+</script>
+
+<style scoped>
+/* Styling for better layout */
+</style>

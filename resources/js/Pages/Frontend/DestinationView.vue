@@ -8,6 +8,7 @@
                 <p class="mt-4 text-lg text-blue-600">
                     This is a simple Vue component for the destination page.
                 </p>
+                <DestinationCard />
             </div>
         </div>
     </GuestLayout>
@@ -15,11 +16,13 @@
 
 <script>
 import GuestLayout from "@/Layouts/GuestLayout.vue";
+import DestinationCard from "@/Frontend Components/DestinationCard.vue";
 
 export default {
     name: "DestinationView",
     components: {
         GuestLayout,
+        DestinationCard,
     },
 };
 </script>

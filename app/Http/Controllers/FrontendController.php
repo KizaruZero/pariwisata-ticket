@@ -16,6 +16,14 @@ class FrontendController extends Controller
         return Inertia::render('Frontend/DestinationView');
     }
 
+    public function destinationsDetail($id)
+    {
+    return Inertia::render('Frontend/DestinationDetail', [
+        'id' => $id,  // Pastikan 'id' dikirimkan ke Vue
+        ]);
+    }
+
+
     // public function vacations()
     // {
     //     return Inertia::render('Vacations');
