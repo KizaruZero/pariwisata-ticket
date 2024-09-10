@@ -2,7 +2,7 @@ import "./bootstrap";
 import "../css/app.css";
 
 import { createApp, h } from "vue";
-import { createInertiaApp, Link } from "@inertiajs/vue3"; // Klo error ui, coba ganti ke @inertiajs/inertia-vue3c
+import { createInertiaApp, Link } from "@inertiajs/inertia-vue3"; // Klo error ui, coba ganti ke @inertiajs/inertia-vue3 // @inertiajs/vue3
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 

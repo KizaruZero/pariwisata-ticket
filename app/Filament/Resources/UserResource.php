@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Validation\Rules\Password;
+use Filament\Forms\Components\Select;
 
 class UserResource extends Resource
 {
@@ -34,6 +35,14 @@ class UserResource extends Resource
                     ->label('Email')
                     ->email() // Ensures the input is a valid email format
                     ->required(),
+
+                Select::make('role')
+                    ->label('Role')
+                    ->required()
+                    ->options([
+                        'admin' => 'admin',
+                        'user' => 'user',
+                    ]),
 
                 // Password field: required on create, optional on edit
                 TextInput::make('password')

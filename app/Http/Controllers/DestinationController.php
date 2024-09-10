@@ -16,11 +16,12 @@ class DestinationController extends Controller
         return response()->json($destination);
     }
 
-    public function getDestination() {
+    public function getDestination()
+    {
         return response()->json([
             'data' => Destination::all()
         ]);
-    }    
+    }
 
     public function index(Request $request)
     {
@@ -65,4 +66,3 @@ class DestinationController extends Controller
         ]);
     }
 }
-?>
