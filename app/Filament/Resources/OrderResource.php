@@ -26,23 +26,6 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-               Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->disabled(),
-               Forms\Components\Select::make('destination_id')
-                    ->relationship('destination', 'name')
-                    ->disabled(),
-               Forms\Components\Select::make('package_id')
-                    ->relationship('package', 'name')
-                    ->disabled(),
-               Forms\Components\TextInput::make('total_price')
-                    ->disabled(),
-               Forms\Components\Select::make('status')
-                    ->options([
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
-                    ]),
             ]);
     }
 
@@ -52,33 +35,40 @@ class OrderResource extends Resource
             ->columns([
                 TextColumn::make('user.name')->label('User'),
                 TextColumn::make('destination.name')->label('Destination'),
-                TextColumn::make('package.name')->label('Package'),
+                TextColumn::make('package.name')
+                    ->label('Package')
+                ,
                 TextColumn::make('total_price')->label('Total Price')->money('idr', true),
-                BadgeColumn::make('status')
-                    ->state(function (Order $record): string {
-                        return match ($record->status) {
-                            'pending' => 'Pending',
-                            'approved' => 'Approved',
-                            'rejected' => 'Rejected',
-                            default => $record->status,
-                        };
-                    })
-                    ->colors([
-                        'primary' => 'Pending',
-                        'success' => 'Approved',
-                        'danger' => 'Rejected',
-                    ]),
+                BadgeColumn::make('status')->state(function (Order $record): string {
+                    return match ($record->status) { 'pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected', default => $record->status,
+                    };
+                })->colors([
+                            'primary' => 'Pending',
+                            'success' => 'Approved',
+                            'danger' => 'Rejected',
+                        ]),
             ])
             ->actions([
                 Action::make('approve')
                     ->label('Approve')
-                    ->visible(fn (Order $record) => $record->status === 'pending')
-                    ->action(fn (Order $record) => $record->update(['status' => 'approved', 'approved_at' => now()])),
-                
+                    ->visible(fn(Order $record) => $record->status === 'pending')
+                    ->action(function (Order $record) {
+                        $record->update([
+                            'status' => 'approved',
+                            'approved_at' => now(),
+                        ]);
+
+                        // Kirim receipt ke buyer (email dengan PDF)
+                        \Mail::to($record->user->email)->send(new \App\Mail\OrderReceipt($record));
+
+                        return response()->json(['message' => 'Order approved and receipt sent to the user!']);
+                    }),
+
+
                 Action::make('reject')
                     ->label('Reject')
-                    ->visible(fn (Order $record) => $record->status === 'pending')
-                    ->action(fn (Order $record) => $record->update(['status' => 'rejected'])),
+                    ->visible(fn(Order $record) => $record->status === 'pending')
+                    ->action(fn(Order $record) => $record->update(['status' => 'rejected'])),
             ]);
     }
 

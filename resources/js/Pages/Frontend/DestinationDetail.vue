@@ -37,7 +37,10 @@
             <form @submit.prevent="submitOrder">
                 <div class="mt-4">
                     <label for="package" class="block">Select Package</label>
-                    <select class="mt-1 p-2 border rounded">
+                    <select
+                        v-model="order.package_pricing_id"
+                        class="mt-1 p-2 border rounded"
+                    >
                         <option
                             v-for="harga in packagePricing"
                             :value="harga.id"
@@ -135,8 +138,7 @@ const newReview = ref({
 });
 
 const order = ref({
-    destination_id: props.id, // Add this line
-    package_id: null,
+    package_pricing_id: null,
     payment_method: null,
 });
 // Fetch destination data from API when mounted
@@ -169,6 +171,7 @@ const submitReview = async () => {
         // Optionally, refresh reviews or handle success
         alert("Review submitted successfully!");
     } catch (error) {
+        console.log(order.value);
         console.error("Error submitting review:", error);
     }
 };

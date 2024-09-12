@@ -15,12 +15,12 @@
                 <h3 class="text-lg font-bold">{{ destination.name }}</h3>
                 <p>{{ destination.location }}</p>
                 <p>Rating: {{ destination.rating }} / 5</p>
-                <button
-                    @click="viewDetail(destination.id)"
+                <NavLink
+                    :href="`/destination/${destination.id}`"
                     class="mt-2 btn-primary"
                 >
                     View Details
-                </button>
+                </NavLink>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import { Inertia } from "@inertiajs/inertia"; // Import Inertia for navigation
+import NavLink from "../Components/NavLink.vue"; // Import NavLink component
 
 // Define state using ref
 const destinations = ref([]);
@@ -47,9 +47,6 @@ onMounted(() => {
 });
 
 // Method to handle navigation with Inertia
-const viewDetail = (id) => {
-    Inertia.visit(`/destination/${id}`); // This will use Inertia to navigate
-};
 </script>
 
 <style scoped>

@@ -12,8 +12,7 @@ class PackageController extends Controller
         $packages = PackagePricing::with('package', 'destination')
             ->where('destination_id', $id)
             ->get();
-
         return response()->json($packages);
-        
+
     }
 }
