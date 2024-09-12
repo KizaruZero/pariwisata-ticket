@@ -33,6 +33,44 @@
                 </div>
             </div>
 
+            <!-- Beli produk -->
+            <form @submit.prevent="submitOrder">
+                <div class="mt-4">
+                    <label for="package" class="block">Select Package</label>
+                    <select class="mt-1 p-2 border rounded">
+                        <option
+                            v-for="harga in packagePricing"
+                            :value="harga.id"
+                            :key="harga.id"
+                        >
+                            {{ harga.package.name }} -
+                            {{ formatCurrency(harga.price) }}
+                            <br />
+                            {{ harga.package.description }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <label for="payment_method" class="block"
+                        >Payment Method</label
+                    >
+                    <select
+                        v-model="order.payment_method"
+                        class="mt-1 p-2 border rounded"
+                    >
+                        <option value="credit_card">Credit Card</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="mt-4 btn-primary">
+                    Submit Order
+                </button>
+            </form>
+
+            <!-- Test aja -->
+
             <div v-if="canReview" class="mt-4">
                 <h2 class="text-xl font-semibold">Leave a Review</h2>
                 <form @submit.prevent="submitReview">
@@ -62,6 +100,8 @@
                 </form>
             </div>
 
+            <!-- Buy Button -->
+
             <button @click="goBack" class="mt-4 btn-primary">
                 Back to Destinations
             </button>
@@ -87,12 +127,18 @@ const props = defineProps({
 
 // Define reactive destination object
 const destination = ref(null);
+const packagePricing = ref(null);
 const canReview = ref(false);
 const newReview = ref({
     rating: 1,
     review_text: "",
 });
 
+const order = ref({
+    destination_id: props.id, // Add this line
+    package_id: null,
+    payment_method: null,
+});
 // Fetch destination data from API when mounted
 onMounted(async () => {
     try {
@@ -103,6 +149,10 @@ onMounted(async () => {
         // Check if user can review
         const reviewResponse = await axios.get(`/user/can-review/${props.id}`);
         canReview.value = reviewResponse.data.canReview;
+
+        // Optionally, fetch other data like packagePricing, etc.
+        const responsePackage = await axios.get(`/api/packages/${props.id}`);
+        packagePricing.value = responsePackage.data;
     } catch (error) {
         console.error("Error fetching data:", error);
     }
@@ -123,9 +173,37 @@ const submitReview = async () => {
     }
 };
 
+const submitOrder = async () => {
+    try {
+        console.log("Submitting order:", order.value); // Log the order data
+        const response = await axios.post("/api/orders", order.value);
+        alert("Order submitted successfully");
+        console.log(response.data); // Log the response for debugging
+    } catch (error) {
+        console.error("Order submission failed", error);
+        if (error.response) {
+            console.error(error.response.data);
+            alert(`Error: ${error.response.data.message}`);
+        } else if (error.request) {
+            console.error(error.request);
+            alert("Error: No response received from server");
+        } else {
+            console.error("Error", error.message);
+            alert(`Error: ${error.message}`);
+        }
+    }
+};
+
 // Method to go back (using native history for simplicity)
 const goBack = () => {
     window.history.back();
+};
+
+const formatCurrency = (value) => {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+    }).format(value);
 };
 </script>
 

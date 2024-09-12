@@ -14,5 +14,7 @@ class PackagePricing extends Model
     {
         return $this->belongsTo(Destination::class);
     }
+
+    
 }
 ?>
