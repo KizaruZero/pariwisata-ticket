@@ -9,7 +9,7 @@ import { Link } from "@inertiajs/inertia-vue3";
         <Navbar />
 
         <!-- Hero Section -->
-        <div class="relative bg-cover bg-center h-screen">
+        <!-- <div class="relative bg-cover bg-center h-screen">
             <div
                 class="flex items-center justify-center h-full bg-black bg-opacity-50"
             >
@@ -28,7 +28,7 @@ import { Link } from "@inertiajs/inertia-vue3";
                     </Link>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Content Section -->
         <div class="flex-grow p-6 bg-white">
