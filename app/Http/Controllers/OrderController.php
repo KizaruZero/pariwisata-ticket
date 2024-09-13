@@ -81,5 +81,15 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order cannot be rejected'], 400);
     }
+
+    public function orderHistory()
+    {
+    $orders = Order::where('user_id', Auth::id())
+        ->with(['destination', 'package', 'user']) // Memuat relasi yang diperlukan
+        ->get();
+
+    return response()->json(['message' => 'Order history', 'orders' => $orders]);
+}
+    
 }
 ?>
