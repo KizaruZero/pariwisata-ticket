@@ -74,7 +74,7 @@
 
             <!-- Test aja -->
 
-            <div v-if="canReview" class="mt-4">
+            <!-- <div v-if="canReview" class="mt-4">
                 <h2 class="text-xl font-semibold">Leave a Review</h2>
                 <form @submit.prevent="submitReview">
                     <label for="rating" class="block mt-2">Rating (1-5)</label>
@@ -101,7 +101,9 @@
                         Submit Review
                     </button>
                 </form>
-            </div>
+            </div> -->
+
+            <ReviewComponent :destinationId="destinationId" />
 
             <!-- Buy Button -->
 
@@ -119,6 +121,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+// import review componen
+import ReviewComponent from "../../Frontend Components/ReviewComponent.vue";
 
 // Accept 'id' as a prop
 const props = defineProps({
@@ -131,12 +135,12 @@ const props = defineProps({
 // Define reactive destination object
 const destination = ref(null);
 const packagePricing = ref(null);
-const canReview = ref(false);
-const newReview = ref({
-    rating: 1,
-    review_text: "",
-});
-
+// const canReview = ref(false);
+// const newReview = ref({
+//     rating: 1,
+//     review_text: "",
+// });
+const destinationId = props.id;
 const order = ref({
     package_pricing_id: null,
     payment_method: null,
@@ -148,9 +152,9 @@ onMounted(async () => {
         const response = await axios.get(`/api/destination/${props.id}`);
         destination.value = response.data;
 
-        // Check if user can review
-        const reviewResponse = await axios.get(`/user/can-review/${props.id}`);
-        canReview.value = reviewResponse.data.canReview;
+        // // Check if user can review
+        // const reviewResponse = await axios.get(`/user/can-review/${props.id}`);
+        // canReview.value = reviewResponse.data.canReview;
 
         // Optionally, fetch other data like packagePricing, etc.
         const responsePackage = await axios.get(`/api/packages/${props.id}`);
@@ -161,20 +165,20 @@ onMounted(async () => {
 });
 
 // Method to submit a review
-const submitReview = async () => {
-    try {
-        await axios.post(`/api/review`, {
-            destination_id: props.id,
-            rating: newReview.value.rating,
-            review_text: newReview.value.review_text,
-        });
-        // Optionally, refresh reviews or handle success
-        alert("Review submitted successfully!");
-    } catch (error) {
-        console.log(order.value);
-        console.error("Error submitting review:", error);
-    }
-};
+// const submitReview = async () => {
+//     try {
+//         await axios.post(`/api/review`, {
+//             destination_id: props.id,
+//             rating: newReview.value.rating,
+//             review_text: newReview.value.review_text,
+//         });
+//         // Optionally, refresh reviews or handle success
+//         alert("Review submitted successfully!");
+//     } catch (error) {
+//         console.log(order.value);
+//         console.error("Error submitting review:", error);
+//     }
+// };
 
 const submitOrder = async () => {
     try {

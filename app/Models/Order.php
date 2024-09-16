@@ -11,7 +11,7 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'package_pricing_id',  // Mengganti package_id dan destination_id
-        'total_price',
+        'total_price', // nanti di ambil dari harga paket track lewat package_pricing_id
         'payment_method',
         'status',
         'approved_at',
@@ -40,4 +40,6 @@ class Order extends Model
     {
         return $this->hasOneThrough(Destination::class, PackagePricing::class, 'id', 'id', 'package_pricing_id', 'destination_id');
     }
+
+
 }

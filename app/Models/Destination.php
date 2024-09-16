@@ -23,5 +23,28 @@ class Destination extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function orders()
+    {
+        return $this->hasManyThrough(Order::class, PackagePricing::class);
+    }
+
+    public function updateRating()
+    {
+        $this->total_reviews = $this->reviews()->count();
+        if ($this->total_reviews > 0) {
+            $this->rating = $this->reviews()->avg('rating');
+        } else {
+            $this->rating = 0;
+        }
+        $this->save();
+    }
+
+    public function updatePopularity()
+    {
+        $this->total_orders = $this->orders()->where('status', 'approved')->count();
+        $this->popularity = $this->total_orders; // Anda bisa mengubah logika ini jika diperlukan
+        $this->save();
+    }
 }
 ?>

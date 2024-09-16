@@ -9,6 +9,7 @@ use App\Notifications\OrderPendingNotification;
 use App\Mail\OrderReceipt;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Admin;
+use App\Models\Destination;
 
 
 use Auth;
@@ -62,6 +63,10 @@ class OrderController extends Controller
             // Kirim receipt ke buyer (email dengan PDF)
             Mail::to($order->user->email)->send(new OrderReceipt($order));
 
+            // Ambil destinasi dari relasi
+
+
+
             return response()->json(['message' => 'Order approved and receipt sent to the user!']);
         }
 
@@ -84,12 +89,12 @@ class OrderController extends Controller
 
     public function orderHistory()
     {
-    $orders = Order::where('user_id', Auth::id())
-        ->with(['destination', 'package', 'user']) // Memuat relasi yang diperlukan
-        ->get();
+        $orders = Order::where('user_id', Auth::id())
+            ->with(['destination', 'package', 'user']) // Memuat relasi yang diperlukan
+            ->get();
 
-    return response()->json(['message' => 'Order history', 'orders' => $orders]);
-}
-    
+        return response()->json(['message' => 'Order history', 'orders' => $orders]);
+    }
+
 }
 ?>

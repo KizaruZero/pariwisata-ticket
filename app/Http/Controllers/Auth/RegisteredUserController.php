@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+
 
 class RegisteredUserController extends Controller
 {
@@ -58,11 +60,41 @@ class RegisteredUserController extends Controller
         try {
             $user = Auth::user();
 
-            // Mengasumsikan bahwa setiap pengguna yang sudah login dapat memberikan ulasan
-            return response()->json(['canReview' => true]);
+            if (!$user) {
+                return response()->json(['canReview' => false, 'message' => 'User not authenticated'], 401);
+            }
+
+            // Memeriksa apakah pengguna memiliki pesanan yang disetujui untuk destinasi tersebut
+            $hasOrder = Order::where('user_id', $user->id)
+                ->whereHas('packagePricing.destination', function ($query) use ($destinationId) {
+                    $query->where('destinations.id', $destinationId);
+                })
+                ->where('status', 'approved')
+                ->exists();
+
+            return response()->json(['canReview' => $hasOrder]);
         } catch (\Exception $e) {
             // Log error dan tangani pengecualian
             \Log::error('Error in canReview method: ' . $e->getMessage());
+
+            return response()->json(['error' => 'User Belum Pernah Order'], 500);
+        }
+    }
+
+    // buat fungsi cek apakah user sudah login
+    public function checkUser()
+    {
+        try {
+            $user = Auth::user();
+
+            if (!$user) {
+                return response()->json(['isAuthenticated' => false]);
+            }
+
+            return response()->json(['isAuthenticated' => true, 'user' => $user]);
+        } catch (\Exception $e) {
+            // Log error dan tangani pengecualian
+            \Log::error('Error in checkUser method: ' . $e->getMessage());
 
             return response()->json(['error' => 'Internal Server Error'], 500);
         }

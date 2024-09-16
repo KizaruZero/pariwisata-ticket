@@ -65,7 +65,6 @@ return [
         'default' => 'avatar.png',
     ],
 
-    'messages_controller' => App\Http\Controllers\CustomChatifyController::class,
 
 
     /*
