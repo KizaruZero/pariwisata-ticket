@@ -23,11 +23,14 @@ class OrderController extends Controller
             $user = Auth::user();
             $packagePricingId = $request->input('package_pricing_id');
             $paymentMethod = $request->input('payment_method');
+            // date
+            $bookingDate = $request->input('booking_date');
 
             // Validasi input
             $request->validate([
                 'package_pricing_id' => 'required|exists:package_pricings,id',
                 'payment_method' => 'required|in:credit_card,bank_transfer',
+                'booking_date' => 'required|date|after_or_equal:today',
             ]);
 
             // Mendapatkan harga dari PackagePricing
@@ -38,6 +41,7 @@ class OrderController extends Controller
                 'user_id' => $user->id,
                 'package_pricing_id' => $packagePricingId,
                 'total_price' => $pricing->price,
+                'booking_date' => $bookingDate,
                 'payment_method' => $paymentMethod,
                 'status' => 'pending',
             ]);

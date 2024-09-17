@@ -10,13 +10,21 @@ class RegionSeeder extends Seeder
     public function run()
     {
         $regions = [
-            ['name' => 'Bali', 'description' => 'Pulau Dewata'],
-            ['name' => 'Yogyakarta', 'description' => 'Kota Budaya'],
-            ['name' => 'Lombok', 'description' => 'Pulau Seribu Masjid'],
+            'Bali', 'Yogyakarta', 'Jakarta', 'Bandung', 'Surabaya',
+            'Lombok', 'Raja Ampat', 'Toraja', 'Labuan Bajo', 'Medan',
+            'Makassar', 'Semarang', 'Malang', 'Palembang', 'Manado',
+            'Banyuwangi', 'Pekalongan', 'Purwokerto', 'Purwakarta', 'Purworejo',
+            'Banten', 'Labuan Bajo', 'Bukittinggi', 'Bogor', 'Bekasi', 'Bengkulu',
+            'Balikpapan', 'Banjarmasin', 'Batam', 'Batu', 'Bima', 'Bangka Belitung',
+
         ];
 
+
         foreach ($regions as $region) {
-            Region::create($region);
+            Region::create([
+                'name' => $region,
+                'description' => "Discover the beauty of $region, a unique destination in Indonesia.",
+            ]);
         }
     }
 }

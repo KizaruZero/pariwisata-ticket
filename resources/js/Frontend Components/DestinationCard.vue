@@ -1,4 +1,3 @@
-<!-- resources/js/Components/DestinationList.vue -->
 <template>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div
@@ -27,37 +26,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, watch } from "vue";
 import axios from "axios";
-import NavLink from "../Components/NavLink.vue"; // Import NavLink component
+import NavLink from "../Components/NavLink.vue";
+
+// Define props
+const props = defineProps({
+    categoryId: {
+        type: [Number, String],
+        default: "", // Default to show all categories
+    },
+});
 
 // Define state using ref
 const destinations = ref([]);
 
-// Fetch data when the component is mounted
-onMounted(() => {
+// Watch for changes in categoryId and fetch data accordingly
+watch(
+    () => props.categoryId,
+    (newCategoryId) => {
+        fetchDestinations(newCategoryId);
+    }
+);
+
+// Method to fetch destinations based on category filter
+const fetchDestinations = (categoryId) => {
+    let url = "/api/destinations/{categoryId}";
+    if (categoryId) {
+        url += `?category_id=${categoryId}`;
+    }
     axios
-        .get("/api/destinations")
+        .get(url)
         .then((response) => {
-            destinations.value = response.data.data;
+            destinations.value = response.data;
         })
         .catch((error) => {
             console.log(error);
         });
-});
+};
 
-// Method to handle navigation with Inertia
+// Initial fetch when the component is mounted
+fetchDestinations(props.categoryId);
 </script>
-
-<style scoped>
-.card {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: box-shadow 0.3s;
-}
-
-.card:hover {
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-}
-</style>

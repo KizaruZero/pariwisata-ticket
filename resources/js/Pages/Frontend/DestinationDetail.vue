@@ -67,6 +67,19 @@
                     </select>
                 </div>
 
+                <!-- date -->
+                <div class="mt-4">
+                    <label for="date" class="block" name="date">Date</label>
+                    <input
+                        v-model="order.booking_date"
+                        type="date"
+                        id="date"
+                        class="mt-1 p-2 border rounded"
+                        :min="minDate"
+                        required
+                    />
+                </div>
+
                 <button type="submit" class="mt-4 btn-primary">
                     Submit Order
                 </button>
@@ -119,7 +132,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 // import review componen
 import ReviewComponent from "../../Frontend Components/ReviewComponent.vue";
@@ -144,6 +157,12 @@ const destinationId = props.id;
 const order = ref({
     package_pricing_id: null,
     payment_method: null,
+    booking_date: null,
+});
+
+const minDate = computed(() => {
+    const today = new Date();
+    return today.toISOString().split("T")[0];
 });
 // Fetch destination data from API when mounted
 onMounted(async () => {
@@ -164,33 +183,32 @@ onMounted(async () => {
     }
 });
 
-// Method to submit a review
-// const submitReview = async () => {
-//     try {
-//         await axios.post(`/api/review`, {
-//             destination_id: props.id,
-//             rating: newReview.value.rating,
-//             review_text: newReview.value.review_text,
-//         });
-//         // Optionally, refresh reviews or handle success
-//         alert("Review submitted successfully!");
-//     } catch (error) {
-//         console.log(order.value);
-//         console.error("Error submitting review:", error);
-//     }
-// };
-
 const submitOrder = async () => {
     try {
-        console.log("Submitting order:", order.value); // Log the order data
+        if (new Date(order.value.booking_date) < new Date(minDate.value)) {
+            alert("Booking date cannot be in the past");
+            return;
+        }
+
+        console.log("Submitting order:", order.value);
         const response = await axios.post("/api/orders", order.value);
         alert("Order submitted successfully");
-        console.log(response.data); // Log the response for debugging
+        console.log(response.data);
     } catch (error) {
         console.error("Order submission failed", error);
         if (error.response) {
             console.error(error.response.data);
-            alert(`Error: ${error.response.data.message}`);
+            if (error.response.status === 422) {
+                // Validation error
+                const errors = error.response.data.errors;
+                let errorMessage = "Validation failed:\n";
+                for (const field in errors) {
+                    errorMessage += `${field}: ${errors[field].join(", ")}\n`;
+                }
+                alert(errorMessage);
+            } else {
+                alert(`Error: ${error.response.data.message}`);
+            }
         } else if (error.request) {
             console.error(error.request);
             alert("Error: No response received from server");
@@ -212,6 +230,8 @@ const formatCurrency = (value) => {
         currency: "IDR",
     }).format(value);
 };
+
+// format date
 </script>
 
 <style scoped>

@@ -66,14 +66,13 @@ onMounted(async () => {
 const submitReview = async () => {
     try {
         await axios.post(`/api/review`, {
-            destination_id: props.id,
+            destination_id: props.destinationId,
             rating: newReview.value.rating,
             review_text: newReview.value.review_text,
         });
         // Optionally, refresh reviews or handle success
         alert("Review submitted successfully!");
     } catch (error) {
-        console.log(order.value);
         console.error("Error submitting review:", error);
     }
 };

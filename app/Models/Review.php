@@ -21,6 +21,25 @@ class Review extends Model
         return $this->hasMany(Review::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($review) {
+            $review->destination->updateRating();
+        });
+
+        static::updated(function ($review) {
+            if ($review->isDirty('rating')) {
+                $review->destination->updateRating();
+            }
+        });
+
+        static::deleted(function ($review) {
+            $review->destination->updateRating();
+        });
+    }
+
 
 }
 ?>

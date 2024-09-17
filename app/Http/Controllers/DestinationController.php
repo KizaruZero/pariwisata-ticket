@@ -65,4 +65,18 @@ class DestinationController extends Controller
             'regions' => $regions,
         ]);
     }
+
+     public function filterByCategory(Request $request) {
+        $categoryId = $request->query('category_id');
+
+        $query = Destination::query();
+    
+        if ($categoryId) {
+            $query->where('category_id', $categoryId);
+        }
+    
+        $destinations = $query->with(['category', 'region'])->get();
+    
+        return response()->json($destinations);
+     }
 }

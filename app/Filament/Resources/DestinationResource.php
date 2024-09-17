@@ -52,8 +52,8 @@ class DestinationResource extends Resource
                 TextInput::make('rating')
                     ->label('Rating')
                     ->nullable(),
-                TextInput::make('popularity')
-                    ->label('Popularity')
+                TextInput::make('total_orders')
+                    ->label('total_orders')
                     ->nullable(),
             ]);
     }
@@ -78,7 +78,10 @@ class DestinationResource extends Resource
                 TextColumn::make('rating')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('popularity')
+                TextColumn::make('total_orders')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('total_reviews')
                     ->searchable()
                     ->sortable(),
             ])

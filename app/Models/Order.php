@@ -14,8 +14,27 @@ class Order extends Model
         'total_price', // nanti di ambil dari harga paket track lewat package_pricing_id
         'payment_method',
         'status',
+        'booking_date',
         'approved_at',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($order) {
+            if ($order->status === 'approved') {
+                $order->destination->updatePopularity();
+            }
+        });
+
+        static::updated(function ($order) {
+            if ($order->isDirty('status') && $order->status === 'approved') {
+                $order->destination->updatePopularity();
+            }
+        });
+    }
+
 
     // Relasi dengan tabel User
     public function user()

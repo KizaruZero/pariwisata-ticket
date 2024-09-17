@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             DestinationSeeder::class,
             PackageSeeder::class,
             PackagePricingSeeder::class,
-            BookingSeeder::class,
+            OrdersSeeder::class,
             ReviewSeeder::class,
         ]);
     }
