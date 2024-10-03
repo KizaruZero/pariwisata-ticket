@@ -26,6 +26,8 @@
                 </select>
             </div>
 
+            <!-- Filter by Region -->
+
             <!-- Destination List -->
             <DestinationCard :categoryId="selectedCategory" />
         </div>

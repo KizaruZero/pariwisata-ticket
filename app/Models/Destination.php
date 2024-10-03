@@ -3,7 +3,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class Destination extends Model
 {
-    protected $fillable = ['name', 'description', 'location', 'category_id', 'region_id', 'image_url', 'rating', 'total_riviews', 'total_orders'];
+    protected $fillable = ['name', 'description', 'location', 'category_id', 'region_id', 'image_url', 'rating', 'total_riviews', 'total_orders', 'total_views', 'total_likes', 'popularity'];
 
     public function category()
     {
@@ -40,10 +40,46 @@ class Destination extends Model
         $this->save();
     }
 
-    public function updatePopularity()
+    public function updateTotalOrders()
     {
         $this->total_orders = $this->orders()->where('status', 'approved')->count();
         $this->save();
+        $this->updatePopularity();
+
     }
+
+    public function updateTotalViews()
+    {
+        $this->total_views++;
+        $this->save();
+        $this->updatePopularity();
+
+    }
+    public function updateTotalLikes()
+    {
+        $this->total_likes++;
+        $this->save();
+        $this->updatePopularity();
+
+    }
+
+    public function updatePopularity()
+    {
+        // Definisikan bobot untuk setiap faktor
+        $orderWeight = 0.5; // Bobot untuk total orders
+        $viewWeight = 0.3;  // Bobot untuk total views
+        $likeWeight = 0.2;  // Bobot untuk total likes
+
+        // Hitung nilai popularity berdasarkan bobot
+        $this->popularity =
+            ($this->total_orders * $orderWeight) +
+            ($this->total_views * $viewWeight) +
+            ($this->total_likes * $likeWeight);
+
+        // Simpan perubahan ke database
+        $this->save();
+    }
+
+
 }
 ?>

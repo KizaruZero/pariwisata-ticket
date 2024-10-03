@@ -22,6 +22,7 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
     public static function form(Form $form): Form
     {
         return $form
@@ -61,10 +62,10 @@ class OrderResource extends Resource
 
                         // Kirim receipt ke buyer (email dengan PDF)
                         \Mail::to($record->user->email)->send(new \App\Mail\OrderReceipt($record));
+                        $record->destination->updateTotalOrders();
 
                         return response()->json(['message' => 'Order approved and receipt sent to the user!']);
                     }),
-
 
                 Action::make('reject')
                     ->label('Reject')

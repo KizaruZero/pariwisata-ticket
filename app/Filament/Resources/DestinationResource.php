@@ -84,6 +84,15 @@ class DestinationResource extends Resource
                 TextColumn::make('total_reviews')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('total_views')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('total_likes')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('popularity')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('category')

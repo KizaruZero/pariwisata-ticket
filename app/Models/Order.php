@@ -18,22 +18,22 @@ class Order extends Model
         'approved_at',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::created(function ($order) {
-            if ($order->status === 'approved') {
-                $order->destination->updatePopularity();
-            }
-        });
+    //     static::created(function ($order) {
+    //         if ($order->status === 'approved') {
+    //             $order->destination->updatePopularity();
+    //         }
+    //     });
 
-        static::updated(function ($order) {
-            if ($order->isDirty('status') && $order->status === 'approved') {
-                $order->destination->updatePopularity();
-            }
-        });
-    }
+    //     static::updated(function ($order) {
+    //         if ($order->isDirty('status') && $order->status === 'approved') {
+    //             $order->destination->updatePopularity();
+    //         }
+    //     });
+    // }
 
 
     // Relasi dengan tabel User

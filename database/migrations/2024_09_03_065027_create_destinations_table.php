@@ -21,6 +21,8 @@ return new class extends Migration {
             $table->float('rating')->default(0);
             $table->integer('total_reviews')->default(0);
             $table->integer('total_orders')->default(0);
+            $table->integer('total_views')->default(0);
+            $table->integer('total_likes')->default(0);
             $table->unsignedBigInteger('popularity')->default(0);
             $table->timestamps();
         });
