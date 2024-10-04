@@ -48,6 +48,12 @@ class User extends Authenticatable implements FilamentUser
         // For example, you might check a column in the database:
         return $this->role === 'admin';
     }
+
+    public function likedDestinations()
+    {
+        return $this->belongsToMany(Destination::class, 'user_favorites');
+    }
+
 }
 
 

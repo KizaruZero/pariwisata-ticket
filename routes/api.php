@@ -4,6 +4,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 
 // endpoints for frontend
 Route::get('/api/destinations', [DestinationController::class, 'getDestination']);
@@ -14,4 +15,8 @@ Route::post('api/orders', [OrderController::class, 'store']);
 Route::get('api/orders/history', [OrderController::class, 'orderHistory']);
 Route::get('api/categories', [CategoryController::class, 'getCategory']);
 Route::get('/api/destinations/{category}', [DestinationController::class, 'filterByCategory']);
+
+// Like
+Route::post('/api/destination/{id}/like', action: [FavoriteController::class, 'likeDestination']);
+Route::get('/api/profile/favorite', [FavoriteController::class, 'getFavoriteDestinations']);
 

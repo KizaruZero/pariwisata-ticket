@@ -83,6 +83,20 @@
                 <button type="submit" class="mt-4 btn-primary">
                     Submit Order
                 </button>
+                <div
+                    v-if="formErrors.length"
+                    class="mt-4 bg-red-100 p-4 rounded"
+                >
+                    <ul>
+                        <li
+                            v-for="error in formErrors"
+                            :key="error"
+                            class="text-red-600"
+                        >
+                            {{ error }}
+                        </li>
+                    </ul>
+                </div>
             </form>
 
             <!-- Test aja -->
@@ -119,6 +133,17 @@
             <ReviewComponent :destinationId="destinationId" />
 
             <!-- Buy Button -->
+            <button
+                @click="toggleLike(destination)"
+                :class="[
+                    'mt-4 p-2 rounded-lg',
+                    destination.isLiked
+                        ? 'bg-red-500 text-white'
+                        : 'bg-blue-500 text-white',
+                ]"
+            >
+                {{ destination.isLiked ? "Unlike" : "Like" }}
+            </button>
 
             <button @click="goBack" class="mt-4 btn-primary">
                 Back to Destinations
@@ -183,38 +208,25 @@ onMounted(async () => {
     }
 });
 
+const formErrors = ref([]);
+
 const submitOrder = async () => {
+    formErrors.value = [];
+
     try {
         if (new Date(order.value.booking_date) < new Date(minDate.value)) {
-            alert("Booking date cannot be in the past");
+            formErrors.value.push("Booking date cannot be in the past");
             return;
         }
 
-        console.log("Submitting order:", order.value);
         const response = await axios.post("/api/orders", order.value);
         alert("Order submitted successfully");
         console.log(response.data);
     } catch (error) {
-        console.error("Order submission failed", error);
-        if (error.response) {
-            console.error(error.response.data);
-            if (error.response.status === 422) {
-                // Validation error
-                const errors = error.response.data.errors;
-                let errorMessage = "Validation failed:\n";
-                for (const field in errors) {
-                    errorMessage += `${field}: ${errors[field].join(", ")}\n`;
-                }
-                alert(errorMessage);
-            } else {
-                alert(`Error: ${error.response.data.message}`);
-            }
-        } else if (error.request) {
-            console.error(error.request);
-            alert("Error: No response received from server");
+        if (error.response && error.response.status === 422) {
+            formErrors.value = Object.values(error.response.data.errors).flat();
         } else {
-            console.error("Error", error.message);
-            alert(`Error: ${error.message}`);
+            formErrors.value.push("An unexpected error occurred.");
         }
     }
 };
@@ -229,6 +241,23 @@ const formatCurrency = (value) => {
         style: "currency",
         currency: "IDR",
     }).format(value);
+};
+
+const toggleLike = async (destination) => {
+    try {
+        const response = await axios.post(`/api/destination/${props.id}/like`);
+        destination.isLiked = response.data.isLiked;
+
+        if (destination.isLiked) {
+            destination.total_likes++;
+            alert("Destination liked!");
+        } else {
+            destination.total_likes--;
+            alert("Destination unliked!");
+        }
+    } catch (error) {
+        console.error("Error toggling like:", error);
+    }
 };
 
 // format date

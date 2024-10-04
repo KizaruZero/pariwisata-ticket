@@ -55,13 +55,7 @@ class Destination extends Model
         $this->updatePopularity();
 
     }
-    public function updateTotalLikes()
-    {
-        $this->total_likes++;
-        $this->save();
-        $this->updatePopularity();
 
-    }
 
     public function updatePopularity()
     {
@@ -80,6 +74,24 @@ class Destination extends Model
         $this->save();
     }
 
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_favorites');
+    }
+
+    public function incrementLikes()
+    {
+        $this->total_likes++;
+        $this->save();
+    }
+
+    public function decrementLikes()
+    {
+        if ($this->total_likes > 0) {
+            $this->total_likes--;
+            $this->save();
+        }
+    }
 
 }
 ?>
