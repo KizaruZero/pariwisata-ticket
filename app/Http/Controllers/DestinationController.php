@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class DestinationController extends Controller
 {
@@ -13,16 +14,6 @@ class DestinationController extends Controller
     public function getDestinationDetail($id)
     {
         $destination = Destination::with('region', 'category', 'reviews.user', 'articles')->findOrFail($id);
-        // $viewedDestinations = session()->get('viewed_destinations', []);
-
-        // if (!in_array($id, $viewedDestinations)) {
-        //     // Jika belum, tambahkan ke session dan tingkatkan views
-        //     $destination->incrementViews();
-
-        //     // Simpan ID destinasi yang sudah di-view ke dalam session
-        //     session()->push('viewed_destinations', $id);
-        // }
-
         $destination->updateTotalViews();
         return response()->json($destination);
     }
@@ -52,7 +43,16 @@ class DestinationController extends Controller
                 $query->where('region_id', $regionId);
             }
         }
-        $destinations = $query->with(['category', 'region'])->get();
+        $destinations = $query->with([
+            'category:id,name',
+            'region:id,name'
+        ])
+            ->with([
+                'packagePricings' => function ($q) {
+                    $q->select('destination_id', DB::raw('MIN(price) as lowest_price'))->groupBy('destination_id');
+                }
+            ])
+            ->get();
 
         return response()->json([
             'data' => $destinations
@@ -79,7 +79,12 @@ class DestinationController extends Controller
     public function getRecommendedDestination()
     {
         // Mengambil destinasi yang disortir berdasarkan popularity, descending
-        $recomendation = Destination::orderBy('popularity', 'desc')->take(5)->get();
+        $recomendation = Destination::orderBy('popularity', 'desc')->take(5)->with([
+            'packagePricings' => function ($q) {
+                $q->select('destination_id', DB::raw('MIN(price) as lowest_price'))->groupBy('destination_id');
+            }
+        ])->get();
+        ;
 
         return response()->json($recomendation);
 

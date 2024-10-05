@@ -27,8 +27,18 @@
                 }}
             </p>
             <div class="flex justify-between items-center mt-4">
-                <span v-if="lowestPrice" class="text-lg font-bold">
-                    {{ formatCurrency(lowestPrice) }}
+                <span
+                    v-if="
+                        destination.package_pricings.length &&
+                        destination.package_pricings[0].lowest_price
+                    "
+                    class="text-lg font-bold"
+                >
+                    {{
+                        formatCurrency(
+                            destination.package_pricings[0].lowest_price
+                        )
+                    }}
                 </span>
                 <p v-else class="text-xl font-bold text-gray-400">
                     Price not available
@@ -56,19 +66,6 @@ const props = defineProps({
     },
 });
 
-const lowestPrice = ref(null);
-
-const fetchLowestPrice = async () => {
-    try {
-        const response = await axios.get(
-            `/api/destination/${props.destination.id}/lowest-price`
-        );
-        lowestPrice.value = response.data.lowest_price;
-    } catch (error) {
-        console.error("Error fetching lowest price:", error);
-    }
-};
-
 const formatCurrency = (value) => {
     return new Intl.NumberFormat("id-ID", {
         style: "currency",
@@ -80,7 +77,4 @@ const formatCurrency = (value) => {
 const formatRating = (rating) => {
     return parseFloat(rating).toFixed(1);
 };
-onMounted(() => {
-    fetchLowestPrice();
-});
 </script>
