@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->integer('total_orders')->default(0);
             $table->integer('total_views')->default(0);
             $table->integer('total_likes')->default(0);
-            $table->unsignedBigInteger('popularity')->default(0);
+            $table->FLOAT('popularity')->default(0.0);
             $table->timestamps();
         });
 

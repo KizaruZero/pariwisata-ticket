@@ -8,8 +8,10 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\TextColumn;
 use App\Models\Destination;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -46,9 +48,9 @@ class DestinationResource extends Resource
                     ->label('Region/Wilayah')
                     ->relationship('region', 'name')
                     ->required(),
-                TextInput::make('image_url')
-                    ->label('Image URL')
-                    ->required(),
+                FileUpload::make('image_url')
+                    ->image()
+                    ->label('Image'),
                 TextInput::make('rating')
                     ->label('Rating')
                     ->nullable(),
@@ -73,8 +75,7 @@ class DestinationResource extends Resource
                     ->searchable(),
                 TextColumn::make('region.name')
                     ->searchable(),
-                TextColumn::make('image_url')
-                    ->searchable(),
+                ImageColumn::make('image_url'),
                 TextColumn::make('rating')
                     ->searchable()
                     ->sortable(),

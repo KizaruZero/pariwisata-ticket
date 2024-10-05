@@ -18,32 +18,17 @@ class OrdersSeeder extends Seeder
         $users = User::all();
         $packagePricings = PackagePricing::all();
 
-        $orders = [
-            [
+        foreach ($packagePricings as $packagePricing) {
+            $orders[] = [
                 'user_id' => $users->random()->id,
-                'package_pricing_id' => $packagePricings->random()->id,
-                'payment_method' => 'credit_card',
-                'status' => 'pending',
-                'booking_date' => Carbon::now(),
-                'approved_at' => null,
-            ],
-            [
-                'user_id' => $users->random()->id,
-                'package_pricing_id' => $packagePricings->random()->id,
-                'payment_method' => 'paypal',
-                'status' => 'approved',
-                'booking_date' => Carbon::now()->subDays(2),
-                'approved_at' => Carbon::now()->subDay(),
-            ],
-            [
-                'user_id' => $users->random()->id,
-                'package_pricing_id' => $packagePricings->random()->id,
-                'payment_method' => 'bank_transfer',
-                'status' => 'rejected',
-                'booking_date' => Carbon::now()->subWeek(),
-                'approved_at' => null,
-            ],
-        ];
+                'package_pricing_id' => $packagePricing->id,
+                'payment_method' => 'transfers',
+                'status' => rand() % 2 === 0 ? 'approved' : 'pending',
+                'booking_date' => Carbon::now()->subDays(rand(1, 30)),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        }
 
         foreach ($orders as &$order) {
             $packagePricing = PackagePricing::find($order['package_pricing_id']);

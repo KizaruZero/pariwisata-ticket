@@ -29,6 +29,8 @@ class Destination extends Model
         return $this->hasManyThrough(Order::class, PackagePricing::class);
     }
 
+
+
     public function updateRating()
     {
         $this->total_reviews = $this->reviews()->count();
@@ -55,6 +57,7 @@ class Destination extends Model
         $this->updatePopularity();
 
     }
+
 
 
     public function updatePopularity()

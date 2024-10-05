@@ -3,17 +3,26 @@
         <div
             v-for="destination in destinations"
             :key="destination.id"
-            class="card"
+            class="card bg-white rounded-lg shadow-lg overflow-hidden w-80"
         >
             <img
-                :src="destination.image_url"
-                alt="Image"
+                alt="Image of Bali Tour Package"
                 class="w-full h-48 object-cover"
+                :src="`/storage/${destination.image_url}`"
             />
             <div class="p-4">
-                <h3 class="text-lg font-bold">{{ destination.name }}</h3>
-                <p>{{ destination.location }}</p>
-                <p>Rating: {{ destination.rating }} / 5</p>
+                <div class="flex justify-between items-center mb-2">
+                    <span
+                        class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded"
+                        >{{ destination.location }}</span
+                    >
+                    <span class="text-yellow-500">
+                        <i class="fas fa-star"></i> {{ destination.rating }} / 5
+                    </span>
+                </div>
+                <h3 class="text-lg font-bold mb-1">{{ destination.name }}</h3>
+                <p class="text-gray-500 text-sm mb-2">23 August - 29 August</p>
+                <p class="text-xl font-bold">$285</p>
                 <NavLink
                     :href="`/destination/${destination.id}`"
                     class="mt-2 btn-primary"

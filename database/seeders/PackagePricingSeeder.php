@@ -19,7 +19,7 @@ class PackagePricingSeeder extends Seeder
                 PackagePricing::create([
                     'package_id' => $package->id,
                     'destination_id' => $destination->id,
-                    'price' => rand(500000, 5000000), // Random price between 500k and 5M IDR
+                    'price' => rand(50000, 500000), // Random price between 500k and 5M IDR
                 ]);
             }
         }

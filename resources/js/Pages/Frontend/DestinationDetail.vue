@@ -5,7 +5,7 @@
             class="max-w-4xl w-full bg-blue-50 p-6 rounded-lg shadow-lg"
         >
             <img
-                :src="destination.image_url"
+                :src="`/storage/${destination.image_url}`"
                 alt="Image"
                 class="w-full h-64 object-cover rounded-lg"
             />
