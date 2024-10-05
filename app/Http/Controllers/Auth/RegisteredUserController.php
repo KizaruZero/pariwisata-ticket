@@ -88,6 +88,7 @@ class RegisteredUserController extends Controller
             $user = Auth::user();
 
             if (!$user) {
+                Inertia::render('Auth/Login');
                 return response()->json(['isAuthenticated' => false]);
             }
 

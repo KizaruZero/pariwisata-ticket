@@ -21,6 +21,10 @@ class OrderController extends Controller
     {
         try {
             $user = Auth::user();
+
+            if (!$user) {
+                return response()->json(['message' => 'User not authenticated'], 401);
+            }
             $packagePricingId = $request->input('package_pricing_id');
             $paymentMethod = $request->input('payment_method');
             // date

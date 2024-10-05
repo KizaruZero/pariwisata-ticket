@@ -1,107 +1,112 @@
 <template>
-    <div class="min-h-screen bg-white flex items-center justify-center">
-        <div
-            v-if="destination"
-            class="max-w-4xl w-full bg-blue-50 p-6 rounded-lg shadow-lg"
-        >
-            <img
-                :src="`/storage/${destination.image_url}`"
-                alt="Image"
-                class="w-full h-64 object-cover rounded-lg"
-            />
-            <h1 class="text-3xl font-bold text-blue-900 mt-4">
-                {{ destination.name }}
-            </h1>
-            <p class="text-gray-700 mt-2">{{ destination.description }}</p>
-            <p class="text-gray-500 mt-2">
-                Region: {{ destination.region.name }}
-            </p>
-            <p class="text-gray-500">
-                Category: {{ destination.category.name }}
-            </p>
+    <GuestLayout>
+        <div class="min-h-screen bg-white flex items-center justify-center">
+            <div
+                v-if="destination"
+                class="max-w-4xl w-full bg-blue-50 p-6 rounded-lg shadow-lg"
+            >
+                <img
+                    :src="`/storage/${destination.image_url}`"
+                    alt="Image"
+                    class="w-full h-64 object-cover rounded-lg"
+                />
+                <h1 class="text-3xl font-bold text-blue-900 mt-4">
+                    {{ destination.name }}
+                </h1>
+                <p class="text-gray-700 mt-2">{{ destination.description }}</p>
+                <p class="text-gray-500 mt-2">
+                    Region: {{ destination.region.name }}
+                </p>
+                <p class="text-gray-500">
+                    Category: {{ destination.category.name }}
+                </p>
 
-            <div v-if="destination.reviews.length > 0" class="mt-4">
-                <h2 class="text-xl font-semibold">Reviews</h2>
-                <div
-                    v-for="review in destination.reviews"
-                    :key="review.id"
-                    class="mt-2 p-4 bg-gray-100 rounded-lg"
-                >
-                    <p class="font-bold">{{ review.user.name }}</p>
-                    <p class="text-yellow-500">Rating: {{ review.rating }}/5</p>
-                    <p class="mt-2">{{ review.review_text }}</p>
-                </div>
-            </div>
-
-            <!-- Beli produk -->
-            <form @submit.prevent="submitOrder">
-                <div class="mt-4">
-                    <label for="package" class="block">Select Package</label>
-                    <select
-                        v-model="order.package_pricing_id"
-                        class="mt-1 p-2 border rounded"
+                <div v-if="destination.reviews.length > 0" class="mt-4">
+                    <h2 class="text-xl font-semibold">Reviews</h2>
+                    <div
+                        v-for="review in destination.reviews"
+                        :key="review.id"
+                        class="mt-2 p-4 bg-gray-100 rounded-lg"
                     >
-                        <option
-                            v-for="harga in packagePricing"
-                            :value="harga.id"
-                            :key="harga.id"
+                        <p class="font-bold">{{ review.user.name }}</p>
+                        <p class="text-yellow-500">
+                            Rating: {{ review.rating }}/5
+                        </p>
+                        <p class="mt-2">{{ review.review_text }}</p>
+                    </div>
+                </div>
+
+                <!-- Beli produk -->
+                <form @submit.prevent="submitOrder">
+                    <div class="mt-4">
+                        <label for="package" class="block"
+                            >Select Package</label
                         >
-                            {{ harga.package.name }} -
-                            {{ formatCurrency(harga.price) }}
-                            <br />
-                            {{ harga.package.description }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="mt-4">
-                    <label for="payment_method" class="block"
-                        >Payment Method</label
-                    >
-                    <select
-                        v-model="order.payment_method"
-                        class="mt-1 p-2 border rounded"
-                    >
-                        <option value="credit_card">Credit Card</option>
-                        <option value="bank_transfer">Bank Transfer</option>
-                    </select>
-                </div>
-
-                <!-- date -->
-                <div class="mt-4">
-                    <label for="date" class="block" name="date">Date</label>
-                    <input
-                        v-model="order.booking_date"
-                        type="date"
-                        id="date"
-                        class="mt-1 p-2 border rounded"
-                        :min="minDate"
-                        required
-                    />
-                </div>
-
-                <button type="submit" class="mt-4 btn-primary">
-                    Submit Order
-                </button>
-                <div
-                    v-if="formErrors.length"
-                    class="mt-4 bg-red-100 p-4 rounded"
-                >
-                    <ul>
-                        <li
-                            v-for="error in formErrors"
-                            :key="error"
-                            class="text-red-600"
+                        <select
+                            v-model="order.package_pricing_id"
+                            class="mt-1 p-2 border rounded"
                         >
-                            {{ error }}
-                        </li>
-                    </ul>
-                </div>
-            </form>
+                            <option
+                                v-for="harga in packagePricing"
+                                :value="harga.id"
+                                :key="harga.id"
+                            >
+                                {{ harga.package.name }} -
+                                {{ formatCurrency(harga.price) }}
+                                <br />
+                                {{ harga.package.description }}
+                            </option>
+                        </select>
+                    </div>
 
-            <!-- Test aja -->
+                    <div class="mt-4">
+                        <label for="payment_method" class="block"
+                            >Payment Method</label
+                        >
+                        <select
+                            v-model="order.payment_method"
+                            class="mt-1 p-2 border rounded"
+                        >
+                            <option value="credit_card">Credit Card</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                        </select>
+                    </div>
 
-            <!-- <div v-if="canReview" class="mt-4">
+                    <!-- date -->
+                    <div class="mt-4">
+                        <label for="date" class="block" name="date">Date</label>
+                        <input
+                            v-model="order.booking_date"
+                            type="date"
+                            id="date"
+                            class="mt-1 p-2 border rounded"
+                            :min="minDate"
+                            required
+                        />
+                    </div>
+
+                    <button type="submit" class="mt-4 btn-primary">
+                        Submit Order
+                    </button>
+                    <div
+                        v-if="formErrors.length"
+                        class="mt-4 bg-red-100 p-4 rounded"
+                    >
+                        <ul>
+                            <li
+                                v-for="error in formErrors"
+                                :key="error"
+                                class="text-red-600"
+                            >
+                                {{ error }}
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+
+                <!-- Test aja -->
+
+                <!-- <div v-if="canReview" class="mt-4">
                 <h2 class="text-xl font-semibold">Leave a Review</h2>
                 <form @submit.prevent="submitReview">
                     <label for="rating" class="block mt-2">Rating (1-5)</label>
@@ -130,30 +135,31 @@
                 </form>
             </div> -->
 
-            <ReviewComponent :destinationId="destinationId" />
+                <ReviewComponent :destinationId="destinationId" />
 
-            <!-- Buy Button -->
-            <button
-                @click="toggleLike(destination)"
-                :class="[
-                    'mt-4 p-2 rounded-lg',
-                    destination.isLiked
-                        ? 'bg-red-500 text-white'
-                        : 'bg-blue-500 text-white',
-                ]"
-            >
-                {{ destination.isLiked ? "Unlike" : "Like" }}
-            </button>
+                <!-- Buy Button -->
+                <button
+                    @click="toggleLike(destination)"
+                    :class="[
+                        'mt-4 p-2 rounded-lg',
+                        destination.isLiked
+                            ? 'bg-red-500 text-white'
+                            : 'bg-blue-500 text-white',
+                    ]"
+                >
+                    {{ destination.isLiked ? "Unlike" : "Like" }}
+                </button>
 
-            <button @click="goBack" class="mt-4 btn-primary">
-                Back to Destinations
-            </button>
+                <button @click="goBack" class="mt-4 btn-primary">
+                    Back to Destinations
+                </button>
+            </div>
+            <div v-else>
+                <!-- Placeholder or loading state while fetching data -->
+                <p>Loading destination details...</p>
+            </div>
         </div>
-        <div v-else>
-            <!-- Placeholder or loading state while fetching data -->
-            <p>Loading destination details...</p>
-        </div>
-    </div>
+    </GuestLayout>
 </template>
 
 <script setup>
@@ -161,6 +167,7 @@ import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 // import review componen
 import ReviewComponent from "../../Frontend Components/ReviewComponent.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 
 // Accept 'id' as a prop
 const props = defineProps({
@@ -225,6 +232,9 @@ const submitOrder = async () => {
     } catch (error) {
         if (error.response && error.response.status === 422) {
             formErrors.value = Object.values(error.response.data.errors).flat();
+        } else if (error.response && error.response.status === 401) {
+            // Redirect to login page if user is not authenticated
+            window.location.href = "/login";
         } else {
             formErrors.value.push("An unexpected error occurred.");
         }
@@ -256,7 +266,12 @@ const toggleLike = async (destination) => {
             alert("Destination unliked!");
         }
     } catch (error) {
-        console.error("Error toggling like:", error);
+        if (error.response && error.response.status === 401) {
+            // Redirect to login page if user is not authenticated
+            window.location.href = "/login";
+        } else {
+            console.error("Error toggling like:", error);
+        }
     }
 };
 

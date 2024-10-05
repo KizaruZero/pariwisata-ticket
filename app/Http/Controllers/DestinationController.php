@@ -37,94 +37,37 @@ class DestinationController extends Controller
     public function index(Request $request)
     {
         // Get filter criteria from the request
-        $category = $request->input('category');
-        $region = $request->input('region');
-        $minRating = $request->input('minRating');
-        $maxRating = $request->input('maxRating');
-
-        // Build the query with filters
         $query = Destination::query();
 
-        if ($category) {
-            $query->where('category_id', $category);
+        if ($request->has('category')) {
+            $categoryId = $request->input('category');
+            if ($categoryId) {
+                $query->where('category_id', $categoryId);
+            }
         }
 
-        if ($region) {
-            $query->where('region_id', $region);
+        if ($request->has('region')) {
+            $regionId = $request->input('region');
+            if ($regionId) {
+                $query->where('region_id', $regionId);
+            }
         }
+        $destinations = $query->with(['category', 'region'])->get();
 
-        if ($minRating) {
-            $query->where('rating', '>=', $minRating);
-        }
-
-        if ($maxRating) {
-            $query->where('rating', '<=', $maxRating);
-        }
-
-        // Eager load relationships and get filtered results
-        $destinations = $query->with(['region', 'category', 'reviews.user'])->get();
-
-        // Fetch all categories and regions for the filter options
-        $categories = Category::all();
-        $regions = Region::all();
-
-        // Return the results to the Vue component
-        return Inertia::render('Dashboard/DestinationView', [
-            'data' => $destinations,
-            'filters' => $request->all(), // Pass the current filters back to the frontend
-            'categories' => $categories,
-            'regions' => $regions,
+        return response()->json([
+            'data' => $destinations
         ]);
     }
-
-    public function filterByCategory(Request $request)
+    public function getLowestPrice($id)
     {
-        $categoryId = $request->query('category_id');
+        $destination = Destination::findOrFail($id);
+        $lowestPrice = $destination->packagePricings()
+            ->orderBy('price', 'asc')
+            ->first();
 
-        $query = Destination::query();
-
-        if ($categoryId) {
-            $query->where('category_id', $categoryId);
-        }
-
-        $destinations = $query->with(['category', 'region'])->get();
-
-        return response()->json(data: $destinations);
-    }
-
-    public function filterByRegion(Request $request)
-    {
-        $regionId = $request->query('region_id');
-
-        $query = Destination::query();
-
-        if ($regionId) {
-            $query->where('region_id', $regionId);
-        }
-
-        $destinations = $query->with(['category', 'region'])->get();
-
-        return response()->json(data: $destinations);
-    }
-
-    public function filterByRating(Request $request)
-    {
-        $minRating = $request->query('min_rating');
-        $maxRating = $request->query('max_rating');
-
-        $query = Destination::query();
-
-        if ($minRating) {
-            $query->where('rating', '>=', $minRating);
-        }
-
-        if ($maxRating) {
-            $query->where('rating', '<=', $maxRating);
-        }
-
-        $destinations = $query->with(['category', 'region'])->get();
-
-        return response()->json(data: $destinations);
+        return response()->json([
+            'lowest_price' => $lowestPrice ? $lowestPrice->price : null
+        ]);
     }
 
     public function getPopularDestination()
@@ -136,7 +79,7 @@ class DestinationController extends Controller
     public function getRecommendedDestination()
     {
         // Mengambil destinasi yang disortir berdasarkan popularity, descending
-        $recomendation = Destination::orderBy('popularity', 'desc')->take(10)->get();
+        $recomendation = Destination::orderBy('popularity', 'desc')->take(5)->get();
 
         return response()->json($recomendation);
 

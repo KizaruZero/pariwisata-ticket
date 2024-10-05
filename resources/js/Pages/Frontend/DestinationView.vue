@@ -3,18 +3,9 @@
         <div
             class="flex flex-col items-center justify-center min-h-screen bg-blue-100"
         >
-            <div class="text-center mb-4">
-                <h1 class="text-4xl font-bold text-blue-900">
-                    Filter Destinations by Category
-                </h1>
-                <p class="mt-4 text-lg text-blue-600">
-                    Select a category to view filtered destinations.
-                </p>
-            </div>
-
             <!-- Dropdown for categories -->
-            <div class="mb-8">
-                <select v-model="selectedCategory" @change="fetchDestinations">
+            <div class="mb-4">
+                <select v-model="selectedCategory">
                     <option value="">All Categories</option>
                     <option
                         v-for="category in categories"
@@ -26,51 +17,139 @@
                 </select>
             </div>
 
-            <!-- Filter by Region -->
+            <!-- Dropdown for regions -->
+            <div class="mb-4">
+                <select v-model="selectedRegion">
+                    <option value="">All Regions</option>
+                    <option
+                        v-for="region in regions"
+                        :key="region.id"
+                        :value="region.id"
+                    >
+                        {{ region.name }}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Recomended Destination -->
+            <div class="max-w-6xl mx-auto p-6">
+                <div class="text-center mb-8">
+                    <h1
+                        class="text-3xl font-bold hover:text-pink-600 transition duration-300"
+                    >
+                        Travel Recommendations
+                    </h1>
+                    <p class="text-gray-500">
+                        The best travel recommendations from around the world
+                        for you.
+                    </p>
+                    <button
+                        class="mt-4 px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-full transition duration-300 transform hover:scale-105"
+                    >
+                        Explore more
+                    </button>
+                </div>
+            </div>
 
             <!-- Destination List -->
-            <DestinationCard :categoryId="selectedCategory" />
+            <div v-if="loading">Loading...</div>
+            <div v-else-if="recommendeds.length === 0">
+                No destinations found.
+            </div>
+            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <DestinationCard
+                    v-for="destination in recommendeds"
+                    :key="destination.id"
+                    :destination="destination"
+                />
+            </div>
+
+            <!-- Ordinary Recomendation -->
+            <h1 class="text-4xl font-bold text-blue-900">Destinations List</h1>
+
+            <!-- Destination List -->
+            <div v-if="loading">Loading...</div>
+            <div v-else-if="destinations.length === 0">
+                No destinations found.
+            </div>
+            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <DestinationCard
+                    v-for="destination in destinations"
+                    :key="destination.id"
+                    :destination="destination"
+                />
+            </div>
         </div>
     </GuestLayout>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, watch } from "vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import DestinationCard from "@/Frontend Components/DestinationCard.vue";
-import { ref, onMounted } from "vue";
 import axios from "axios";
 
-export default {
-    name: "DestinationView",
-    components: {
-        GuestLayout,
-        DestinationCard,
-    },
-    setup() {
-        const categories = ref([]);
-        const selectedCategory = ref("");
+const selectedCategory = ref("");
+const selectedRegion = ref("");
+const destinations = ref([]);
+const recommendeds = ref([]);
+const categories = ref([]);
+const regions = ref([]);
+const loading = ref(false);
 
-        // Fetch categories for the filter dropdown
-        onMounted(() => {
-            axios
-                .get("/api/categories")
-                .then((response) => {
-                    categories.value = response.data.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+const fetchDestinations = async () => {
+    loading.value = true;
+    try {
+        const response = await axios.get("/api/destinations", {
+            params: {
+                category: selectedCategory.value,
+                region: selectedRegion.value,
+            },
         });
-
-        const fetchDestinations = () => {
-            // This method will be triggered when the category is changed
-        };
-
-        return {
-            categories,
-            selectedCategory,
-            fetchDestinations,
-        };
-    },
+        destinations.value = response.data.data;
+    } catch (error) {
+        console.error("Error fetching destinations:", error);
+    } finally {
+        loading.value = false;
+    }
 };
+
+const fetchCategories = async () => {
+    try {
+        const response = await axios.get("/api/categories");
+        categories.value = response.data.data;
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+    }
+};
+
+const fetchRegions = async () => {
+    try {
+        const response = await axios.get("/api/regions");
+        regions.value = response.data;
+    } catch (error) {
+        console.error("Error fetching regions:", error);
+    }
+};
+
+const FetchRecommendedDestinations = async () => {
+    try {
+        const response = await axios.get("/api/destination/recomendation");
+        recommendeds.value = response.data;
+        console.log(recommendeds.value);
+    } catch (error) {
+        console.error("Error fetching recommended destinations:", error);
+    }
+};
+
+watch([selectedCategory, selectedRegion], () => {
+    fetchDestinations();
+});
+
+onMounted(() => {
+    fetchCategories();
+    fetchRegions();
+    fetchDestinations();
+    FetchRecommendedDestinations();
+});
 </script>

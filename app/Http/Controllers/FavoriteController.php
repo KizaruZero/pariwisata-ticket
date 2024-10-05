@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Destination;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class FavoriteController extends Controller
 {
