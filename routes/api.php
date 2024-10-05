@@ -5,6 +5,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\PostController;
 
 // endpoints for frontend
 Route::get('/api/destinations', [DestinationController::class, 'index']);
@@ -21,6 +22,11 @@ Route::get('/api/destination/{id}/lowest-price', [DestinationController::class, 
 // Like
 Route::post('/api/destination/{id}/like', action: [FavoriteController::class, 'likeDestination'])->middleware('auth');
 Route::get('/api/profile/favorite', [FavoriteController::class, 'getFavoriteDestinations']);
+
+// Post
+Route::get('/api/articles', [PostController::class, 'index']);
+Route::get('/api/articles/latest', [PostController::class, 'getLatestPost']);
+Route::get('/api/article/{id}', [PostController::class, 'getPostDetail']);
 
 require __DIR__ . '/auth.php';
 

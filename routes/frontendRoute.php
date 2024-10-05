@@ -12,7 +12,8 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/destinations', [FrontendController::class, 'destinations'])->name('destinations');
 Route::get('/destination/{id}', [FrontendController::class, 'destinationsDetail'])->name('destination.detail');
-
+Route::get('/article', [FrontendController::class, 'article'])->name('article');
+Route::get('/article/{id}', [FrontendController::class, 'articleDetail'])->name('article.detail');
 
 // review
 Route::get('/user/can-review/{destinationId}', action: [RegisteredUserController::class, 'canReview'])->middleware('auth');

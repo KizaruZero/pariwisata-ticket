@@ -12,7 +12,7 @@ class DestinationController extends Controller
 
     public function getDestinationDetail($id)
     {
-        $destination = Destination::with('region', 'category', 'reviews.user')->findOrFail($id);
+        $destination = Destination::with('region', 'category', 'reviews.user', 'articles')->findOrFail($id);
         // $viewedDestinations = session()->get('viewed_destinations', []);
 
         // if (!in_array($id, $viewedDestinations)) {

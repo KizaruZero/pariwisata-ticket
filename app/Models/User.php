@@ -54,6 +54,21 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsToMany(Destination::class, 'user_favorites');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }
 
 

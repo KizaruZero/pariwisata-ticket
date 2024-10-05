@@ -20,29 +20,73 @@
                 </button>
             </div>
 
-            <!-- Location Grid -->
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
-            >
+            <div class="text-center py-16" id="app">
+                <!-- Page Title with Animation -->
+                <h1 class="text-4xl font-bold mb-2 animate-fadeInDown">
+                    Top Value From Us For You
+                </h1>
+                <p class="text-gray-500 mb-12 animate-fadeInDown">
+                    Try a variety of benefits when using our services
+                </p>
+
+                <!-- Features Section -->
                 <div
-                    class="relative group"
-                    v-for="(image, index) in images"
-                    :key="index"
+                    class="flex flex-wrap justify-center gap-8 mb-16 animate-fadeIn"
                 >
-                    <img
-                        :src="image.src"
-                        :alt="image.alt"
-                        class="w-full h-full object-cover rounded-lg transition-all transform group-hover:scale-105"
-                    />
                     <div
-                        class="absolute bottom-4 left-4 text-white bg-gray-800 bg-opacity-70 p-2 rounded-lg"
+                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
                     >
-                        <p>{{ image.title }}</p>
-                        <p class="font-bold">{{ image.description }}</p>
+                        <i class="fas fa-globe text-4xl text-black mb-4"></i>
+                        <h2 class="text-xl font-semibold mb-2">
+                            Lot Of Choices
+                        </h2>
+                        <p class="text-gray-500 mb-4">
+                            500+ Destinations we work with
+                        </p>
+                        <a
+                            class="text-red-500 font-medium hover:underline"
+                            href="#"
+                            >Read more</a
+                        >
+                    </div>
+
+                    <div
+                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                    >
+                        <i class="fas fa-user-tie text-4xl text-black mb-4"></i>
+                        <h2 class="text-xl font-semibold mb-2">
+                            Best Tour Guide
+                        </h2>
+                        <p class="text-gray-500 mb-4">
+                            Guides with 10+ years of experience
+                        </p>
+                        <a
+                            class="text-red-500 font-medium hover:underline"
+                            href="#"
+                            >Read more</a
+                        >
+                    </div>
+
+                    <div
+                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                    >
+                        <i
+                            class="fas fa-calendar-check text-4xl text-black mb-4"
+                        ></i>
+                        <h2 class="text-xl font-semibold mb-2">Easy Booking</h2>
+                        <p class="text-gray-500 mb-4">
+                            Fast ticket purchase process
+                        </p>
+                        <a
+                            class="text-red-500 font-medium hover:underline"
+                            href="#"
+                            >Read more</a
+                        >
                     </div>
                 </div>
-            </div>
 
+                <!-- Image with Play Button -->
+            </div>
             <!-- Search and Journey Section -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div class="relative group">
@@ -383,6 +427,45 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Add any additional scoped styles here */
+<style>
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate-fadeInDown {
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.animate-fadeIn {
+    animation: fadeIn 1s ease-out;
+}
+
+/* Glass Effect */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.glass-effect:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
 </style>

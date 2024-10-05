@@ -3,6 +3,20 @@
         <div
             class="flex flex-col items-center justify-center min-h-screen bg-blue-100"
         >
+            <div v-if="loading" class="flex justify-center items-center h-64">
+                <div
+                    class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
+                ></div>
+            </div>
+
+            <div
+                v-else-if="error"
+                class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                role="alert"
+            >
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ error }}</span>
+            </div>
             <!-- Dropdown for categories -->
             <div class="mb-4">
                 <select v-model="selectedCategory">
@@ -32,7 +46,7 @@
             </div>
 
             <!-- Recomended Destination -->
-            <div class="max-w-6xl mx-auto p-6">
+            <div class="mx-auto p-6">
                 <div class="text-center mb-8">
                     <h1
                         class="text-3xl font-bold hover:text-pink-600 transition duration-300"

@@ -1,8 +1,10 @@
 <template>
-    <div class="card bg-white rounded-lg shadow-lg overflow-hidden w-80">
+    <div
+        class="card bg-opacity-70 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl relative w-80"
+    >
         <img
             alt="Image of Bali Tour Package"
-            class="w-full h-48 object-cover"
+            class="w-full h-48 object-cover transition-transform transform hover:scale-105"
             :src="`/storage/${destination.image_url}`"
         />
         <div class="p-4 content">

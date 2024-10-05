@@ -3,12 +3,12 @@
         <div class="min-h-screen bg-white flex items-center justify-center">
             <div
                 v-if="destination"
-                class="max-w-4xl w-full bg-blue-50 p-6 rounded-lg shadow-lg"
+                class="w-full bg-blue-50 p-6 rounded-lg shadow-lg"
             >
                 <img
                     :src="`/storage/${destination.image_url}`"
                     alt="Image"
-                    class="w-full h-64 object-cover rounded-lg"
+                    class="w-full h-full object-cover rounded-lg"
                 />
                 <h1 class="text-3xl font-bold text-blue-900 mt-4">
                     {{ destination.name }}
@@ -136,6 +136,14 @@
             </div> -->
 
                 <ReviewComponent :destinationId="destinationId" />
+                <!-- Add Article Component -->
+                <div class="mt-8">
+                    <ArticleCard
+                        v-for="article in destination.articles"
+                        :key="article.id"
+                        :article="article"
+                    />
+                </div>
 
                 <!-- Buy Button -->
                 <button
@@ -165,9 +173,11 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
+import { defineProps } from "vue";
 // import review componen
 import ReviewComponent from "../../Frontend Components/ReviewComponent.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
+import ArticleCard from "@/Frontend Components/ArticleCard.vue";
 
 // Accept 'id' as a prop
 const props = defineProps({

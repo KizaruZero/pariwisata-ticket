@@ -18,8 +18,8 @@ class FrontendController extends Controller
 
     public function destinationsDetail($id)
     {
-    return Inertia::render('Frontend/DestinationDetail', [
-        'id' => $id,  // Pastikan 'id' dikirimkan ke Vue
+        return Inertia::render('Frontend/DestinationDetail', [
+            'id' => $id,  // Pastikan 'id' dikirimkan ke Vue
         ]);
     }
 
@@ -34,8 +34,14 @@ class FrontendController extends Controller
         return Inertia::render('Frontend/AboutView');
     }
 
-    // public function contact()
-    // {
-    //     return Inertia::render('Contact');
-    // }
+    public function article()
+    {
+        return Inertia::render('Frontend/ArticleView');
+    }
+    public function articleDetail($id)
+    {
+        return Inertia::render('Frontend/ArticleDetail', [
+            'id' => $id,  // Pastikan 'id' dikirimkan ke Vue
+        ]);
+    }
 }

@@ -96,5 +96,10 @@ class Destination extends Model
         }
     }
 
+    public function articles()
+    {
+        return $this->hasMany(Post::class);
+    }
+
 }
 ?>

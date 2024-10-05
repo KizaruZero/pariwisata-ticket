@@ -9,6 +9,12 @@
             <!-- Desktop Navigation Links -->
             <div class="hidden md:flex space-x-4">
                 <NavLink
+                    :href="route('home')"
+                    :active="route().current('home')"
+                >
+                    Home
+                </NavLink>
+                <NavLink
                     :href="route('destinations')"
                     :active="route().current('destinations')"
                 >
@@ -19,6 +25,12 @@
                     :active="route().current('about')"
                 >
                     About
+                </NavLink>
+                <NavLink
+                    :href="route('article')"
+                    :active="route().current('article')"
+                >
+                    Article
                 </NavLink>
             </div>
 
@@ -97,6 +109,14 @@
                     >
                         About
                     </NavLink>
+                    <NavLink
+                        :href="route('article')"
+                        :active="route().current('article')"
+                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                    >
+                        Article
+                    </NavLink>
+
                     <div v-if="!user">
                         <!-- Guest links: Login / Register -->
                         <Link
