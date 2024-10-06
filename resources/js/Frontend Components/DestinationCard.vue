@@ -55,8 +55,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
 import NavLink from "../Components/NavLink.vue";
 
 const props = defineProps({

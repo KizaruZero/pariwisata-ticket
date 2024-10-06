@@ -34,13 +34,19 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')->label('User'),
-                TextColumn::make('destination.name')->label('Destination'),
+                TextColumn::make('user.name')->label('User')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('destination.name')->label('Destination')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('package.name')
                     ->label('Package'),
                 TextColumn::make('payment_method')->label('Payment Method'),
                 TextColumn::make('booking_date')->label('Booking Date'),
-                TextColumn::make('total_price')->label('Total Price')->money('idr', true),
+                TextColumn::make('total_price')->label('Total Price')->money('idr', true)
+                    ->searchable()
+                    ->sortable(),
                 BadgeColumn::make('status')->state(function (Order $record): string {
                     return match ($record->status) { 'pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected', default => $record->status,
                     };
@@ -48,7 +54,8 @@ class OrderResource extends Resource
                             'primary' => 'Pending',
                             'success' => 'Approved',
                             'danger' => 'Rejected',
-                        ]),
+                        ])
+                    ->sortable(),
             ])
             ->actions([
                 Action::make('approve')

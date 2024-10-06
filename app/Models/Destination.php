@@ -29,6 +29,11 @@ class Destination extends Model
         return $this->hasManyThrough(Order::class, PackagePricing::class);
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'user_favorites');
+    }
+
 
 
     public function updateRating()

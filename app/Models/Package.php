@@ -9,5 +9,10 @@ class Package extends Model
     {
         return $this->hasMany(PackagePricing::class);
     }
+
+    public function destination()
+    {
+        return $this->belongsTo(Destination::class);
+    }
 }
 ?>

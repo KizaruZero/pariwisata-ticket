@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use App\Models\Destination;
 use Auth;
 
 
@@ -68,6 +69,72 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Post::class);
     }
+
+    public function getRecommendedDestinations($limit = 5)
+    {
+        // Mendapatkan ID destinasi yang disukai oleh pengguna
+        $likedDestinationIds = $this->likedDestinations()->pluck('destination_id')->toArray();
+
+        // Mendapatkan ID destinasi dari pesanan pengguna
+        $orderedDestinationIds = $this->orders()
+            ->where('status', 'approved')
+            ->with('destination') // Eager load relasi 'destination' dari orders
+            ->get()
+            ->pluck('destination.id') // Mengakses 'destination_id' melalui relasi
+            ->toArray();
+
+        // Gabungkan ID dari likes dan orders
+        $allDestinationIds = array_merge($likedDestinationIds, $orderedDestinationIds);
+
+        // Jika pengguna belum memiliki likes atau orders, tampilkan destinasi terpopuler
+        if (empty($allDestinationIds)) {
+            return Destination::orderBy('popularity', 'desc')
+                ->limit($limit)
+                ->get();
+        }
+
+        // Mengambil destinasi yang disukai atau diorder oleh pengguna lain yang mirip
+        $recommendedDestinations = Destination::whereIn('id', function ($query) use ($allDestinationIds) {
+            $query->select('destination_id')
+                ->from('user_favorites')
+                ->whereIn('user_id', function ($subQuery) use ($allDestinationIds) {
+                    $subQuery->select('user_id')
+                        ->from('user_favorites')
+                        ->whereIn('destination_id', $allDestinationIds);
+                });
+        })
+            ->orWhereIn('id', function ($query) use ($allDestinationIds) {
+                $query->select('destination_id')
+                    ->from('package_pricings')
+                    ->whereIn('id', function ($subQuery) use ($allDestinationIds) {
+                        $subQuery->select('package_pricing_id')
+                            ->from('orders')
+                            ->whereIn('user_id', function ($subSubQuery) use ($allDestinationIds) {
+                                $subSubQuery->select('user_id')
+                                    ->from('orders')
+                                    ->whereIn('package_pricing_id', function ($innerQuery) use ($allDestinationIds) {
+                                        $innerQuery->select('id')
+                                            ->from('package_pricings')
+                                            ->whereIn('destination_id', $allDestinationIds);
+                                    })
+                                    ->where('status', 'approved'); // Hanya pesanan yang disetujui
+                            });
+                    });
+            })
+            ->whereNotIn('id', $allDestinationIds) // Hindari rekomendasi yang sudah diorder/disukai
+            ->orderBy('popularity', 'desc') // Urutkan berdasarkan popularitas
+            ->limit($limit)
+            ->get();
+
+        return $recommendedDestinations;
+    }
+
+
+
+
+
+
+
 
 }
 

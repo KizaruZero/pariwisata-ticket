@@ -78,6 +78,31 @@
                 />
             </div>
 
+            <!-- Recomended Destination -->
+            <div class="mx-auto p-6">
+                <div class="text-center mb-8">
+                    <h1
+                        class="text-3xl font-bold hover:text-pink-600 transition duration-300"
+                    >
+                        Destination Recomendation by Your Interest
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Destination List -->
+            <!-- Destination List -->
+            <div v-if="loading">Loading...</div>
+            <div v-else-if="recomendationByUser.length === 0">
+                No destinations found.
+            </div>
+            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <DestinationCard
+                    v-for="destination in recomendationByUser"
+                    :key="destination.id"
+                    :destination="destination"
+                />
+            </div>
+
             <!-- Ordinary Recomendation -->
             <h1 class="text-4xl font-bold text-blue-900">Destinations List</h1>
 
@@ -107,9 +132,11 @@ const selectedCategory = ref("");
 const selectedRegion = ref("");
 const destinations = ref([]);
 const recommendeds = ref([]);
+const recomendationByUser = ref([]);
 const categories = ref([]);
 const regions = ref([]);
 const loading = ref(false);
+const error = ref(null);
 
 const fetchDestinations = async () => {
     loading.value = true;
@@ -129,6 +156,7 @@ const fetchDestinations = async () => {
 };
 
 const fetchCategories = async () => {
+    loading.value = true;
     try {
         const response = await axios.get("/api/categories");
         categories.value = response.data.data;
@@ -138,6 +166,7 @@ const fetchCategories = async () => {
 };
 
 const fetchRegions = async () => {
+    loading.value = true;
     try {
         const response = await axios.get("/api/regions");
         regions.value = response.data;
@@ -146,11 +175,24 @@ const fetchRegions = async () => {
     }
 };
 
-const FetchRecommendedDestinations = async () => {
+const fetchRecommendedDestinations = async () => {
+    loading.value = true;
     try {
         const response = await axios.get("/api/destination/recomendation");
         recommendeds.value = response.data;
-        console.log(recommendeds.value);
+    } catch (error) {
+        console.error("Error fetching recommended destinations:", error);
+    }
+};
+
+const fetchRecommendedByUser = async () => {
+    loading.value = true;
+    try {
+        const response = await axios.get(
+            "/api/destination/recommendationByUser"
+        );
+        recomendationByUser.value = response.data;
+        console.log(recomendationByUser.value);
     } catch (error) {
         console.error("Error fetching recommended destinations:", error);
     }
@@ -164,6 +206,7 @@ onMounted(() => {
     fetchCategories();
     fetchRegions();
     fetchDestinations();
-    FetchRecommendedDestinations();
+    fetchRecommendedDestinations();
+    fetchRecommendedByUser();
 });
 </script>

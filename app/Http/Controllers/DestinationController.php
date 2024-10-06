@@ -7,6 +7,7 @@ use App\Models\Region;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DestinationController extends Controller
 {
@@ -85,10 +86,43 @@ class DestinationController extends Controller
             }
         ])->get();
         ;
-
         return response()->json($recomendation);
-
     }
+
+    public function getRecommendedDestinationByUser()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $recommendedDestinations = collect($user->getRecommendedDestinations());
+        } else {
+            // If the user is not logged in, show popular destinations
+            $recommendedDestinations = collect(Destination::orderBy('popularity', 'desc')->take(5)->get());
+        }
+
+        // Map through recommended destinations to add lowest price inside package_pricings
+        $recommendedDestinations = $recommendedDestinations->map(function ($destination) {
+            // Fetch the lowest price for the destination
+            $lowestPrice = DB::table('package_pricings')
+                ->where('destination_id', $destination->id)
+                ->min('price'); // Get the lowest price
+
+            // Mock the package_pricings relationship with lowest_price
+            $destination->package_pricings = collect([
+                (object) [
+                    'destination_id' => $destination->id,
+                    'lowest_price' => $lowestPrice
+                ]
+            ]);
+
+            return $destination;
+        });
+
+        return response()->json($recommendedDestinations);
+    }
+
+
+
+
 
 
 }

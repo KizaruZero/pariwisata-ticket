@@ -10,6 +10,7 @@ use App\Http\Controllers\PostController;
 // endpoints for frontend
 Route::get('/api/destinations', [DestinationController::class, 'index']);
 Route::get('/api/destination/recomendation', [DestinationController::class, 'getRecommendedDestination']);
+Route::get('/api/destination/recommendationByUser', [DestinationController::class, 'getRecommendedDestinationByUser']);
 Route::get('/api/regions', [RegionController::class, 'getRegion']);
 Route::get('/api/destination/{id}', [DestinationController::class, 'getDestinationDetail']);
 Route::get('/api/packages/{id}', [PackageController::class, 'getPackageDetail']);
