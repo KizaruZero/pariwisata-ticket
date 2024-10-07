@@ -69,8 +69,8 @@ class Destination extends Model
     {
         // Definisikan bobot untuk setiap faktor
         $orderWeight = 0.5; // Bobot untuk total orders
-        $viewWeight = 0.3;  // Bobot untuk total views
-        $likeWeight = 0.2;  // Bobot untuk total likes
+        $viewWeight = 0.1;  // Bobot untuk total views
+        $likeWeight = 0.4;  // Bobot untuk total likes
 
         // Hitung nilai popularity berdasarkan bobot
         $this->popularity =
