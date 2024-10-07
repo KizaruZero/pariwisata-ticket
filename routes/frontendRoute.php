@@ -19,11 +19,6 @@ Route::get('/article/{id}', [FrontendController::class, 'articleDetail'])->name(
 Route::get('/user/can-review/{destinationId}', action: [RegisteredUserController::class, 'canReview'])->middleware('auth');
 Route::post('/api/review', [ReviewController::class, 'store'])->middleware('auth');
 
-// Auth::routes();
-// Route::middleware('auth:sanctum')->group(function () {
-//     // Other authenticated routes...
 
-//     Route::get('user/can-review/{destinationId}', [RegisteredUserController::class, 'canReview']);
-// });
 
 require __DIR__ . '/auth.php';
