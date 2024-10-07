@@ -71,10 +71,13 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## VAGABOND API DOCUMENTATION
 
+
+---
+
 ## Endpoints
 
 ### 1. Get All Destinations
-- **Endpoint**: `/destinations`
+- **Endpoint**: `/api/destinations`
 - **Method**: `GET`
 - **Description**: Fetches a list of all available destinations.
 - **Response Example**:
@@ -102,7 +105,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 2. Get Recommended Destinations
-- **Endpoint**: `/destination/recommendation`
+- **Endpoint**: `/api/destination/recommendation`
 - **Method**: `GET`
 - **Description**: Fetches a list of recommended destinations based on popularity and ratings.
 - **Response Example**:
@@ -122,7 +125,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 3. Get User-Specific Recommended Destinations
-- **Endpoint**: `/destination/recommendationByUser`
+- **Endpoint**: `/api/destination/recommendationByUser`
 - **Method**: `GET`
 - **Description**: Fetches personalized recommended destinations for the authenticated user.
 - **Authorization**: `Bearer Token`
@@ -143,7 +146,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 4. Get Destination Details
-- **Endpoint**: `/destination/{id}`
+- **Endpoint**: `/api/destination/{id}`
 - **Method**: `GET`
 - **Description**: Fetches detailed information for a specific destination.
 - **URL Parameters**:
@@ -176,7 +179,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 5. Filter Destinations by Category
-- **Endpoint**: `/destinations/{category}`
+- **Endpoint**: `/api/destinations/{category}`
 - **Method**: `GET`
 - **Description**: Fetches destinations filtered by a specific category (e.g., beaches, mountains).
 - **URL Parameters**:
@@ -198,7 +201,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 6. Get Lowest Package Price for Destination
-- **Endpoint**: `/destination/{id}/lowest-price`
+- **Endpoint**: `/api/destination/{id}/lowest-price`
 - **Method**: `GET`
 - **Description**: Fetches the lowest package price available for a specific destination.
 - **URL Parameters**:
@@ -214,7 +217,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 7. Get Region List
-- **Endpoint**: `/regions`
+- **Endpoint**: `/api/regions`
 - **Method**: `GET`
 - **Description**: Fetches all regions for categorizing destinations.
 - **Response Example**:
@@ -234,7 +237,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 8. Get Package Details
-- **Endpoint**: `/packages/{id}`
+- **Endpoint**: `/api/packages/{id}`
 - **Method**: `GET`
 - **Description**: Fetches details for a specific package.
 - **URL Parameters**:
@@ -252,7 +255,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 9. Create Order
-- **Endpoint**: `/orders`
+- **Endpoint**: `/api/orders`
 - **Method**: `POST`
 - **Description**: Creates a new order for a package.
 - **Body Parameters**:
@@ -275,7 +278,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 10. Get Order History
-- **Endpoint**: `/orders/history`
+- **Endpoint**: `/api/orders/history`
 - **Method**: `GET`
 - **Description**: Fetches order history for the authenticated user.
 - **Authorization**: `Bearer Token`
@@ -296,7 +299,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 11. Get Categories
-- **Endpoint**: `/categories`
+- **Endpoint**: `/api/categories`
 - **Method**: `GET`
 - **Description**: Fetches all available categories for filtering destinations.
 - **Response Example**:
@@ -316,7 +319,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 12. Like a Destination
-- **Endpoint**: `/destination/{id}/like`
+- **Endpoint**: `/api/destination/{id}/like`
 - **Method**: `POST`
 - **Description**: Likes a destination for the authenticated user.
 - **URL Parameters**:
@@ -332,7 +335,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 13. Get Favorite Destinations
-- **Endpoint**: `/profile/favorite`
+- **Endpoint**: `/api/profile/favorite`
 - **Method**: `GET`
 - **Description**: Fetches a list of the authenticated user’s favorite destinations.
 - **Authorization**: `Bearer Token`
@@ -352,7 +355,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 14. Get Latest Articles
-- **Endpoint**: `/articles/latest`
+- **Endpoint**: `/api/articles/latest`
 - **Method**: `GET`
 - **Description**: Fetches the latest articles about destinations or travel tips.
 - **Response Example**:
@@ -370,7 +373,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ---
 
 ### 15. Post Review for Destination
-- **Endpoint**: `/review`
+- **Endpoint**: `/api/review`
 - **Method**: `POST`
 - **Description**: Posts a review for a destination by an authenticated user.
 - **Authorization**: `Bearer Token`
@@ -393,4 +396,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
