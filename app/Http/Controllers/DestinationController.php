@@ -120,6 +120,21 @@ class DestinationController extends Controller
         return response()->json($recommendedDestinations);
     }
 
+    // Search destination by name
+    public function searchDestination($keyword)
+    {
+        $destinations = Destination::where('name', 'like', "%$keyword%")
+            ->with([
+                'packagePricings' => function ($q) {
+                    $q->select('destination_id', DB::raw('MIN(price) as lowest_price'))->groupBy('destination_id');
+                }
+            ])
+            ->get();
+
+        return response()->json($destinations);
+    }
+
+
 
 
 

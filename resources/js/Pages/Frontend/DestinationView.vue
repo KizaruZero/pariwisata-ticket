@@ -45,6 +45,51 @@
                 </select>
             </div>
 
+            <!-- Search Field with Clear Button -->
+            <div class="my-4">
+                <form
+                    @submit.prevent="submitSearch"
+                    class="flex items-center space-x-2"
+                >
+                    <label for="search" class="sr-only"
+                        >Search for destination</label
+                    >
+                    <input
+                        id="search"
+                        type="text"
+                        v-model="search"
+                        placeholder="Search for destination..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                        type="submit"
+                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        Search
+                    </button>
+                    <!-- Clear Button -->
+                    <button
+                        v-if="search"
+                        type="button"
+                        @click="clearSearch"
+                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    >
+                        Clear
+                    </button>
+                </form>
+            </div>
+
+            <!-- Destination Result  -->
+            <div v-if="searchResult.length === 0"></div>
+            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <h1 class="text-3xl font-bold">Search Result</h1>
+                <DestinationCard
+                    v-for="destination in searchResult"
+                    :key="destination.id"
+                    :destination="destination"
+                />
+            </div>
+
             <!-- Recomended Destination -->
             <div class="mx-auto p-6">
                 <div class="text-center mb-8">
@@ -192,10 +237,42 @@ const fetchRecommendedByUser = async () => {
             "/api/destination/recommendationByUser"
         );
         recomendationByUser.value = response.data;
-        console.log(recomendationByUser.value);
     } catch (error) {
         console.error("Error fetching recommended destinations:", error);
     }
+};
+
+const search = ref("");
+const searchResult = ref("");
+
+const submitSearch = async () => {
+    loading.value = true;
+    try {
+        const response = await axios.get(
+            `/api/destination/search/${search.value}`
+        );
+        searchResult.value = response.data;
+        console.log(searchResult.value);
+    } catch (error) {
+        console.error("Error fetching destinations:", error);
+    } finally {
+        loading.value = false;
+    }
+};
+
+const clearSearch = async () => {
+    loading.value = true;
+    try {
+        const response = await axios.get(`/api/destination/search/""`);
+        searchResult.value = response.data;
+        console.log(searchResult.value);
+    } catch (error) {
+        console.error("Error fetching destinations:", error);
+    } finally {
+        loading.value = false;
+    }
+
+    search.value = "";
 };
 
 watch([selectedCategory, selectedRegion], () => {

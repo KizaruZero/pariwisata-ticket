@@ -19,6 +19,7 @@ Route::get('api/orders/history', [OrderController::class, 'orderHistory']);
 Route::get('api/categories', [CategoryController::class, 'getCategory']);
 Route::get('/api/destinations/{category}', [DestinationController::class, 'filterByCategory']);
 Route::get('/api/destination/{id}/lowest-price', [DestinationController::class, 'getLowestPrice']);
+Route::get('/api/destination/search/{keyword}', [DestinationController::class, 'searchDestination']);
 
 // Like
 Route::post('/api/destination/{id}/like', action: [FavoriteController::class, 'likeDestination'])->middleware('auth');
