@@ -27,27 +27,26 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('dashboard')
             ->login()
             ->colors([
                 'danger' => Color::Red,
                 'gray' => Color::Slate,
                 'info' => Color::Blue,
                 'primary' => Color::Indigo,
-                'success' => Color::Emerald,
+                'success' => Color::Green,
                 'warning' => Color::Orange,
             ])
             ->brandName('VAGABOND')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-                CustomerChat::class,  // Tambahkan ini
-
-            ])
+            // ->pages([
+            //     Pages\Dashboard::class,
+            //     CustomerChat::class,  // Tambahkan ini
+            // ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                // Widgets\AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
