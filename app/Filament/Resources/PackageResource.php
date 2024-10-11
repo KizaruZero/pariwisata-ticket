@@ -19,8 +19,9 @@ use App\Filament\Resources\PackageResource\RelationManagers;
 class PackageResource extends Resource
 {
     protected static ?string $model = Package::class;
+    protected static ?string $navigationGroup = 'Shop';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-c-cube';
 
     public static function form(Form $form): Form
     {

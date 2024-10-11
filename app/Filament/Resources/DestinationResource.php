@@ -24,8 +24,8 @@ use App\Filament\Resources\DestinationResource\RelationManagers;
 class DestinationResource extends Resource
 {
     protected static ?string $model = Destination::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationIcon = 'heroicon-s-ticket';
 
     public static function form(Form $form): Form
     {

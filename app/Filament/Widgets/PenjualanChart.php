@@ -13,8 +13,10 @@ use Filament\Widgets\LineChartWidget;
 class PenjualanChart extends LineChartWidget
 {
     use interactsWithPageFilters;
-    protected static ?string $heading = 'Chart';
-    
+    protected static ?string $heading = 'Chart Penjualan Tiket Wisata';
+    protected int|string|array $columnSpan = 'full';
+
+
 
     protected function getData(): array
     {

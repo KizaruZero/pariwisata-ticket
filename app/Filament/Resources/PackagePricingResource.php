@@ -19,8 +19,8 @@ use App\Filament\Resources\PackagePricingResource\RelationManagers;
 class PackagePricingResource extends Resource
 {
     protected static ?string $model = PackagePricing::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationIcon = 'heroicon-s-chart-bar-square';
 
     public static function form(Form $form): Form
     {
