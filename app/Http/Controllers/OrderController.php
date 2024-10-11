@@ -56,7 +56,7 @@ class OrderController extends Controller
         }
     }
 
-    // Admin approve pesanan
+
     // Admin approve pesanan
     public function approve($id)
     {

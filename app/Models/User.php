@@ -43,10 +43,6 @@ class User extends Authenticatable implements FilamentUser
 
     public function isAdmin(): bool
     {
-        // Replace this with your actual logic to determine if a user is an admin
-
-
-        // For example, you might check a column in the database:
         return $this->role === 'admin';
     }
 
