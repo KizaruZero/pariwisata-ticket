@@ -60,5 +60,8 @@ class Order extends Model
         return $this->hasOneThrough(Destination::class, PackagePricing::class, 'id', 'id', 'package_pricing_id', 'destination_id');
     }
 
+    public function scopePenjualan() {
+        return $this->where('status', 'approved');
+    }
 
 }
