@@ -7,6 +7,7 @@ import OrderHistory from "./Partials/OrderHistory.vue";
 import FavoriteDestination from "@/Frontend Components/FavoriteDestination.vue";
 
 import { Head } from "@inertiajs/vue3";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -21,7 +22,7 @@ defineProps({
 <template>
     <Head title="Profile" />
 
-    <AuthenticatedLayout>
+    <GuestLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Profile
@@ -52,5 +53,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </GuestLayout>
 </template>

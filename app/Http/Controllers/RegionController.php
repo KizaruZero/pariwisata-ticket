@@ -12,7 +12,7 @@ class RegionController extends Controller
     public function getRegion()
     {
         // Caching selama 1 jam (3600 detik)
-        $regions = Cache::remember('regions', 600, function () {
+        $regions = Cache::remember('regions', 86400, function () {
             return Region::all();
         });
 

@@ -201,22 +201,43 @@ const fetchDestinations = async () => {
 };
 
 const fetchCategories = async () => {
-    loading.value = true;
-    try {
-        const response = await axios.get("/api/categories");
-        categories.value = response.data.data;
-    } catch (error) {
-        console.error("Error fetching categories:", error);
+    const cachedCategories = localStorage.getItem("categories");
+
+    if (cachedCategories) {
+        categories.value = JSON.parse(cachedCategories);
+    } else {
+        loading.value = true;
+        try {
+            const response = await axios.get("/api/categories");
+            categories.value = response.data.data;
+            localStorage.setItem(
+                "categories",
+                JSON.stringify(categories.value)
+            );
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+        } finally {
+            loading.value = false;
+        }
     }
 };
 
 const fetchRegions = async () => {
-    loading.value = true;
-    try {
-        const response = await axios.get("/api/regions");
-        regions.value = response.data;
-    } catch (error) {
-        console.error("Error fetching regions:", error);
+    const cachedRegions = localStorage.getItem("regions");
+
+    if (cachedRegions) {
+        regions.value = JSON.parse(cachedRegions);
+    } else {
+        loading.value = true;
+        try {
+            const response = await axios.get("/api/regions");
+            regions.value = response.data;
+            localStorage.setItem("regions", JSON.stringify(regions.value));
+        } catch (error) {
+            console.error("Error fetching regions:", error);
+        } finally {
+            loading.value = false;
+        }
     }
 };
 
@@ -279,11 +300,29 @@ watch([selectedCategory, selectedRegion], () => {
     fetchDestinations();
 });
 
+// onMounted(() => {
+//     fetchCategories();
+//     fetchRegions();
+//     fetchDestinations();
+//     fetchRecommendedDestinations();
+//     fetchRecommendedByUser();
+// });
+
 onMounted(() => {
-    fetchCategories();
-    fetchRegions();
-    fetchDestinations();
-    fetchRecommendedDestinations();
-    fetchRecommendedByUser();
+    loading.value = true;
+    Promise.all([
+        fetchCategories(),
+        fetchRegions(),
+        fetchDestinations(),
+        fetchRecommendedDestinations(),
+        fetchRecommendedByUser(),
+    ])
+        .then(() => {
+            loading.value = false;
+        })
+        .catch((error) => {
+            console.error("Error fetching data:", error);
+            loading.value = false;
+        });
 });
 </script>
