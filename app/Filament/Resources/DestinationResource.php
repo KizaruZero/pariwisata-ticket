@@ -20,6 +20,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\DestinationResource\Pages;
 use App\Filament\Resources\DestinationResource\RelationManagers;
+use App\Filament\Resources\DestinationResource\RelationManagers\CategoryRelationManager;
+use App\Filament\Resources\DestinationResource\RelationManagers\RegionRelationManager;
+use App\Models\Category;
+use App\Models\Region;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+
 
 class DestinationResource extends Resource
 {
@@ -111,6 +118,13 @@ class DestinationResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('export')
+                    ->fromTable()
+                    ->only(['name', 'description', 'location', 'category.name', 'region.name' ])
+                    ->withFilename('destinasi-' . date('Y-m-d'))
+                    ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
+                ])
             ]);
     }
 

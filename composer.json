@@ -13,8 +13,11 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "maatwebsite/excel": "^3.1",
         "munafio/chatify": "^1.6",
         "nesbot/carbon": "^3.8",
+        "psr/simple-cache": "2.0",
+        "pxlrbt/filament-excel": "^2.3",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
