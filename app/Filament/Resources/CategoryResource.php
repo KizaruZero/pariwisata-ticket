@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class CategoryResource extends Resource
 {
@@ -57,6 +59,12 @@ class CategoryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('export')
+                        ->fromTable()
+                        ->withFilename('category-' . date('Y-m-d'))
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
+                ])
             ]);
     }
 

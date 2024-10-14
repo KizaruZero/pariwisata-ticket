@@ -16,6 +16,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Validation\Rules\Password;
 use Filament\Forms\Components\Select;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class UserResource extends Resource
 {
@@ -86,8 +88,17 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('export')
+                        ->fromTable()
+                        ->withFilename('user-' . date('Y-m-d'))
+                        ->withWriterType(writerType: \Maatwebsite\Excel\Excel::XLSX)
+                ])
+            ])
+        ;
     }
 
     public static function getRelations(): array
