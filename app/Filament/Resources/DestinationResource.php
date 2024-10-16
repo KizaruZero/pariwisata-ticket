@@ -75,7 +75,12 @@ class DestinationResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('description')
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(50),
+                TextColumn::make('price')
+                    ->searchable()
+                    ->money('idr', true)
+                    ->sortable(),
                 TextColumn::make('location')
                     ->searchable(),
                 TextColumn::make('category.name')
@@ -120,10 +125,10 @@ class DestinationResource extends Resource
                 ]),
                 ExportBulkAction::make()->exports([
                     ExcelExport::make('export')
-                    ->fromTable()
-                    ->only(['name', 'description', 'location', 'category.name', 'region.name' ])
-                    ->withFilename('destinasi-' . date('Y-m-d'))
-                    ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
+                        ->fromTable()
+                        ->only(['name', 'description', 'location', 'category.name', 'region.name'])
+                        ->withFilename('destinasi-' . date('Y-m-d'))
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                 ])
             ]);
     }

@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('region_id')->constrained('regions');
             $table->string('image_url')->nullable();
+            $table->decimal('price', 10, 2)->default(0);
             $table->float('rating')->default(0);
             $table->integer('total_reviews')->default(0);
             $table->integer('total_orders')->default(0);

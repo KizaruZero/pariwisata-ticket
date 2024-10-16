@@ -13,8 +13,6 @@ class DatabaseSeeder extends Seeder
             RegionSeeder::class,
             CategorySeeder::class,
             DestinationSeeder::class,
-            PackageSeeder::class,
-            PackagePricingSeeder::class,
             OrdersSeeder::class,
             ReviewSeeder::class,
         ]);
