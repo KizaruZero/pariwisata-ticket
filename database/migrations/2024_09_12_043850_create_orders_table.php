@@ -13,7 +13,8 @@ return new class extends Migration {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // pembeli
-            $table->foreignId('package_pricing_id')->constrained()->onDelete('cascade');
+            $table->foreignId('destination_id')->constrained()->onDelete('cascade'); // produk yang dibeli
+            $table->integer('quantity')->default(1); // Menambahkan kolom quantity
             $table->decimal('total_price', 10, 2); // harga total
             $table->string('payment_method'); // metode pembayaran
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending'); // status order

@@ -71,12 +71,12 @@ class User extends Authenticatable implements FilamentUser
         // Mendapatkan ID destinasi yang disukai oleh pengguna
         $likedDestinationIds = $this->likedDestinations()->pluck('destination_id')->toArray();
 
-        // Mendapatkan ID destinasi dari pesanan pengguna
+        // Mendapatkan ID destinasi dari pesanan pengguna yang disetujui
         $orderedDestinationIds = $this->orders()
             ->where('status', 'approved')
             ->with('destination') // Eager load relasi 'destination' dari orders
             ->get()
-            ->pluck('destination.id') // Mengakses 'destination_id' melalui relasi
+            ->pluck('destination_id') // Ambil destination_id dari relasi
             ->toArray();
 
         // Gabungkan ID dari likes dan orders
@@ -101,20 +101,12 @@ class User extends Authenticatable implements FilamentUser
         })
             ->orWhereIn('id', function ($query) use ($allDestinationIds) {
                 $query->select('destination_id')
-                    ->from('package_pricings')
-                    ->whereIn('id', function ($subQuery) use ($allDestinationIds) {
-                        $subQuery->select('package_pricing_id')
+                    ->from('orders')
+                    ->whereIn('user_id', function ($subSubQuery) use ($allDestinationIds) {
+                        $subSubQuery->select('user_id')
                             ->from('orders')
-                            ->whereIn('user_id', function ($subSubQuery) use ($allDestinationIds) {
-                                $subSubQuery->select('user_id')
-                                    ->from('orders')
-                                    ->whereIn('package_pricing_id', function ($innerQuery) use ($allDestinationIds) {
-                                        $innerQuery->select('id')
-                                            ->from('package_pricings')
-                                            ->whereIn('destination_id', $allDestinationIds);
-                                    })
-                                    ->where('status', 'approved'); // Hanya pesanan yang disetujui
-                            });
+                            ->whereIn('destination_id', $allDestinationIds)
+                            ->where('status', 'approved'); // Hanya pesanan yang disetujui
                     });
             })
             ->whereNotIn('id', $allDestinationIds) // Hindari rekomendasi yang sudah diorder/disukai
@@ -124,6 +116,7 @@ class User extends Authenticatable implements FilamentUser
 
         return $recommendedDestinations;
     }
+
 
 
 

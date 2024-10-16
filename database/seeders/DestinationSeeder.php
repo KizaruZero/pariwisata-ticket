@@ -509,7 +509,7 @@ class DestinationSeeder extends Seeder
                 'total_likes' => rand(2500, 5000),
                 'popularity' => 0,
             ],
-         [
+            [
                 'name' => 'Weekuri Lagoon',
                 'description' => 'Laguna Weekuri adalah laguna air asin yang indah di Pulau Sumba. Tempat ini terkenal dengan airnya yang jernih dan berwarna biru toska, serta suasana yang tenang. Pengunjung bisa berenang dan menikmati pemandangan alam yang eksotis.',
                 'location' => 'Sumba Barat Daya, Nusa Tenggara Timur',
@@ -543,6 +543,9 @@ class DestinationSeeder extends Seeder
                 'popularity' => 0,
             ],
         ];
+        foreach ($destinations as &$destination) {
+            $destination['price'] = rand(10000, 150000);
+        }
         foreach ($destinations as $destination) {
             $newDestination = Destination::create($destination);
             $newDestination->updatePopularity(); // Memperbarui nilai popularity

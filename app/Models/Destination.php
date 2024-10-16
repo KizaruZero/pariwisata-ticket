@@ -3,7 +3,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class Destination extends Model
 {
-    protected $fillable = ['name', 'description', 'location', 'category_id', 'region_id', 'image_url', 'rating', 'total_riviews', 'total_orders', 'total_views', 'total_likes', 'popularity'];
+    protected $fillable = ['name', 'description', 'location', 'category_id', 'region_id', 'image_url', 'price', 'rating', 'total_riviews', 'total_orders', 'total_views', 'total_likes', 'popularity'];
 
     public function category()
     {
@@ -15,27 +15,29 @@ class Destination extends Model
         return $this->belongsTo(Region::class);
     }
 
-    public function packagePricings()
-    {
-        return $this->hasMany(PackagePricing::class);
-    }
+    // public function packagePricings()
+    // {
+    //     return $this->hasMany(PackagePricing::class);
+    // }
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
 
+    // public function orders()
+    // {
+    //     return $this->hasManyThrough(Order::class, PackagePricing::class);
+    // }
+
     public function orders()
     {
-        return $this->hasManyThrough(Order::class, PackagePricing::class);
+        return $this->hasMany(Order::class);
     }
 
     public function favorites()
     {
         return $this->belongsToMany(User::class, 'user_favorites');
     }
-
-
-
     public function updateRating()
     {
         $this->total_reviews = $this->reviews()->count();
@@ -62,8 +64,6 @@ class Destination extends Model
         $this->updatePopularity();
 
     }
-
-
 
     public function updatePopularity()
     {

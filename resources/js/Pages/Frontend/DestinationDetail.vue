@@ -36,27 +36,17 @@
                     </div>
                 </div>
 
-                <!-- Beli produk -->
+                <!-- Order form -->
                 <form @submit.prevent="submitOrder">
                     <div class="mt-4">
-                        <label for="package" class="block"
-                            >Select Package</label
-                        >
-                        <select
-                            v-model="order.package_pricing_id"
+                        <label for="quantity" class="block">Quantity</label>
+                        <input
+                            v-model.number="order.quantity"
+                            type="number"
+                            min="1"
                             class="mt-1 p-2 border rounded"
-                        >
-                            <option
-                                v-for="harga in packagePricing"
-                                :value="harga.id"
-                                :key="harga.id"
-                            >
-                                {{ harga.package.name }} -
-                                {{ formatCurrency(harga.price) }}
-                                <br />
-                                {{ harga.package.description }}
-                            </option>
-                        </select>
+                            required
+                        />
                     </div>
 
                     <div class="mt-4">
@@ -72,7 +62,7 @@
                         </select>
                     </div>
 
-                    <!-- date -->
+                    <!-- Date -->
                     <div class="mt-4">
                         <label for="date" class="block" name="date">Date</label>
                         <input
@@ -88,6 +78,7 @@
                     <button type="submit" class="mt-4 btn-primary">
                         Submit Order
                     </button>
+
                     <div
                         v-if="formErrors.length"
                         class="mt-4 bg-red-100 p-4 rounded"
@@ -104,39 +95,7 @@
                     </div>
                 </form>
 
-                <!-- Test aja -->
-
-                <!-- <div v-if="canReview" class="mt-4">
-                <h2 class="text-xl font-semibold">Leave a Review</h2>
-                <form @submit.prevent="submitReview">
-                    <label for="rating" class="block mt-2">Rating (1-5)</label>
-                    <input
-                        v-model="newReview.rating"
-                        type="number"
-                        id="rating"
-                        min="1"
-                        max="5"
-                        class="mt-1 p-2 border border-gray-300 rounded"
-                        required
-                    />
-
-                    <label for="review_text" class="block mt-2">Review</label>
-                    <textarea
-                        v-model="newReview.review_text"
-                        id="review_text"
-                        rows="4"
-                        class="mt-1 p-2 border border-gray-300 rounded"
-                        required
-                    ></textarea>
-
-                    <button type="submit" class="mt-4 btn-primary">
-                        Submit Review
-                    </button>
-                </form>
-            </div> -->
-
                 <ReviewComponent :destinationId="destinationId" />
-                <!-- Add Article Component -->
                 <div class="mt-8">
                     <ArticleCard
                         v-for="article in destination.articles"
@@ -145,7 +104,6 @@
                     />
                 </div>
 
-                <!-- Buy Button -->
                 <button
                     @click="toggleLike(destination)"
                     :class="[
@@ -163,7 +121,6 @@
                 </button>
             </div>
             <div v-else>
-                <!-- Placeholder or loading state while fetching data -->
                 <p>Loading destination details...</p>
             </div>
         </div>
@@ -174,7 +131,6 @@
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { defineProps } from "vue";
-// import review componen
 import ReviewComponent from "../../Frontend Components/ReviewComponent.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import ArticleCard from "@/Frontend Components/ArticleCard.vue";
@@ -182,44 +138,32 @@ import ArticleCard from "@/Frontend Components/ArticleCard.vue";
 // Accept 'id' as a prop
 const props = defineProps({
     id: {
-        type: [Number, String], // Accept both Number and String
+        type: [Number, String],
         required: true,
     },
 });
 
 // Define reactive destination object
 const destination = ref(null);
-const packagePricing = ref(null);
-// const canReview = ref(false);
-// const newReview = ref({
-//     rating: 1,
-//     review_text: "",
-// });
 const destinationId = props.id;
 const order = ref({
-    package_pricing_id: null,
+    destination_id: props.id,
+    quantity: 1, // Default to 1
     payment_method: null,
     booking_date: null,
 });
 
+// Minimum date for booking
 const minDate = computed(() => {
     const today = new Date();
     return today.toISOString().split("T")[0];
 });
-// Fetch destination data from API when mounted
+
+// Fetch destination data when mounted
 onMounted(async () => {
     try {
-        // Fetch destination data
         const response = await axios.get(`/api/destination/${props.id}`);
         destination.value = response.data;
-
-        // // Check if user can review
-        // const reviewResponse = await axios.get(`/user/can-review/${props.id}`);
-        // canReview.value = reviewResponse.data.canReview;
-
-        // Optionally, fetch other data like packagePricing, etc.
-        const responsePackage = await axios.get(`/api/packages/${props.id}`);
-        packagePricing.value = responsePackage.data;
     } catch (error) {
         console.error("Error fetching data:", error);
     }
@@ -236,6 +180,7 @@ const submitOrder = async () => {
             return;
         }
 
+        // Submit order request
         const response = await axios.post("/api/orders", order.value);
         alert("Order submitted successfully");
         console.log(response.data);
@@ -243,7 +188,6 @@ const submitOrder = async () => {
         if (error.response && error.response.status === 422) {
             formErrors.value = Object.values(error.response.data.errors).flat();
         } else if (error.response && error.response.status === 401) {
-            // Redirect to login page if user is not authenticated
             window.location.href = "/login";
         } else {
             formErrors.value.push("An unexpected error occurred.");
@@ -251,23 +195,16 @@ const submitOrder = async () => {
     }
 };
 
-// Method to go back (using native history for simplicity)
+// Method to go back
 const goBack = () => {
     window.history.back();
 };
 
-const formatCurrency = (value) => {
-    return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-    }).format(value);
-};
-
+// Method to toggle like
 const toggleLike = async (destination) => {
     try {
         const response = await axios.post(`/api/destination/${props.id}/like`);
         destination.isLiked = response.data.isLiked;
-
         if (destination.isLiked) {
             destination.total_likes++;
             alert("Destination liked!");
@@ -277,17 +214,14 @@ const toggleLike = async (destination) => {
         }
     } catch (error) {
         if (error.response && error.response.status === 401) {
-            // Redirect to login page if user is not authenticated
             window.location.href = "/login";
         } else {
             console.error("Error toggling like:", error);
         }
     }
 };
-
-// format date
 </script>
 
 <style scoped>
-/* Styling for better layout */
+/* Styling for layout */
 </style>

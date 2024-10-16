@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\Action;
 use App\Filament\Resources\OrderResource\Widgets\OrderStats;
 
+
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
@@ -43,8 +44,8 @@ class OrderResource extends Resource
                 TextColumn::make('destination.name')->label('Destination')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('package.name')
-                    ->label('Package'),
+                TextColumn::make('quantity')
+                    ->label('Quantity'),
                 TextColumn::make('payment_method')->label('Payment Method'),
                 TextColumn::make('booking_date')->label('Booking Date'),
                 TextColumn::make('total_price')->label('Total Price')->money('idr', true)

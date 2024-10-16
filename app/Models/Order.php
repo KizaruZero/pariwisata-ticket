@@ -10,7 +10,8 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'package_pricing_id',  // Mengganti package_id dan destination_id
+        'destination_id',
+        'quantity',
         'total_price', // nanti di ambil dari harga paket track lewat package_pricing_id
         'payment_method',
         'status',
@@ -43,24 +44,36 @@ class Order extends Model
     }
 
     // Relasi dengan tabel PackagePricing
-    public function packagePricing()
-    {
-        return $this->belongsTo(PackagePricing::class);
-    }
+    // public function packagePricing()
+    // {
+    //     return $this->belongsTo(PackagePricing::class);
+    // }
 
     // Relasi untuk mendapatkan informasi Package
-    public function package()
-    {
-        return $this->hasOneThrough(Package::class, PackagePricing::class, 'id', 'id', 'package_pricing_id', 'package_id');
-    }
+    // public function package()
+    // {
+    //     return $this->hasOneThrough(Package::class, PackagePricing::class, 'id', 'id', 'package_pricing_id', 'package_id');
+    // }
 
     // Relasi untuk mendapatkan informasi Destination
+    // public function destination()
+    // {
+    //     return $this->hasOneThrough(Destination::class, PackagePricing::class, 'id', 'id', 'package_pricing_id', 'destination_id');
+    // }
+
     public function destination()
     {
-        return $this->hasOneThrough(Destination::class, PackagePricing::class, 'id', 'id', 'package_pricing_id', 'destination_id');
+        return $this->belongsTo(Destination::class);
     }
 
-    public function scopePenjualan() {
+    public function calculateTotalPrice()
+    {
+        $this->total_price = $this->destination->price * $this->quantity;
+        $this->save();
+    }
+
+    public function scopePenjualan()
+    {
         return $this->where('status', 'approved');
     }
 

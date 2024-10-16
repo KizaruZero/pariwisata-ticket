@@ -28,11 +28,7 @@
             </p>
             <div class="flex justify-between items-center mt-4">
                 <span class="text-lg font-bold">
-                    {{
-                        formatCurrency(
-                            destination.package_pricings?.[0]?.lowest_price ?? 0
-                        )
-                    }}
+                    {{ formatCurrency(destination.price) }}
                 </span>
                 <NavLink
                     :href="`/destination/${destination.id}`"
