@@ -1,11 +1,6 @@
 <template>
-    <nav class="bg-blue-600 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo -->
-            <Link :href="route('home')" class="text-white text-2xl font-bold">
-                EventTickets
-            </Link>
-
+    <nav class="bg-vaga text-white p-4 flex justify-between items-center">
+        <div class="container flex justify-between items-center">
             <!-- Desktop Navigation Links -->
             <div class="hidden md:flex space-x-4">
                 <NavLink
