@@ -47,27 +47,10 @@ class DestinationController extends Controller
         $destinations = $query->with([
             'category:id,name',
             'region:id,name'
-        ])
-            ->with([
-                'packagePricings' => function ($q) {
-                    $q->select('destination_id', DB::raw('MIN(price) as lowest_price'))->groupBy('destination_id');
-                }
-            ])
-            ->get();
+        ])->get();
 
         return response()->json([
             'data' => $destinations
-        ]);
-    }
-    public function getLowestPrice($id)
-    {
-        $destination = Destination::findOrFail($id);
-        $lowestPrice = $destination->packagePricings()
-            ->orderBy('price', 'asc')
-            ->first();
-
-        return response()->json([
-            'lowest_price' => $lowestPrice ? $lowestPrice->price : null
         ]);
     }
 
@@ -80,11 +63,7 @@ class DestinationController extends Controller
     public function getRecommendedDestination()
     {
         // Mengambil destinasi yang disortir berdasarkan popularity, descending
-        $recomendation = Destination::orderBy('popularity', 'desc')->take(5)->with([
-            'packagePricings' => function ($q) {
-                $q->select('destination_id', DB::raw('MIN(price) as lowest_price'))->groupBy('destination_id');
-            }
-        ])->get();
+        $recomendation = Destination::orderBy('popularity', 'desc')->take(5)->get();
         ;
         return response()->json($recomendation);
     }
@@ -99,26 +78,22 @@ class DestinationController extends Controller
             $recommendedDestinations = collect(Destination::orderBy('popularity', 'desc')->take(5)->get());
         }
 
+
         // Map through recommended destinations to add lowest price inside package_pricings
-        $recommendedDestinations = $recommendedDestinations->map(function ($destination) {
-            // Fetch the lowest price for the destination
-            $lowestPrice = DB::table('package_pricings')
-                ->where('destination_id', $destination->id)
-                ->min('price'); // Get the lowest price
 
-            // Mock the package_pricings relationship with lowest_price
-            $destination->package_pricings = collect([
-                (object) [
-                    'destination_id' => $destination->id,
-                    'lowest_price' => $lowestPrice
-                ]
-            ]);
-
-            return $destination;
-        });
 
         return response()->json($recommendedDestinations);
     }
+
+    // Search destination by name
+    public function searchDestination($keyword)
+    {
+        $destinations = Destination::where('name', 'like', "%$keyword%")
+            ->get();
+
+        return response()->json($destinations);
+    }
+
 
 
 

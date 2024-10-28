@@ -27,22 +27,9 @@
                 }}
             </p>
             <div class="flex justify-between items-center mt-4">
-                <span
-                    v-if="
-                        destination.package_pricings.length &&
-                        destination.package_pricings[0].lowest_price
-                    "
-                    class="text-lg font-bold"
-                >
-                    {{
-                        formatCurrency(
-                            destination.package_pricings[0].lowest_price
-                        )
-                    }}
+                <span class="text-lg font-bold">
+                    {{ formatCurrency(destination.price) }}
                 </span>
-                <p v-else class="text-xl font-bold text-gray-400">
-                    Price not available
-                </p>
                 <NavLink
                     :href="`/destination/${destination.id}`"
                     class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-full transition duration-300 transform hover:scale-110"

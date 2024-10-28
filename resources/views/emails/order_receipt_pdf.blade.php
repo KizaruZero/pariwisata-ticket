@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
             margin: 0;
             padding: 20px;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -22,6 +24,7 @@
             border-radius: 16px;
             overflow: hidden;
         }
+
         .header {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             color: #fff;
@@ -30,6 +33,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .header::before {
             content: '';
             position: absolute;
@@ -41,41 +45,51 @@
             opacity: 0.1;
             transform: rotate(30deg);
         }
+
         .logo {
             font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 10px;
         }
+
         .content {
             padding: 40px;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             color: #2ecc71;
             margin-top: 0;
         }
+
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0 10px;
             margin-top: 20px;
         }
-        th, td {
+
+        th,
+        td {
             padding: 15px;
             text-align: left;
             background-color: #f1f8e9;
             border-radius: 8px;
         }
+
         th {
             font-weight: 600;
             color: #2ecc71;
             background-color: #e8f5e9;
         }
+
         .total {
             font-weight: 700;
             font-size: 20px;
             color: #2ecc71;
         }
+
         .ticket {
             background-color: #f1f8e9;
             border: 2px dashed #2ecc71;
@@ -84,7 +98,9 @@
             position: relative;
             margin-top: 40px;
         }
-        .ticket::before, .ticket::after {
+
+        .ticket::before,
+        .ticket::after {
             content: '';
             position: absolute;
             top: -12px;
@@ -93,24 +109,34 @@
             background-color: #e8f5e9;
             border-radius: 50%;
         }
-        .ticket::before { left: -12px; }
-        .ticket::after { right: -12px; }
+
+        .ticket::before {
+            left: -12px;
+        }
+
+        .ticket::after {
+            right: -12px;
+        }
+
         .qr-code {
             text-align: center;
             margin-top: 30px;
         }
+
         .qr-code img {
             width: 150px;
             height: 150px;
             border: 5px solid #2ecc71;
             border-radius: 10px;
         }
+
         .footer {
             text-align: center;
             padding: 30px;
             background-color: #2ecc71;
             color: #fff;
         }
+
         .button {
             display: inline-block;
             padding: 12px 24px;
@@ -121,6 +147,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
+
         .button:hover {
             background-color: #219653;
             transform: translateY(-2px);
@@ -128,6 +155,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -142,12 +170,12 @@
 
             <table>
                 <tr>
-                    <th>Eco-Package</th>
-                    <td>{{ $order->packagePricing->package->name }}</td>
+                    <th>Green Destination</th>
+                    <td>{{ $order->destination->name }}</td>
                 </tr>
                 <tr>
-                    <th>Green Destination</th>
-                    <td>{{ $order->packagePricing->destination->name }}</td>
+                    <th>Quantity</th>
+                    <td>{{ $order->quantity }}</td>
                 </tr>
                 <tr>
                     <th>Earth-Friendly Payment</th>
@@ -171,20 +199,13 @@
                 </tr>
                 <tr>
                     <th>Nature's Playground</th>
-                    <td>{{ $order->packagePricing->destination->name }}</td>
-                </tr>
-                <tr>
-                    <th>Green Adventure</th>
-                    <td>{{ $order->packagePricing->package->name }}</td>
+                    <td>{{ $order->destination->name }}</td>
                 </tr>
                 <tr>
                     <th>Departure to Paradise</th>
-                    <td>{{ $order->travel_date }}</td>
+                    <td>{{ $order->booking_date }}</td>
                 </tr>
-                <tr>
-                    <th>Eco-Booking Code</th>
-                    <td>{{ $order->booking_reference }}</td>
-                </tr>
+
             </table>
 
             <div class="qr-code">
@@ -200,4 +221,5 @@
         </div>
     </div>
 </body>
+
 </html>

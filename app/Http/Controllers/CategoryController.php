@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function getCategory()
     {
         // Caching selama 1 jam (3600 detik)
-        $categories = Cache::remember('categories', 600, function () {
+        $categories = Cache::remember('categories', 86400, function () {
             return Category::all();
         });
 

@@ -20,12 +20,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\DestinationResource\Pages;
 use App\Filament\Resources\DestinationResource\RelationManagers;
+use App\Filament\Resources\DestinationResource\RelationManagers\CategoryRelationManager;
+use App\Filament\Resources\DestinationResource\RelationManagers\RegionRelationManager;
+use App\Models\Category;
+use App\Models\Region;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+
 
 class DestinationResource extends Resource
 {
     protected static ?string $model = Destination::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationIcon = 'heroicon-s-ticket';
 
     public static function form(Form $form): Form
     {
@@ -68,7 +75,12 @@ class DestinationResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('description')
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(50),
+                TextColumn::make('price')
+                    ->searchable()
+                    ->money('idr', true)
+                    ->sortable(),
                 TextColumn::make('location')
                     ->searchable(),
                 TextColumn::make('category.name')
@@ -111,6 +123,13 @@ class DestinationResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('export')
+                        ->fromTable()
+                        ->only(['name', 'description', 'location', 'category.name', 'region.name'])
+                        ->withFilename('destinasi-' . date('Y-m-d'))
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
+                ])
             ]);
     }
 

@@ -15,12 +15,16 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\Action;
+use App\Filament\Resources\OrderResource\Widgets\OrderStats;
+
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Shop';
+
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
 
     public static function form(Form $form): Form
@@ -40,8 +44,8 @@ class OrderResource extends Resource
                 TextColumn::make('destination.name')->label('Destination')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('package.name')
-                    ->label('Package'),
+                TextColumn::make('quantity')
+                    ->label('Quantity'),
                 TextColumn::make('payment_method')->label('Payment Method'),
                 TextColumn::make('booking_date')->label('Booking Date'),
                 TextColumn::make('total_price')->label('Total Price')->money('idr', true)
@@ -55,6 +59,11 @@ class OrderResource extends Resource
                             'success' => 'Approved',
                             'danger' => 'Rejected',
                         ])
+                    ->icons([
+                        'heroicon-o-clock' => 'Pending',
+                        'heroicon-o-check-circle' => 'Approved',
+                        'heroicon-o-x-circle' => 'Rejected',
+                    ])
                     ->sortable(),
             ])
             ->actions([
@@ -66,11 +75,9 @@ class OrderResource extends Resource
                             'status' => 'approved',
                             'approved_at' => now(),
                         ]);
-
                         // Kirim receipt ke buyer (email dengan PDF)
                         \Mail::to($record->user->email)->send(new \App\Mail\OrderReceipt($record));
                         $record->destination->updateTotalOrders();
-
                         return response()->json(['message' => 'Order approved and receipt sent to the user!']);
                     }),
 
@@ -78,6 +85,12 @@ class OrderResource extends Resource
                     ->label('Reject')
                     ->visible(fn(Order $record) => $record->status === 'pending')
                     ->action(fn(Order $record) => $record->update(['status' => 'rejected'])),
+            ])
+            ->groups([
+                Tables\Grouping\Group::make('booking_date')
+                    ->label('Booking Date')
+                    ->date()
+                    ->collapsible(),
             ]);
     }
 
@@ -86,6 +99,13 @@ class OrderResource extends Resource
         return [
             'index' => Pages\ListOrders::route('/'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            OrderStats::class,
         ];
     }
 }

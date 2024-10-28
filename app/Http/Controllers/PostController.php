@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 
+
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -23,7 +25,19 @@ class PostController extends Controller
 
     public function getPostDetail($id)
     {
-        $post = Post::with('author', 'destination')->findOrFail($id); // ternyata relations disini isinya nama fungsi yang ada di model
+        $post = Post::with([
+            'author',
+            'destination' => function ($query) {
+                $query->with([
+                    'packagePricings' => function ($q) {
+                        $q->select('destination_id', DB::raw('MIN(price) as lowest_price'))
+                            ->groupBy('destination_id');
+                    }
+                ]);
+            }
+        ])->findOrFail($id);
+
         return response()->json($post);
     }
+
 }

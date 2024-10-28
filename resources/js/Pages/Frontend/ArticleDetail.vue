@@ -104,6 +104,7 @@ const fetchArticle = async () => {
         loading.value = true;
         const response = await axios.get(`/api/article/${props.id}`);
         article.value = response.data;
+        console.log(response.data);
     } catch (err) {
         error.value = "Failed to fetch the article. Please try again later.";
         console.error("Error fetching article:", err);
