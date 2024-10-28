@@ -4,8 +4,9 @@
         :href="href"
         :class="[
             'text-white hover:text-blue-200 transition duration-150 ease-in-out',
-            { 'font-bold': active },
+            { 'text-[#f5c173]': active }, { 'font-bold': active },
         ]"
+        
     >
         <slot></slot>
     </Link>

@@ -15,6 +15,9 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                'vaga': '#2BB1B0',
+            },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },

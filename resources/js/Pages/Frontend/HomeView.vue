@@ -1,37 +1,104 @@
 <template>
     <GuestLayout>
-        <div class="p-8">
+        <div class="">
             <!-- Header Section -->
-            <div class="text-center mb-12">
-                <p class="text-gray-500 dark:text-gray-400">Best Location</p>
-                <h1 class="text-5xl font-bold text-gray-900 dark:text-gray-100">
-                    Indonesian Tourism
-                </h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-2">
-                    Extraordinary natural beauty, rich culture, and the
-                    friendliness of local people.
-                </p>
-                <!-- Dark mode toggle -->
-                <button
-                    @click="toggleDarkMode"
-                    class="mt-4 p-2 bg-blue-500 text-white rounded-lg transition-all hover:bg-blue-600"
-                >
-                    Toggle Dark Mode
-                </button>
-            </div>
+            <section class="relative ">
+                <!-- Main Image Section -->
+                <img
+                    :src="images[0].src"
+                    alt="Scenic view of a coastline"
+                    class="w-screen h-[680px] object-cover z-0"
+                />
+                
+                <!-- Text and Button Section -->
+                <div class="absolute -top-20 left-[120px] h-full flex flex-col justify-center text-white">
+                    <h2 class="text-6xl font-bold">Plan Your</h2>
+                    <h2 class="text-6xl font-bold">Perfect Trip</h2>
+                    
+                    <NavLink 
+                        class="mt-4 w-max px-6 py-2 bg-teal-500 rounded-xl text-lg opacity-100 text-opacity-100 hover:opacity-50"
+                        :href="route('destinations')"
+                        :active="route().current('destinations')"
+                    >
+                        <div class="text-lg hover:text-opacity-10 z-40"> Go Explore > </div> 
+                </NavLink>
+                </div>
 
-            <div class="text-center py-16" id="app">
-                <!-- Page Title with Animation -->
-                <h1 class="text-4xl font-bold mb-2 animate-fadeInDown">
-                    Top Value From Us For You
-                </h1>
-                <p class="text-gray-500 mb-12 animate-fadeInDown">
-                    Try a variety of benefits when using our services
-                </p>
-
+                <!-- Curved Section -->
+                <section class="absolute bottom-0 w-full h-[150px] bg-vaga opacity-100 z-50 rounded-tl-[50%] rounded-tr-[50%]">
+                    <div class="h-full flex items-center justify-center italic text-white text-2xl">
+                        <h1>Elevate Your Travel</h1>
+                    </div>
+                </section>
+            </section>
+            <div class="bg-vaga text-center py-4" id="app">
                 <!-- Features Section -->
                 <div
                     class="flex flex-wrap justify-center gap-8 mb-16 animate-fadeIn"
+                >
+                    <div
+                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                    >
+                        <i class="fas fa-globe text-4xl text-black mb-4"></i>
+                        <h2 class="text-xl font-semibold mb-2">
+                            Lot Of Choices
+                        </h2>
+                        <p class="text-gray-500 mb-4">
+                            500+ Destinations we work with
+                        </p>
+                        <a
+                            class="text-red-500 font-medium hover:underline"
+                            href="#"
+                            >Read more</a
+                        >
+                    </div>
+
+                    <div
+                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                    >
+                        <i class="fas fa-user-tie text-4xl text-black mb-4"></i>
+                        <h2 class="text-xl font-semibold mb-2">
+                            Best Tour Guide
+                        </h2>
+                        <p class="text-gray-500 mb-4">
+                            Guides with 10+ years of experience
+                        </p>
+                        <a
+                            class="text-red-500 font-medium hover:underline"
+                            href="#"
+                            >Read more</a
+                        >
+                    </div>
+
+                    <div
+                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                    >
+                        <i
+                            class="fas fa-calendar-check text-4xl text-black mb-4"
+                        ></i>
+                        <h2 class="text-xl font-semibold mb-2">Easy Booking</h2>
+                        <p class="text-gray-500 mb-4">
+                            Fast ticket purchase process
+                        </p>
+                        <a
+                            class="text-red-500 font-medium hover:underline"
+                            href="#"
+                            >Read more</a
+                        >
+                    </div>
+                </div>
+
+                <!-- Image with Play Button -->
+            </div>
+
+            <div class="bg-[#34383D] text-center py-2 rounded-tl-[40%] rounded-tr-[40%]" id="app">
+                <!--ji-->
+                <div class="h-full flex items-center justify-center italic text-white my-12 text-2xl">
+                        <h1>Find Interesting Articles</h1>
+                    </div>
+                <!-- Features Section -->
+                <div
+                    class="flex flex-wrap justify-center gap-8 mb-12 animate-fadeIn"
                 >
                     <div
                         class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
@@ -345,20 +412,29 @@
             </div>
         </div>
     </GuestLayout>
-</template>
+    </template>
 
-<script>
-import GuestLayout from "@/Layouts/GuestLayout.vue";
-import { ref } from "vue";
+    <script>
+    import GuestLayout from "@/Layouts/GuestLayout.vue";
+    import NavLink from "@/Components/NavLink.vue";
+    import { ref } from "vue";
 
-export default {
+
+    export default {
     name: "HomeView",
     components: {
         GuestLayout,
+        NavLink,
     },
+    
     setup() {
         const darkMode = ref(false);
         const images = ref([
+            {
+                src: "/images/home.png",
+                alt: "Pantai, SCenery",
+                title: "Bromo, East Java",
+            },
             {
                 src: "https://storage.googleapis.com/a1aa/image/o2scIMfFvKUmESJ9usC2B7cK42GcN7EemEaRIQG9uhc2wVjTA.jpg",
                 alt: "Bromo, East Java",
@@ -424,11 +500,14 @@ export default {
             toggleDarkMode,
         };
     },
-};
-</script>
+    };
+    
 
-<style>
-@keyframes fadeInDown {
+    
+    </script>
+
+    <style>
+    @keyframes fadeInDown {
     0% {
         opacity: 0;
         transform: translateY(-20px);
@@ -437,35 +516,35 @@ export default {
         opacity: 1;
         transform: translateY(0);
     }
-}
+    }
 
-@keyframes fadeIn {
+    @keyframes fadeIn {
     0% {
         opacity: 0;
     }
     100% {
         opacity: 1;
     }
-}
+    }
 
-.animate-fadeInDown {
+    .animate-fadeInDown {
     animation: fadeInDown 0.8s ease-out;
-}
+    }
 
-.animate-fadeIn {
+    .animate-fadeIn {
     animation: fadeIn 1s ease-out;
-}
+    }
 
-/* Glass Effect */
-.glass-effect {
+    /* Glass Effect */
+    .glass-effect {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: background 0.3s, box-shadow 0.3s;
-}
+    }
 
-.glass-effect:hover {
+    .glass-effect:hover {
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-</style>
+    }
+    </style>

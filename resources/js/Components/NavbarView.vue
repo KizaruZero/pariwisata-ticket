@@ -1,8 +1,8 @@
 <template>
-    <nav class="bg-vaga text-white p-4 flex justify-between items-center">
+    <nav class="bg-vaga p-4 flex justify-between items-center sticky top-0 z-50">
         <div class="container flex justify-between items-center">
             <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex space-x-4">
+            <div class="hidden md:flex ml-8 space-x-[30px] text-xs">
                 <NavLink
                     :href="route('home')"
                     :active="route().current('home')"
@@ -13,13 +13,7 @@
                     :href="route('destinations')"
                     :active="route().current('destinations')"
                 >
-                    Destination
-                </NavLink>
-                <NavLink
-                    :href="route('about')"
-                    :active="route().current('about')"
-                >
-                    About
+                    Explore
                 </NavLink>
                 <NavLink
                     :href="route('article')"
@@ -27,7 +21,18 @@
                 >
                     Article
                 </NavLink>
+                <NavLink
+                    :href="route('about')"
+                    :active="route().current('about')"
+                >
+                    About
+                </NavLink>
             </div>
+            
+            <!-- Logo -->
+            <Link :href="route('home')" class="text-white text-2xl font-bold">
+                Vagabond
+            </Link>
 
             <!-- Auth Links for Desktop -->
             <div class="hidden md:flex space-x-4">

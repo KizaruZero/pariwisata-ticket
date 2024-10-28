@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/inertia-vue3";
 </script>
 
 <template>
-    <div class="flex flex-col min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100">
         <!-- Navbar -->
         <Navbar />
 
@@ -31,8 +31,8 @@ import { Link } from "@inertiajs/inertia-vue3";
         </div> -->
 
         <!-- Content Section -->
-        <div class="flex-grow p-6 bg-white">
-            <div class="max-w-7xl mx-auto">
+        <div class="">
+            <div class=" mx-auto">
                 <slot />
             </div>
         </div>

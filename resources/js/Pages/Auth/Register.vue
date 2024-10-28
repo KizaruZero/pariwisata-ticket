@@ -1,5 +1,5 @@
 <script setup>
-import GuestLayout from "@/Layouts/GuestLayout.vue";
+
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -20,12 +20,18 @@ const submit = () => {
     });
 };
 </script>
-
+<style>
+body {
+   background-image: url("https://storage.googleapis.com/a1aa/image/CIb779Cp4gojKNcByffQ0ixPsajdRWoOP61DrBdqgNA28SkTA.jpg");
+   background-size: cover;
+   background-position: center;
+   font-family: 'Arial', sans-serif;
+ }
+</style>
 <template>
-    <GuestLayout>
         <Head title="Register" />
-
-        <form @submit.prevent="submit">
+            <div class="w-1/2 h-1/3 top-0 right-0 bg">
+                <form @submit.prevent="submit">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -98,7 +104,7 @@ const submit = () => {
                     :href="route('login')"
                     class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    Already registered?
+                    Already have a Vagabond Account?
                 </Link>
 
                 <PrimaryButton
@@ -110,5 +116,6 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+            </div>
+        
 </template>
