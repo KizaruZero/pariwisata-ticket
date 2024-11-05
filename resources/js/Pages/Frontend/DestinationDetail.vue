@@ -3,23 +3,59 @@
         <div class="min-h-screen bg-white flex items-center justify-center">
             <div
                 v-if="destination"
-                class="w-full bg-blue-50 p-6 rounded-lg shadow-lg"
+                class="relative w-full h-full bg-cream rounded-lg shadow-lg "
             >
-                <img
+            <!--
+            <img
                     :src="`/storage/${destination.image_url}`"
                     alt="Image"
                     class="w-full h-full object-cover rounded-lg"
                 />
-                <h1 class="text-3xl font-bold text-blue-900 mt-4">
-                    {{ destination.name }}
-                </h1>
-                <p class="text-gray-700 mt-2">{{ destination.description }}</p>
-                <p class="text-gray-500 mt-2">
+            -->
+                <div class="relative">
+                    <img
+                    src="../../assets/home.png"
+                    alt="Image"
+                    class="w-full h-[400px] object-cover"
+                />
+                <section class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]">
+                    <div class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl">
+                        <StarRating class="absolute w-16 h-16 mt-2 right-[150px]"></StarRating>
+                    </div>
+                </section>
+                    
+                </div>
+
+                <div class="px-20 w-full">
+                    <div class="relative flex ">
+                        <h1 class="text-6xl font-bold text-[#1d8a89]">
+                            {{ destination.name }}
+                        </h1>
+                        <span class="absolute right-4 m-4 px-2 text-gray-700 text-3xl bg-white/55 rounded-2xl backdrop-blur-md">
+                            {{ formatRating(destination.rating) }} / 5
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </span>
+                        
+                    </div>
+                <div>
+                    <p class="text-3xl font-bold pt-4">
+                    {{ formatCurrency(destination.price) }} / Orang
+                    </p>
+
+                </div>
+                
+                <div class="flex flex-col">
+                    <p class="flex text-gray-500 mt-2">
                     Region: {{ destination.region.name }}
                 </p>
-                <p class="text-gray-500">
+                <p class="flex text-gray-500">
                     Category: {{ destination.category.name }}
                 </p>
+
+                </div>
+                
+                <p class="text-gray-700 text-[32px] mt-2">{{ destination.description }}</p>
+                
 
                 <div v-if="destination.reviews.length > 0" class="mt-4">
                     <h2 class="text-xl font-semibold">Reviews</h2>
@@ -120,9 +156,11 @@
                     Back to Destinations
                 </button>
             </div>
-            <div v-else>
-                <p>Loading destination details...</p>
-            </div>
+            
+                </div>
+            
+                
+
         </div>
     </GuestLayout>
 </template>
@@ -134,6 +172,7 @@ import { defineProps } from "vue";
 import ReviewComponent from "../../Frontend Components/ReviewComponent.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import ArticleCard from "@/Frontend Components/ArticleCard.vue";
+import StarRating from "@/Frontend Components/StarRating.vue";
 
 // Accept 'id' as a prop
 const props = defineProps({
@@ -153,6 +192,13 @@ const order = ref({
     booking_date: null,
 });
 
+const formatCurrency = (value) => {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+    }).format(value);
+};
+
 // Minimum date for booking
 const minDate = computed(() => {
     const today = new Date();
@@ -168,7 +214,9 @@ onMounted(async () => {
         console.error("Error fetching data:", error);
     }
 });
-
+const formatRating = (rating) => {
+  return parseFloat(rating).toFixed(1);
+};
 const formErrors = ref([]);
 
 const submitOrder = async () => {

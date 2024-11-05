@@ -1,8 +1,8 @@
 <template>
-    <nav class="bg-vaga p-4 flex justify-between items-center sticky top-0 z-50">
-        <div class="container flex justify-between items-center">
+    <nav class="bg-vaga p-4  flex justify-between items-center sticky top-0 z-50">
+        <div class="flex justify-between items-center w-screen px-8">
             <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex ml-8 space-x-[30px] text-xs">
+            <div class="hidden md:flex space-x-5 text-xs">
                 <NavLink
                     :href="route('home')"
                     :active="route().current('home')"
@@ -30,9 +30,13 @@
             </div>
             
             <!-- Logo -->
-            <Link :href="route('home')" class="text-white text-2xl font-bold">
-                Vagabond
+             <div class="flex flex-col">
+            <Link :href="route('home')" class="text-white text-3xl font-bold -ml-5 flex flex-row" >
+                <img src="../assets/logo/vagabond.svg" class="w-[50px]">
+                <h2>Vagabond</h2>
             </Link>
+             </div>
+            
 
             <!-- Auth Links for Desktop -->
             <div class="hidden md:flex space-x-4">
@@ -95,27 +99,27 @@
                     v-if="mobileMenuOpen"
                     class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg"
                 >
-                    <NavLink
+                    <Link
                         :href="route('destinations')"
                         :active="route().current('destinations')"
-                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                        class="block px-4 py-2 text-black hover:bg-gray-100"
                     >
                         Destination
-                    </NavLink>
-                    <NavLink
+                    </Link>
+                    <Link
                         :href="route('about')"
                         :active="route().current('about')"
-                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                        class="block px-4 py-2 text-black hover:bg-gray-100"
                     >
                         About
-                    </NavLink>
-                    <NavLink
+                    </Link>
+                    <Link
                         :href="route('article')"
                         :active="route().current('article')"
-                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                        class="block px-4 py-2 text-black hover:bg-gray-100"
                     >
                         Article
-                    </NavLink>
+                    </Link>
 
                     <div v-if="!user">
                         <!-- Guest links: Login / Register -->

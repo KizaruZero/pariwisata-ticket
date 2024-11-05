@@ -4,7 +4,7 @@
         :href="href"
         :class="[
             'text-white hover:text-blue-200 transition duration-150 ease-in-out',
-            { 'text-[#f5c173]': active }, { 'font-bold': active },
+            { 'text-[#f7c06d]': active }, { 'font-bold': active },
         ]"
         
     >
