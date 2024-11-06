@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -47,6 +48,7 @@ class OrderResource extends Resource
                 TextColumn::make('quantity')
                     ->label('Quantity'),
                 TextColumn::make('payment_method')->label('Payment Method'),
+                ImageColumn::make('payment_proof')->label('Payment Proof'),
                 TextColumn::make('booking_date')->label('Booking Date'),
                 TextColumn::make('total_price')->label('Total Price')->money('idr', true)
                     ->searchable()
