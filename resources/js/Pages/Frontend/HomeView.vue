@@ -21,7 +21,7 @@
                         :active="route().current('destinations')"
                     >
                         <div class="text-lg hover:text-opacity-10 z-40"> Go Explore > </div> 
-                </NavLink>
+                    </NavLink>
                 </div>
 
                 <!-- Curved Section -->
@@ -33,6 +33,7 @@
             </section>
 
             <!-- Features Section -->
+            <!--
             <div class="bg-vaga text-center pb-4" id="app">
                 <div
                     class="flex flex-wrap justify-center gap-8 mb-16 animate-fadeIn"
@@ -88,9 +89,40 @@
                         >
                     </div>
                 </div>
-
-                <!-- Image with Play Button -->
             </div>
+            -->
+            <!-- Recomended Destination -->
+            
+
+            <!-- Destination List -->
+            <section class="bg-vaga pb-10 relative " id="app">
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="errorMessage">{{ errorMessage }}</div>
+    <div v-else-if="recommendeds.length === 0">No recommended destinations found.</div>
+    
+    <Carousel v-bind="config" v-if="recommendeds.length > 0"  >
+      <Slide v-for="destination in recommendeds" :key="destination.id " >
+        <DestinationCard :destination="destination" />
+      </Slide>
+
+      <template #addons>
+        <Navigation />
+      </template>
+    </Carousel>
+    <!-- See More Section -->
+    <NavLink 
+    :href="route('destinations')"
+    :active="route().current('destinations')"
+    class="flex flex-row w-full justify-center items-center pt-10 text-cream text-[18px] hover:text-white hover:opacity-80"
+        >
+        <h3 class="mr-2">SEE MORE</h3>
+        <img src="../../assets/logo/SearchLogo.png">
+    </NavLink>
+    
+    
+  </section>
+            
+
             <!-- Article Section -->
 
             <div class="bg-bond text-center py-2" id="app">
@@ -99,63 +131,20 @@
                 <div class="relative h-full flex items-center justify-center italic text-white my-12 text-2xl">
                         <h1>Find Interesting Articles</h1>
                     </div>
-                <!-- Features Section -->
-                <div
-                    class="flex flex-wrap justify-center gap-8 mb-12 animate-fadeIn"
-                >
-                    <div
-                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
-                    >
-                        <i class="fas fa-globe text-4xl text-black mb-4"></i>
-                        <h2 class="text-xl font-semibold mb-2">
-                            Lot Of Choices
-                        </h2>
-                        <p class="text-gray-500 mb-4">
-                            500+ Destinations we work with
-                        </p>
-                        <a
-                            class="text-red-500 font-medium hover:underline"
-                            href="#"
-                            >Read more</a
-                        >
-                    </div>
-
-                    <div
-                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
-                    >
-                        <i class="fas fa-user-tie text-4xl text-black mb-4"></i>
-                        <h2 class="text-xl font-semibold mb-2">
-                            Best Tour Guide
-                        </h2>
-                        <p class="text-gray-500 mb-4">
-                            Guides with 10+ years of experience
-                        </p>
-                        <a
-                            class="text-red-500 font-medium hover:underline"
-                            href="#"
-                            >Read more</a
-                        >
-                    </div>
-
-                    <div
-                        class="glass-effect shadow-lg rounded-lg p-6 w-64 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
-                    >
-                        <i
-                            class="fas fa-calendar-check text-4xl text-black mb-4"
-                        ></i>
-                        <h2 class="text-xl font-semibold mb-2">Easy Booking</h2>
-                        <p class="text-gray-500 mb-4">
-                            Fast ticket purchase process
-                        </p>
-                        <a
-                            class="text-red-500 font-medium hover:underline"
-                            href="#"
-                            >Read more</a
-                        >
-                    </div>
+                <div class="flex flex-row px-12 pb-10 space-x-8" >
+                    <ArticleBox class="w-[430px] h-[144px]"></ArticleBox>
+                    <ArticleBox class="w-[430px] h-[144px]"></ArticleBox>
+                    <ArticleBox class="w-[430px] h-[144px]"></ArticleBox>
                 </div>
-
-                <!-- Image with Play Button -->
+                <NavLink 
+                :href="route('destinations')"
+                :active="route().current('destinations')"
+                class="flex flex-row w-full justify-center items-center pb-10 text-cream text-[18px] hover:text-white hover:opacity-80"
+                    >
+                    <h3 class="mr-2">READ MORE</h3>
+                    <img src="../../assets/logo/SearchLogo.png">
+                </NavLink>
+                            
             </div>
             <div class="bg-vaga text-center" id="app">
                 <!-- Features Section -->
@@ -219,22 +208,50 @@
     </GuestLayout>
     </template>
 
-    <script>
-    import GuestLayout from "@/Layouts/GuestLayout.vue";
-    import NavLink from "@/Components/NavLink.vue";
-    import { ref } from "vue";
-import FooterComponent from "@/Components/FooterComponent.vue";
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import NavLink from '@/Components/NavLink.vue';
+import DestinationCard from '@/Frontend Components/DestinationCard.vue';
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
+import ArticleBox from '@/Frontend Components/ArticleBox.vue';
+
+const config = {
+  itemsToShow: 4.1,
+  wrapAround: true,
+  transition: 500,
+};
+// Reactive references
+const recommendeds = ref([]);
+const loading = ref(false);
+const errorMessage = ref(null);
 
 
-    export default {
-    name: "HomeView",
-    components: {
-        GuestLayout,
-        NavLink,
-        FooterComponent
-    },
-    
-    setup() {
+// Fetch recommended destinations
+const fetchRecommendedDestinations = async () => {
+  loading.value = true;
+  errorMessage.value = null; // Reset error message before request
+  try {
+    const response = await axios.get('/api/destination/recomendation');
+    recommendeds.value = response.data || []; // Ensure recommendeds is always an array
+  } catch (error) {
+    console.error('Error fetching recommended destinations:', error);
+    errorMessage.value = `Failed to fetch data: ${error.response?.status} ${error.response?.statusText || error.message}`;
+    recommendeds.value = []; // Default to empty array on error
+  } finally {
+    loading.value = false;
+  }
+};
+
+// Fetch data on mounted
+onMounted(() => {
+  fetchRecommendedDestinations();
+});
+
+        // Sample data for other sections (if relevant)
         const darkMode = ref(false);
         const images = ref([
             {
@@ -272,26 +289,22 @@ import FooterComponent from "@/Components/FooterComponent.vue";
             {
                 icon: "fas fa-search",
                 title: "Find your destination",
-                description:
-                    "Embark on a journey to discover your dream destination.",
+                description: "Embark on a journey to discover your dream destination.",
             },
             {
                 icon: "fas fa-ticket-alt",
                 title: "Book a ticket",
-                description:
-                    "Book tickets to your preferred destination easily.",
+                description: "Book tickets to your preferred destination easily.",
             },
             {
                 icon: "fas fa-credit-card",
                 title: "Make payment",
-                description:
-                    "Multiple payment options for hassle-free transactions.",
+                description: "Multiple payment options for hassle-free transactions.",
             },
             {
                 icon: "fas fa-map-marker-alt",
                 title: "Explore destination",
-                description:
-                    "Immerse yourself in captivating sights and sounds.",
+                description: "Immerse yourself in captivating sights and sounds.",
             },
         ]);
 
@@ -300,18 +313,9 @@ import FooterComponent from "@/Components/FooterComponent.vue";
             document.body.classList.toggle("dark", darkMode.value);
         };
 
-        return {
-            darkMode,
-            images,
-            steps,
-            toggleDarkMode,
-        };
-    },
-    };
-    
+        
+</script>
 
-    
-    </script>
 
     <style>
     @keyframes fadeInDown {
@@ -354,4 +358,47 @@ import FooterComponent from "@/Components/FooterComponent.vue";
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
+
+    .carousel__slide {
+   padding: 8px;/* Adjust padding as needed */
+}
+
+.carousel__viewport {
+  perspective: 2000px;
+}
+
+.carousel__track {
+  transform-style: preserve-3d;
+}
+
+.carousel__slide--sliding {
+  transition: 1s;
+}
+
+.carousel__slide {
+  opacity: 0.8;
+  transform:rotateY(-10deg) scale(0.8);
+}
+
+.carousel__slide--active ~ .carousel__slide {
+    opacity: 0.8;
+    transform: rotateY(10deg) scale(0.8);
+}
+
+.carousel__slide--prev {
+  opacity: 0.9;
+  transform: rotateY(-5deg) scale(0.95);
+}
+
+.carousel__slide.carousel__slide--next {
+  opacity: 0.9;
+  transform: rotateY(5deg) scale(0.95);
+}
+
+.carousel__slide--active {
+  opacity: 1;
+  transform: rotateY(0) scale(1);
+  
+ 
+}
     </style>

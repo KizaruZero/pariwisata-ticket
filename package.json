@@ -22,6 +22,7 @@
         "@heroicons/vue": "^2.1.5",
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
-        "marked": "^14.1.2"
+        "marked": "^14.1.2",
+        "vue3-carousel": "^0.5.1"
     }
 }
