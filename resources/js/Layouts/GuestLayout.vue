@@ -1,10 +1,11 @@
 <script setup>
 import Navbar from "@/Components/NavbarView.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import FooterComponent from "@/Components/FooterComponent.vue";
 </script>
 
 <template>
-    <div class="flex flex-col min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100">
         <!-- Navbar -->
         <Navbar />
 
@@ -31,23 +32,26 @@ import { Link } from "@inertiajs/inertia-vue3";
         </div> -->
 
         <!-- Content Section -->
-        <div class="flex-grow p-6 bg-white">
-            <div class="max-w-7xl mx-auto">
-                <slot />
+        <div class="">
+            <div class=" mx-auto">
+                <slot></slot>
             </div>
         </div>
 
         <!-- Footer -->
+        <FooterComponent/>
     </div>
 </template>
 
 <script>
 import Navbar from "@/Components/NavbarView.vue";
+import FooterComponent from "@/Components/FooterComponent.vue";
 
 export default {
     components: {
         Navbar,
         Link,
+        FooterComponent,
     },
 };
 </script>

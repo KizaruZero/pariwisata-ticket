@@ -1,6 +1,6 @@
 <template>
     <GuestLayout>
-        <div class="bg-white text-gray-800">
+        <div class="bg-cream text-gray-800">
             <div class="container mx-auto p-6" id="app">
                 <!-- Title Section -->
                 <div class="text-center mb-12">
@@ -20,6 +20,7 @@
                         :article="article"
                     />
                 </div>
+                <ArticleBox /> 
 
                 <!-- Explore More Button -->
                 <div class="text-center mb-12">
@@ -60,6 +61,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import axios from "axios";
+import ArticleBox from "@/Frontend Components/ArticleBox.vue";
 import ArticleCard from "@/Frontend Components/ArticleCard.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 

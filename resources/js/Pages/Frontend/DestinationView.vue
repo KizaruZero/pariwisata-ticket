@@ -1,9 +1,9 @@
 <template>
     <GuestLayout>
         <div
-            class="flex flex-col items-center justify-center min-h-screen bg-blue-100"
+            class="flex flex-col items-center justify-center min-h-screen bg-cream"
         >
-            <div v-if="loading" class="flex justify-center items-center h-64">
+            <div v-if="loading" class="flex justify-center items-center h-64 absolute">
                 <div
                     class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
                 ></div>
@@ -17,74 +17,131 @@
                 <strong class="font-bold">Error!</strong>
                 <span class="block sm:inline">{{ error }}</span>
             </div>
-            <!-- Dropdown for categories -->
-            <div class="mb-4">
-                <select v-model="selectedCategory">
-                    <option value="">All Categories</option>
-                    <option
-                        v-for="category in categories"
-                        :key="category.id"
-                        :value="category.id"
-                    >
-                        {{ category.name }}
-                    </option>
-                </select>
-            </div>
 
-            <!-- Dropdown for regions -->
-            <div class="mb-4">
-                <select v-model="selectedRegion">
-                    <option value="">All Regions</option>
-                    <option
-                        v-for="region in regions"
-                        :key="region.id"
-                        :value="region.id"
-                    >
-                        {{ region.name }}
-                    </option>
-                </select>
-            </div>
+            <div class="relative ">
+    <!-- Image -->
+                <img
+                    src="../../assets/Explore.png"
+                    alt="Scenic view of a coastline"
+                    class="w-screen h-[350px] object-cover z-0"
+                />
 
-            <!-- Search Field with Clear Button -->
-            <div class="my-4">
-                <form
-                    @submit.prevent="submitSearch"
-                    class="flex items-center space-x-2"
+                <!-- Dropdowns and Search Field on Top of Image -->
+                <div
+                    class="absolute inset-0 flex flex-col items-center text-center bg-black bg-opacity-50 space-y-4"
                 >
-                    <label for="search" class="sr-only"
-                        >Search for destination</label
-                    >
-                    <input
-                        id="search"
-                        type="text"
-                        v-model="search"
-                        placeholder="Search for destination..."
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-                    />
-                    <button
-                        type="submit"
-                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        Search
-                    </button>
-                    <!-- Clear Button -->
-                    <button
-                        v-if="search"
-                        type="button"
-                        @click="clearSearch"
-                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                    >
-                        Clear
-                    </button>
-                </form>
+
+                    <!--Text Part-->
+                    <div class="text-5xl text-cream p-6 mt-10">
+                        <h1>Popular Places Near Where You Are</h1>
+                    </div>
+                    <!--Dropdown Part-->
+                    <!-- Dropdown for categories -->
+                    <div class="w-full items-center justify-center flex space-x-20">
+                        <div class="w-full max-w-[300px] ">
+                        <select
+                            v-model="selectedCategory"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">All Categories</option>
+                            <option
+                                v-for="category in categories"
+                                :key="category.id"
+                                :value="category.id"
+                            >
+                                {{ category.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Dropdown for regions -->
+                    <div class="w-full max-w-[300px]">
+                        <select
+                            v-model="selectedRegion"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">All Regions</option>
+                            <option
+                                v-for="region in regions"
+                                :key="region.id"
+                                :value="region.id"
+                            >
+                                {{ region.name }}
+                            </option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <!-- Search Field with Clear Button -->
+            <div class="w-full max-w-md pt-4">
+                        <form @submit.prevent="submitSearch" class="flex items-center space-x-2">
+                            <input
+                                id="search"
+                                type="text"
+                                v-model="search"
+                                placeholder="Search for destination..."
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                            />
+                            <button
+                            v-if="search"
+                                type="submit"
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                Search
+                            </button>
+                            <!-- Clear Button -->
+                            <button
+                                v-if="search"
+                                type="button"
+                                @click="clearSearch"
+                                class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                            >
+                                Clear
+                            </button>
+                        </form>
+                    </div>
+                    
+
+                    
+                    <section class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]">
+                                <div class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl">
+                                    
+                                </div>
+                            </section>
+                    
+                </div>
             </div>
 
-            <!-- Destination Result  -->
-            <div v-if="searchResult.length === 0"></div>
-            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <h1 class="text-3xl font-bold">Search Result</h1>
+            
+
+            <!-- Destination Result -->
+            <div v-if="loading">Loading...</div>
+            <div v-if="!loading && searchClicked && searchResult.length === 0">
+                <h1 class="text-3xl text-bond font-bold col-span-full w-full justify-center items-center">Search Result</h1>
+                <p class="text-xl text-bond font-semibold text-center">No Destination Found</p>
+            </div>
+            <div v-else-if="searchClicked && searchResult.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <h1 class="text-3xl  font-bold col-span-full justify-center items-center">Search Result</h1>
                 <DestinationCard
                     v-for="destination in searchResult"
+                    :key="destination.id"
+                    :destination="destination"
+                />
+            </div>
+
+
+
+            <!-- Ordinary Recomendation -->
+            <h1 class="text-4xl font-bold text-blue-900">Destinations List</h1>
+
+            <!-- Destination List -->
+            <div v-if="loading">Loading...</div>
+            <div v-else-if="destinations.length === 0">
+                No destinations found.
+            </div>
+            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <DestinationCard
+                    v-for="destination in destinations"
                     :key="destination.id"
                     :destination="destination"
                 />
@@ -113,7 +170,7 @@
             <!-- Destination List -->
             <div v-if="loading">Loading...</div>
             <div v-else-if="recommendeds.length === 0">
-                No destinations found.
+                No Recomendation destinations found.
             </div>
             <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <DestinationCard
@@ -135,7 +192,6 @@
             </div>
 
             <!-- Destination List -->
-            <!-- Destination List -->
             <div v-if="loading">Loading...</div>
             <div v-else-if="recomendationByUser.length === 0">
                 No destinations found.
@@ -143,22 +199,6 @@
             <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <DestinationCard
                     v-for="destination in recomendationByUser"
-                    :key="destination.id"
-                    :destination="destination"
-                />
-            </div>
-
-            <!-- Ordinary Recomendation -->
-            <h1 class="text-4xl font-bold text-blue-900">Destinations List</h1>
-
-            <!-- Destination List -->
-            <div v-if="loading">Loading...</div>
-            <div v-else-if="destinations.length === 0">
-                No destinations found.
-            </div>
-            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <DestinationCard
-                    v-for="destination in destinations"
                     :key="destination.id"
                     :destination="destination"
                 />
@@ -263,15 +303,16 @@ const fetchRecommendedByUser = async () => {
     }
 };
 
+
 const search = ref("");
-const searchResult = ref("");
+const searchResult = ref([]);
+const searchClicked = ref(false);
 
 const submitSearch = async () => {
     loading.value = true;
+    searchClicked.value = true;  // Set to true when search is initiated
     try {
-        const response = await axios.get(
-            `/api/destination/search/${search.value}`
-        );
+        const response = await axios.get(`/api/destination/search/${search.value}`);
         searchResult.value = response.data;
         console.log(searchResult.value);
     } catch (error) {
@@ -294,7 +335,10 @@ const clearSearch = async () => {
     }
 
     search.value = "";
-};
+    searchClicked.value = false;  // Reset searchClicked when clearing the search
+}
+
+
 
 watch([selectedCategory, selectedRegion], () => {
     fetchDestinations();

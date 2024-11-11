@@ -6,11 +6,36 @@
                 <div
                     class="bg-white bg-opacity-70 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl relative"
                 >
-                    <img
+                <!--
+                 <img
                         :alt="article.alt"
                         class="w-full h-64 object-cover transition-transform transform hover:scale-105"
                         :src="`/storage/${article.image_url}`"
                     />
+                    <div class="px-4">
+                        <h2 class="text-lg font-bold">
+                            {{
+                                article.title.length > 50
+                                    ? article.title.slice(0, 50) + "..."
+                                    : article.title
+                            }}
+                        </h2>
+                    </div>
+
+                    <div class="mt-2 mb-4 px-4">
+                        <NavLink
+                            :href="`/article/${article.id}`"
+                            class="custom-button w-full"
+                        >
+                            Read More
+                        </NavLink>
+                    </div>
+                -->
+                <img
+                alt="Image of Bali Tour Package"
+                class="w-full h-full object-cover"
+                src="../assets/home.png"
+                />
                     <div class="px-4">
                         <h2 class="text-lg font-bold">
                             {{
