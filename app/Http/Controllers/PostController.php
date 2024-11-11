@@ -27,14 +27,7 @@ class PostController extends Controller
     {
         $post = Post::with([
             'author',
-            'destination' => function ($query) {
-                $query->with([
-                    'packagePricings' => function ($q) {
-                        $q->select('destination_id', DB::raw('MIN(price) as lowest_price'))
-                            ->groupBy('destination_id');
-                    }
-                ]);
-            }
+            'destination'
         ])->findOrFail($id);
 
         return response()->json($post);

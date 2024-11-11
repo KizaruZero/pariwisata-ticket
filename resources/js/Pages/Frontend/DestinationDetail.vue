@@ -3,9 +3,9 @@
         <div class="min-h-screen bg-white flex items-center justify-center">
             <div
                 v-if="destination"
-                class="relative w-full h-full bg-cream rounded-lg shadow-lg "
+                class="relative w-full h-full bg-cream rounded-lg shadow-lg"
             >
-            <!--
+                <!--
             <img
                     :src="`/storage/${destination.image_url}`"
                     alt="Image"
@@ -14,218 +14,223 @@
             -->
                 <div class="relative">
                     <img
-                    src="../../assets/home.png"
-                    alt="Image"
-                    class="w-full h-[400px] object-cover"
-                />
-                <section class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]">
-                    <div class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl">
-                        <StarRating class="absolute w-16 h-16 mt-2 right-[150px]"></StarRating>
-                    </div>
-                </section>
-                    
+                        src="../../assets/home.png"
+                        alt="Image"
+                        class="w-full h-[400px] object-cover"
+                    />
+                    <section
+                        class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]"
+                    >
+                        <div
+                            class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl"
+                        >
+                            <StarRating
+                                class="absolute w-16 h-16 mt-2 right-[150px]"
+                            ></StarRating>
+                        </div>
+                    </section>
                 </div>
 
                 <div class="px-20 w-full">
-                    <div class="relative flex ">
+                    <div class="relative flex">
                         <h1 class="text-6xl font-bold text-[#1d8a89]">
                             {{ destination.name }}
                         </h1>
-                        <span class="absolute right-4 m-4 px-2 text-gray-700 text-3xl bg-white/55 rounded-2xl backdrop-blur-md">
+                        <span
+                            class="absolute right-4 m-4 px-2 text-gray-700 text-3xl bg-white/55 rounded-2xl backdrop-blur-md"
+                        >
                             {{ formatRating(destination.rating) }} / 5
                             <i class="fas fa-star text-yellow-500"></i>
                         </span>
-                        
                     </div>
-                <div>
-                    <p class="text-3xl font-bold pt-4">
-                    {{ formatCurrency(destination.price) }} / Orang
+                    <div>
+                        <p class="text-3xl font-bold pt-4">
+                            {{ formatCurrency(destination.price) }} / Orang
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <p class="flex text-gray-500 mt-2">
+                            Region: {{ destination.region.name }}
+                        </p>
+                        <p class="flex text-gray-500">
+                            Category: {{ destination.category.name }}
+                        </p>
+                    </div>
+
+                    <p class="text-gray-700 text-[32px] mt-2">
+                        {{ destination.description }}
                     </p>
 
-                </div>
-                
-                <div class="flex flex-col">
-                    <p class="flex text-gray-500 mt-2">
-                    Region: {{ destination.region.name }}
-                </p>
-                <p class="flex text-gray-500">
-                    Category: {{ destination.category.name }}
-                </p>
-
-                </div>
-                
-                <p class="text-gray-700 text-[32px] mt-2">{{ destination.description }}</p>
-                
-
-                <div v-if="destination.reviews.length > 0" class="mt-4">
-                    <h2 class="text-xl font-semibold">Reviews</h2>
-                    <div
-                        v-for="review in destination.reviews"
-                        :key="review.id"
-                        class="mt-2 p-4 bg-gray-100 rounded-lg"
-                    >
-                        <p class="font-bold">{{ review.user.name }}</p>
-                        <p class="text-yellow-500">
-                            Rating: {{ review.rating }}/5
-                        </p>
-                        <p class="mt-2">{{ review.review_text }}</p>
-                    </div>
-                </div>
-
-                <!-- Order form -->
-                <form @submit.prevent="submitOrder">
-                    <div class="mt-4">
-                        <label for="quantity" class="block">Quantity</label>
-                        <input
-                            v-model.number="order.quantity"
-                            type="number"
-                            min="1"
-                            class="mt-1 p-2 border rounded"
-                            required
-                        />
-                    </div>
-
-                    <div class="mt-4">
-                        <label for="payment_method" class="block"
-                            >Payment Method</label
+                    <div v-if="destination.reviews.length > 0" class="mt-4">
+                        <h2 class="text-xl font-semibold">Reviews</h2>
+                        <div
+                            v-for="review in destination.reviews"
+                            :key="review.id"
+                            class="mt-2 p-4 bg-gray-100 rounded-lg"
                         >
-                        <select
-                            v-model="order.payment_method"
-                            class="mt-1 p-2 border rounded"
-                        >
-                            <option value="credit_card">Credit Card</option>
-                            <option value="bank_transfer">Bank Transfer</option>
-                        </select>
+                            <p class="font-bold">{{ review.user.name }}</p>
+                            <p class="text-yellow-500">
+                                Rating: {{ review.rating }}/5
+                            </p>
+                            <p class="mt-2">{{ review.review_text }}</p>
+                        </div>
                     </div>
 
-                    <!-- Date -->
-                    <div class="mt-4">
-                        <label for="date" class="block" name="date">Date</label>
-                        <input
-                            v-model="order.booking_date"
-                            type="date"
-                            id="date"
-                            class="mt-1 p-2 border rounded"
-                            :min="minDate"
-                            required
-                        />
-                    </div>
-
-                    <!-- Payment Proof -->
-                    <!-- Payment Proof -->
-                    <div>
-                        <label
-                            for="payment_proof"
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                            Payment Proof
-                        </label>
-                        <div class="relative">
+                    <!-- Order form -->
+                    <form @submit.prevent="submitOrder">
+                        <div class="mt-4">
+                            <label for="quantity" class="block">Quantity</label>
                             <input
-                                type="file"
-                                id="payment_proof"
-                                accept="image/*"
-                                @change="handleFileUpload"
-                                ref="fileInput"
-                                class="hidden"
-                                :class="{
-                                    'border-red-500': errors.payment_proof,
-                                }"
+                                v-model.number="order.quantity"
+                                type="number"
+                                min="1"
+                                class="mt-1 p-2 border rounded"
+                                required
                             />
-                            <button
-                                @click="$refs.fileInput.click()"
-                                class="w-full px-4 py-2.5 rounded-xl border-2 border-dashed border-orange-200 hover:border-orange-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-500 hover:text-orange-600"
-                            >
-                                Click to upload payment proof
-                            </button>
                         </div>
 
-                        <!-- Image Preview -->
-                        <div v-if="imagePreview" class="mt-4">
-                            <div class="relative w-32 h-32">
-                                <img
-                                    :src="imagePreview"
-                                    alt="Preview"
-                                    class="w-full h-full object-cover rounded-xl"
+                        <div class="mt-4">
+                            <label for="payment_method" class="block"
+                                >Payment Method</label
+                            >
+                            <select
+                                v-model="order.payment_method"
+                                class="mt-1 p-2 border rounded"
+                            >
+                                <option value="credit_card">Credit Card</option>
+                                <option value="bank_transfer">
+                                    Bank Transfer
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="mt-4">
+                            <label for="date" class="block" name="date"
+                                >Date</label
+                            >
+                            <input
+                                v-model="order.booking_date"
+                                type="date"
+                                id="date"
+                                class="mt-1 p-2 border rounded"
+                                :min="minDate"
+                                required
+                            />
+                        </div>
+
+                        <!-- Payment Proof -->
+                        <!-- Payment Proof -->
+                        <div>
+                            <label
+                                for="payment_proof"
+                                class="block text-sm font-medium text-gray-700 mb-2"
+                            >
+                                Payment Proof
+                            </label>
+                            <div class="relative">
+                                <input
+                                    type="file"
+                                    id="payment_proof"
+                                    accept="image/*"
+                                    @change="handleFileUpload"
+                                    ref="fileInput"
+                                    class="hidden"
+                                    :class="{
+                                        'border-red-500': errors.payment_proof,
+                                    }"
                                 />
                                 <button
-                                    @click="removeImage"
-                                    class="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition-colors"
+                                    @click="$refs.fileInput.click()"
+                                    class="w-full px-4 py-2.5 rounded-xl border-2 border-dashed border-orange-200 hover:border-orange-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-500 hover:text-orange-600"
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-4 w-4"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
+                                    Click to upload payment proof
                                 </button>
                             </div>
+
+                            <!-- Image Preview -->
+                            <div v-if="imagePreview" class="mt-4">
+                                <div class="relative w-32 h-32">
+                                    <img
+                                        :src="imagePreview"
+                                        alt="Preview"
+                                        class="w-full h-full object-cover rounded-xl"
+                                    />
+                                    <button
+                                        @click="removeImage"
+                                        class="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition-colors"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-4 w-4"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <p
+                                v-if="errors.payment_proof"
+                                class="mt-2 text-sm text-red-500"
+                            >
+                                {{ errors.payment_proof }}
+                            </p>
                         </div>
 
-                        <p
-                            v-if="errors.payment_proof"
-                            class="mt-2 text-sm text-red-500"
+                        <button type="submit" class="mt-4 btn-primary">
+                            Submit Order
+                        </button>
+
+                        <div
+                            v-if="formErrors.length"
+                            class="mt-4 bg-red-100 p-4 rounded"
                         >
-                            {{ errors.payment_proof }}
-                        </p>
+                            <ul>
+                                <li
+                                    v-for="error in formErrors"
+                                    :key="error"
+                                    class="text-red-600"
+                                >
+                                    {{ error }}
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+
+                    <ReviewComponent :destinationId="destinationId" />
+                    <div class="mt-8">
+                        <ArticleCard
+                            v-for="article in destination.articles"
+                            :key="article.id"
+                            :article="article"
+                        />
                     </div>
 
-                    <button type="submit" class="mt-4 btn-primary">
-                        Submit Order
+                    <button
+                        @click="toggleLike(destination)"
+                        :class="[
+                            'mt-4 p-2 rounded-lg',
+                            destination.isLiked
+                                ? 'bg-red-500 text-white'
+                                : 'bg-blue-500 text-white',
+                        ]"
+                    >
+                        {{ destination.isLiked ? "Unlike" : "Like" }}
                     </button>
 
-                    <div
-                        v-if="formErrors.length"
-                        class="mt-4 bg-red-100 p-4 rounded"
-                    >
-                        <ul>
-                            <li
-                                v-for="error in formErrors"
-                                :key="error"
-                                class="text-red-600"
-                            >
-                                {{ error }}
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-
-                <ReviewComponent :destinationId="destinationId" />
-                <div class="mt-8">
-                    <ArticleCard
-                        v-for="article in destination.articles"
-                        :key="article.id"
-                        :article="article"
-                    />
+                    <button @click="goBack" class="mt-4 btn-primary">
+                        Back to Destinations
+                    </button>
                 </div>
-
-                <button
-                    @click="toggleLike(destination)"
-                    :class="[
-                        'mt-4 p-2 rounded-lg',
-                        destination.isLiked
-                            ? 'bg-red-500 text-white'
-                            : 'bg-blue-500 text-white',
-                    ]"
-                >
-                    {{ destination.isLiked ? "Unlike" : "Like" }}
-                </button>
-
-                <button @click="goBack" class="mt-4 btn-primary">
-                    Back to Destinations
-                </button>
             </div>
-            
-                </div>
-            
-                
-
         </div>
     </GuestLayout>
 </template>
@@ -287,6 +292,9 @@ onMounted(async () => {
     }
 });
 
+const formatRating = (rating) => {
+    return parseFloat(rating).toFixed(1);
+};
 
 const submitOrder = async () => {
     formErrors.value = [];

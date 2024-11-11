@@ -20,7 +20,6 @@
                         :article="article"
                     />
                 </div>
-                <ArticleBox /> 
 
                 <!-- Explore More Button -->
                 <div class="text-center mb-12">
