@@ -51,10 +51,11 @@ class Destination extends Model
 
     public function updateTotalOrders()
     {
-        $this->total_orders = $this->orders()->where('status', 'approved')->count();
+        $this->total_orders = $this->orders()
+            ->where('status', 'approved')
+            ->sum('quantity');  // Menggunakan sum() untuk menjumlahkan quantity
         $this->save();
         $this->updatePopularity();
-
     }
 
     public function updateTotalViews()

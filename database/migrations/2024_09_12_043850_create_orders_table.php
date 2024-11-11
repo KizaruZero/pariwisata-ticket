@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('quantity')->default(1); // Menambahkan kolom quantity
             $table->decimal('total_price', 10, 2); // harga total
             $table->string('payment_method'); // metode pembayaran
+            $table->string('payment_proof'); // bukti pembayaran
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending'); // status order
             $table->date('booking_date');
             $table->timestamp('approved_at')->nullable(); // waktu disetujui

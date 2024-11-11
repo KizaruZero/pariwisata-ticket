@@ -10,34 +10,31 @@ use Carbon\Carbon;
 
 class OrdersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $users = User::all();  // Mendapatkan semua pengguna
-        $destinations = Destination::all();  // Mendapatkan semua destinasi
-
-        $orders = [];  // Inisialisasi array untuk menyimpan data pesanan
+        $users = User::all();
+        $destinations = Destination::all();
 
         foreach ($destinations as $destination) {
-            $quantity = rand(1, 5);  // Random kuantitas pesanan antara 1 hingga 5
+            $quantity = rand(1, 5);
+            $status = rand() % 2 === 0 ? 'approved' : 'pending';
 
-            // Membuat data pesanan
-            $orders[] = [
-                'user_id' => $users->random()->id,  // Random pengguna
-                'destination_id' => $destination->id,  // ID destinasi
-                'quantity' => $quantity,  // Kuantitas yang dipesan
-                'total_price' => $destination->price * $quantity,  // Hitung total harga berdasarkan quantity
-                'payment_method' => 'transfers',  // Metode pembayaran
-                'status' => rand() % 2 === 0 ? 'approved' : 'pending',  // Random status pesanan
-                'booking_date' => Carbon::now()->subDays(rand(1, 30)),  // Random tanggal booking dalam 30 hari terakhir
-                'created_at' => Carbon::now(),  // Waktu pembuatan
-                'updated_at' => Carbon::now(),  // Waktu update
-            ];
+            Order::create([
+                'user_id' => $users->random()->id,
+                'destination_id' => $destination->id,
+                'quantity' => $quantity,
+                'total_price' => $destination->price * $quantity,
+                'payment_method' => 'transfers',
+                'payment_proof' => 'payment_proof.jpg',
+                'status' => $status,
+                'booking_date' => Carbon::now()->subDays(rand(1, 30)),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            if ($status === 'approved') {
+                $destination->updateTotalOrders();
+            }
         }
-
-        // Insert semua data pesanan ke dalam database
-        Order::insert($orders);
     }
 }

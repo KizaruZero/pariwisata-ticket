@@ -22,11 +22,13 @@ class OrderController extends Controller
             $paymentMethod = $request->input('payment_method');
             $quantity = $request->input('quantity', 1); // Default quantity 1 jika tidak diinput
             $bookingDate = $request->input('booking_date');
+            $paymentProof = $request->file('payment_proof');
 
             // Validasi input
             $request->validate([
                 'destination_id' => 'required|exists:destinations,id',
                 'payment_method' => 'required|in:credit_card,bank_transfer',
+                'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'quantity' => 'required|integer|min:1',
                 'booking_date' => 'required|date|after_or_equal:today',
             ]);
@@ -51,6 +53,7 @@ class OrderController extends Controller
                 'total_price' => $totalPrice,
                 'booking_date' => $bookingDate,
                 'payment_method' => $paymentMethod,
+                'payment_proof' => $request->file('payment_proof')->store('payment_proofs', 'public'),
                 'status' => 'pending',
             ]);
 

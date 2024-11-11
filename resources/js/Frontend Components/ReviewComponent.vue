@@ -58,7 +58,7 @@ onMounted(async () => {
         canReview.value = reviewResponse.data.canReview;
         // Optionally, fetch other data like packagePricing, etc.
     } catch (error) {
-        console.error("KONTO;", error);
+        console.error(";", error);
     }
 });
 

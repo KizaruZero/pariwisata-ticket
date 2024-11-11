@@ -12,8 +12,9 @@ class Order extends Model
         'user_id',
         'destination_id',
         'quantity',
-        'total_price', // nanti di ambil dari harga paket track lewat package_pricing_id
+        'total_price', 
         'payment_method',
+        'payment_proof',
         'status',
         'booking_date',
         'approved_at',
