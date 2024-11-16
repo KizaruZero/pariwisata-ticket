@@ -6,6 +6,7 @@
                 v-for="destination in favoriteDestination"
                 :key="destination.id"
             >
+            
                 <h3 class="text-lg font-bold">{{ destination.name }}</h3>
                 <p>{{ destination.location }}</p>
                 <p>Rating: {{ destination.rating }} / 5</p>

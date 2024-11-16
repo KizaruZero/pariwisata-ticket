@@ -16,7 +16,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                'vaga': '#2BB1B0',
+                'vaga': '#18A7A6',
                 'bond': '#34383D',
                 'cream': '#EEEBE3',
                 'semiBlack':"1E1E1E"
@@ -24,6 +24,9 @@ export default {
             },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                plex: ['IBM Plex Serif', 'serif'],
+                bodoni: ['Libre Bodoni', 'serif'],
+                montseratt:['Montserrat', 'sans-serif']
             },
         },
     },

@@ -1,6 +1,6 @@
 <template>
     <GuestLayout>
-        <div class="">
+        <div class=" font-thin tracking-wide">
             <!-- Hero Section -->
             <section class="relative ">
                 <!-- Main Image Section -->
@@ -11,12 +11,12 @@
                 />
                 
                 <!-- Text and Button Section -->
-                <div class="absolute -top-20 left-[120px] h-full flex flex-col justify-center text-white">
-                    <h2 class="text-6xl font-bold">Plan Your</h2>
-                    <h2 class="text-6xl font-bold">Perfect Trip</h2>
+                <div class="absolute -top-20 left-[120px] h-full flex flex-col justify-center  text-white leading-[115.49px]">
+                    <h2 class="text-8xl italic font-semibold font-plex">Plan Your</h2>
+                    <h2 class="text-8xl italic font-semibold font-plex">Perfect Trip</h2>
                     
                     <NavLink 
-                        class="mt-4 w-max px-6 py-2 bg-teal-500 rounded-xl text-lg opacity-100 text-opacity-100 hover:opacity-50"
+                        class="mt-6 w-max px-6 py-2 bg-teal-500 rounded-xl text-lg opacity-100 text-opacity-100 hover:opacity-50"
                         :href="route('destinations')"
                         :active="route().current('destinations')"
                     >
@@ -25,11 +25,16 @@
                 </div>
 
                 <!-- Curved Section -->
-                <section class="absolute bottom-0 w-full h-[150px] bg-vaga rounded-tl-[70%] rounded-tr-[70%]">
-                    <div class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl">
+                 <section class="absolute bottom-0 w-full h-[130px] bg-vaga">
+                    <img 
+                    src="../../assets/Vector 5.png"
+                    class="-mt-[95px] w-full"
+                    >
+                    <div class="h-full flex items-center -mt-[57px] justify-center  font-montseratt italic text-white text-3xl">
                         <h1>Elevate Your Travel</h1>
                     </div>
-                </section>
+                 </section>
+                
             </section>
 
             <!-- Features Section -->
@@ -91,117 +96,110 @@
                 </div>
             </div>
             -->
+            
             <!-- Recomended Destination -->
-            
-
-            <!-- Destination List -->
-            <section class="bg-vaga pb-10 relative " id="app">
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="errorMessage">{{ errorMessage }}</div>
-    <div v-else-if="recommendeds.length === 0">No recommended destinations found.</div>
-    
-    <Carousel v-bind="config" v-if="recommendeds.length > 0"  >
-      <Slide v-for="destination in recommendeds" :key="destination.id " >
-        <DestinationCard :destination="destination" />
-      </Slide>
-
-      <template #addons>
-        <Navigation />
-      </template>
-    </Carousel>
-    <!-- See More Section -->
-    <NavLink 
-    :href="route('destinations')"
-    :active="route().current('destinations')"
-    class="flex flex-row w-full justify-center items-center pt-10 text-cream text-[18px] hover:text-white hover:opacity-80"
-        >
-        <h3 class="mr-2">SEE MORE</h3>
-        <img src="../../assets/logo/SearchLogo.png">
-    </NavLink>
-    
-    
-  </section>
-            
-
-            <!-- Article Section -->
-
-            <div class="bg-bond text-center py-2" id="app">
-                
-                
-                <div class="relative h-full flex items-center justify-center italic text-white my-12 text-2xl">
+            <section class="bg-vaga pb-10 relative -mt-10" id="app">
+                <div v-if="loading">Loading...</div>
+                <div v-else-if="errorMessage">{{ errorMessage }}</div>
+                <div v-else-if="recommendeds.length === 0">No recommended destinations found.</div>
+                    <Carousel v-bind="config" v-if="recommendeds.length > 0"  >
+                        <Slide v-for="destination in recommendeds" :key="destination.id " >
+                            <DestinationCard :destination="destination" />
+                        </Slide>
+                        <template #addons>
+                            <Navigation />
+                        </template>
+                    </Carousel>
+                    <!-- See More Section -->
+                    <NavLink 
+                    :href="route('destinations')"
+                    :active="route().current('destinations')"
+                    class="flex flex-row w-full justify-center items-center pt-10 text-cream text-[18px] hover:text-white hover:opacity-90 transition-transform transform hover:scale-105 mb-4"
+                        >
+                        <h3 class="mr-2 ">SEE MORE</h3>
+                        <img src="../../assets/logo/SearchLogo.png">
+                    </NavLink>
+                    <div class="h-[150px]"></div>
+                    <section class="absolute bottom-0 w-full h-[150px] bg-bond rounded-tl-[70%] rounded-tr-[70%]">
+                    <div class="h-full flex items-center  justify-center italic text-white text-3xl">
                         <h1>Find Interesting Articles</h1>
                     </div>
-                <div class="flex flex-row px-12 pb-10 space-x-8" >
-                    <ArticleBox class="w-[430px] h-[144px]"></ArticleBox>
-                    <ArticleBox class="w-[430px] h-[144px]"></ArticleBox>
-                    <ArticleBox class="w-[430px] h-[144px]"></ArticleBox>
-                </div>
+                </section>  
+            </section>
+
+            <!-- Article Section -->
+            <div class="bg-bond text-center py-2 " id="app">
+                <div class="grid grid-cols-3 ">
+                        <ArticleBox 
+                        v-for="article in articles" 
+                        :key="article.id" 
+                        :article="article"
+                        class="mx-5"></ArticleBox>
+                    </div>
                 <NavLink 
                 :href="route('destinations')"
                 :active="route().current('destinations')"
-                class="flex flex-row w-full justify-center items-center pb-10 text-cream text-[18px] hover:text-white hover:opacity-80"
+                class="flex flex-row w-full justify-center items-center pb-10 text-cream text-[18px] hover:text-white hover:opacity-90 transition-transform transform hover:scale-105"
                     >
                     <h3 class="mr-2">READ MORE</h3>
                     <img src="../../assets/logo/SearchLogo.png">
-                </NavLink>
-                            
+                </NavLink>          
             </div>
-            <div class="bg-vaga text-center" id="app">
-                <!-- Features Section -->
-                <section data-layername="whyShould" class="flex overflow-hidden flex-col items-center pb-20 bg-vaga">
-                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a392959f908f38db0ecebb27d8bd58ced788c72dda83dc640bbae3f426b39e8?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Decorative background image" class="object-contain z-10 self-stretch w-full aspect-[15.15] max-md:max-w-full" />
-                    <h2 data-layername="whyShouldChooseUs" class="-mt-4 text-4xl font-semibold leading-tight text-center text-stone-50 max-md:max-w-full">
-                    Why Should Choose Us?
-                    </h2>
-                    <div class="flex flex-wrap gap-12 items-center pr-5 pl-2.5 mt-12 w-full text-black max-w-[1317px] max-md:mt-10 max-md:max-w-full">
-                    <article data-layername="userFriendlyInterface" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
-                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ea07a98de67556211deb19c7c72c4d7535502c2fb65fa9e435279bd6edeb6ef?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="User-friendly interface icon" class="object-contain shrink-0 aspect-[0.91] w-[93px]" />
-                        <div class="flex flex-col grow shrink justify-center min-w-[240px] w-[439px] max-md:max-w-full">
-                        <h3 data-layername="userFriendlyInterface" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                            User-Friendly Interface
-                        </h3>
-                        <p data-layername="ourPlatformIsDesignedWithSimplicityAndUsabilityInMindMakingItEasyForAnyoneToSearchBookAndManageTheirTravelTickets" class="text-xl font-medium leading-6 max-md:max-w-full">
-                            Our platform is designed with simplicity and usability in mind, making it easy for anyone to search, book, and manage their travel tickets.
-                        </p>
-                        </div>
-                    </article>
-                    <article data-layername="trustworthyReputable" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
-                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/d9c3e9059d44bf8037141ebcdbadd520317e02707769bebc212e52f5bd60c656?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Trustworthy and reputable icon" class="object-contain shrink-0 aspect-square w-[97px]" />
-                        <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                        <h3 data-layername="trustworthyReputable" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                            Trustworthy & Reputable
-                        </h3>
-                        <p data-layername="weHaveEstablishedAStrongReputationInTheIndustryForProvidingReliableAndHighQualityServiceToTravelersAcrossTheCountry" class="text-xl font-medium leading-6 max-md:max-w-full">
-                            We have established a strong reputation in the industry for providing reliable and high-quality service to travelers across the country.
-                        </p>
-                        </div>
-                    </article>
-                    <article data-layername="securePaymentSystem" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
-                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0932222950a0ed7b6345aedf4ef29309a0eda7b46f04395de30d2ffd16eca2a?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Secure payment system icon" class="object-contain shrink-0 aspect-square w-[97px]" />
-                        <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                        <h3 data-layername="securePaymentSystem" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                            Secure Payment System
-                        </h3>
-                        <p data-layername="ourPlatformUtilizesAdvancedSecurityMeasuresToEnsureThatYourTransactionsAreSafeAndYourPersonalDataIsProtected" class="text-xl font-medium leading-6 max-md:max-w-full">
-                            Our platform utilizes advanced security measures to ensure that your transactions are safe and your personal data is protected.
-                        </p>
-                        </div>
-                    </article>
-                    <article data-layername="247CustomerSupport" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[500px] max-md:max-w-full">
-                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e27632703d67b99218a6f90694aa18dce8b3b2a6ce468a2e7a48e0cba4cc6528?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="24/7 Customer support icon" class="object-contain shrink-0 aspect-square w-[102px]" />
-                        <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                        <h3 data-layername="247CustomerSupport" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                            24/7 Customer Support
-                        </h3>
-                        <p data-layername="ourDedicatedCustomerSupportTeamIsAvailableAroundTheClockToAssistYouWithAnyIssuesOrInquiriesEnsuringASmoothTravelExperience" class="text-xl font-medium leading-6 max-md:max-w-full">
-                            Our dedicated customer support team is available around the clock to assist you with any issues or inquiries, ensuring a smooth travel experience.
-                        </p>
-                        </div>
-                    </article>
-                    </div>
-                </section>
 
-                <!-- Image with Play Button -->
+            <!-- Features Section -->
+            <div class="bg-vaga text-center" id="app">
+            <section data-layername="whyShould" class="flex overflow-hidden flex-col items-center pb-20 bg-vaga">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a392959f908f38db0ecebb27d8bd58ced788c72dda83dc640bbae3f426b39e8?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Decorative background image" class="object-contain z-10 self-stretch w-full aspect-[15.15] max-md:max-w-full" />
+                <h2 data-layername="whyShouldChooseUs" class="-mt-4 text-4xl font-semibold leading-tight text-center text-stone-50 max-md:max-w-full">
+                Why Should Choose Us?
+                </h2>
+                <div class="flex flex-wrap gap-12 items-center pr-5 pl-2.5 mt-12 w-full text-black max-w-[1317px] max-md:mt-10 max-md:max-w-full">
+                <article data-layername="userFriendlyInterface" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ea07a98de67556211deb19c7c72c4d7535502c2fb65fa9e435279bd6edeb6ef?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="User-friendly interface icon" class="object-contain shrink-0 aspect-[0.91] w-[93px]" />
+                    <div class="flex flex-col grow shrink justify-center min-w-[240px] w-[439px] max-md:max-w-full">
+                    <h3 data-layername="userFriendlyInterface" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                        User-Friendly Interface
+                    </h3>
+                    <p data-layername="ourPlatformIsDesignedWithSimplicityAndUsabilityInMindMakingItEasyForAnyoneToSearchBookAndManageTheirTravelTickets" class="text-xl font-medium leading-6 max-md:max-w-full">
+                        Our platform is designed with simplicity and usability in mind, making it easy for anyone to search, book, and manage their travel tickets.
+                    </p>
+                    </div>
+                </article>
+                <article data-layername="trustworthyReputable" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/d9c3e9059d44bf8037141ebcdbadd520317e02707769bebc212e52f5bd60c656?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Trustworthy and reputable icon" class="object-contain shrink-0 aspect-square w-[97px]" />
+                    <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
+                    <h3 data-layername="trustworthyReputable" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                        Trustworthy & Reputable
+                    </h3>
+                    <p data-layername="weHaveEstablishedAStrongReputationInTheIndustryForProvidingReliableAndHighQualityServiceToTravelersAcrossTheCountry" class="text-xl font-medium leading-6 max-md:max-w-full">
+                        We have established a strong reputation in the industry for providing reliable and high-quality service to travelers across the country.
+                    </p>
+                    </div>
+                </article>
+                <article data-layername="securePaymentSystem" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0932222950a0ed7b6345aedf4ef29309a0eda7b46f04395de30d2ffd16eca2a?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Secure payment system icon" class="object-contain shrink-0 aspect-square w-[97px]" />
+                    <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
+                    <h3 data-layername="securePaymentSystem" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                        Secure Payment System
+                    </h3>
+                    <p data-layername="ourPlatformUtilizesAdvancedSecurityMeasuresToEnsureThatYourTransactionsAreSafeAndYourPersonalDataIsProtected" class="text-xl font-medium leading-6 max-md:max-w-full">
+                        Our platform utilizes advanced security measures to ensure that your transactions are safe and your personal data is protected.
+                    </p>
+                    </div>
+                </article>
+                <article data-layername="247CustomerSupport" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[500px] max-md:max-w-full">
+                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e27632703d67b99218a6f90694aa18dce8b3b2a6ce468a2e7a48e0cba4cc6528?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="24/7 Customer support icon" class="object-contain shrink-0 aspect-square w-[102px]" />
+                    <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
+                    <h3 data-layername="247CustomerSupport" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                        24/7 Customer Support
+                    </h3>
+                    <p data-layername="ourDedicatedCustomerSupportTeamIsAvailableAroundTheClockToAssistYouWithAnyIssuesOrInquiriesEnsuringASmoothTravelExperience" class="text-xl font-medium leading-6 max-md:max-w-full">
+                        Our dedicated customer support team is available around the clock to assist you with any issues or inquiries, ensuring a smooth travel experience.
+                    </p>
+                    </div>
+                </article>
+                </div>
+            </section>
             </div>
             
         </div>
@@ -220,7 +218,7 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import ArticleBox from '@/Frontend Components/ArticleBox.vue';
 
 const config = {
-  itemsToShow: 4.1,
+  itemsToShow: 3.5,
   wrapAround: true,
   transition: 500,
 };
@@ -228,7 +226,16 @@ const config = {
 const recommendeds = ref([]);
 const loading = ref(false);
 const errorMessage = ref(null);
+const articles = ref([]);
 
+const fetchArticles = async () => {
+    try {
+        const response = await axios.get("/api/articles");
+        articles.value = response.data;
+    } catch (error) {
+        console.error("Error fetching articles:", error);
+    }
+};
 
 // Fetch recommended destinations
 const fetchRecommendedDestinations = async () => {
@@ -249,6 +256,7 @@ const fetchRecommendedDestinations = async () => {
 // Fetch data on mounted
 onMounted(() => {
   fetchRecommendedDestinations();
+  fetchArticles();
 });
 
         // Sample data for other sections (if relevant)
@@ -364,7 +372,7 @@ onMounted(() => {
 }
 
 .carousel__viewport {
-  perspective: 2000px;
+  perspective: 1920px;
 }
 
 .carousel__track {

@@ -1,11 +1,15 @@
 <template>
-    <nav class="bg-vaga p-4  flex justify-between items-center sticky top-0 z-50">
+    <nav 
+    class="bg-vaga p-4  flex justify-between items-center sticky top-0 z-50 font-montseratt">
         <div class="flex justify-between items-center w-screen px-8">
             <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex space-x-5 text-xs">
+            <div class="hidden md:flex space-x-5 text-sm hover:text-amber-500 ">
                 <NavLink
                     :href="route('home')"
                     :active="route().current('home')"
+                    :class="[
+            { 'text-amber-400': active }, { 'font-bold': active },
+        ]"
                 >
                     Home
                 </NavLink>
@@ -30,12 +34,12 @@
             </div>
             
             <!-- Logo -->
-             <div class="flex flex-col">
-            <Link :href="route('home')" class="text-white text-3xl font-bold -ml-5 flex flex-row" >
+            <div class="flex flex-col">
+            <Link :href="route('home')" class="text-white text-4xl font-semibold leading-[44.81px] font-bodoni -ml-2 flex flex-row" >
                 <img src="../assets/logo/vagabond.svg" class="w-[50px]">
-                <h2>Vagabond</h2>
+                <h2 >VAGABOND</h2>
             </Link>
-             </div>
+            </div>
             
 
             <!-- Auth Links for Desktop -->

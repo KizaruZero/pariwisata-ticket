@@ -25,7 +25,7 @@ Route::get('/api/destination/search/{keyword}', [DestinationController::class, '
 Route::post('/api/destination/{id}/like', action: [FavoriteController::class, 'likeDestination'])->middleware('auth');
 Route::get('/api/profile/favorite', [FavoriteController::class, 'getFavoriteDestinations']);
 
-// Post
+// Post/Article
 Route::get('/api/articles', [PostController::class, 'index']);
 Route::get('/api/articles/latest', [PostController::class, 'getLatestPost']);
 Route::get('/api/article/{id}', [PostController::class, 'getPostDetail']);

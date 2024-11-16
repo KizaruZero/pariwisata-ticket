@@ -1,7 +1,7 @@
 <!-- StarRating.vue -->
 <template>
   <span 
-    class="w-10 h-10 flex items-center justify-center rounded-full bg-bond cursor-pointer border"
+    class="flex w-10 h-10 items-center justify-center rounded-full bg-bond cursor-pointer border"
     :class="clicked ? 'border-yellow-400' : 'border-black'"
     @click="toggleStar"
   >

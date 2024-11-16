@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white text-gray-800">
+    <div class="bg-cream text-gray-800">
         <div class="container mx-auto p-6" id="app">
             <!-- Articles Section -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

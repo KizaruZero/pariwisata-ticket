@@ -1,6 +1,6 @@
 <template>
     <GuestLayout>
-        <div class="container mx-auto px-4 py-8">
+        <div class="container mx-auto px-4 py-8 bg-cream">
             <div v-if="loading" class="flex justify-center items-center h-64">
                 <div
                     class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"

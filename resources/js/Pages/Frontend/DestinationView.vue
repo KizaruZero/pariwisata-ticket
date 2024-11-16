@@ -18,12 +18,13 @@
                 <span class="block sm:inline">{{ error }}</span>
             </div>
 
-            <div class="relative ">
-    <!-- Image -->
+            <!-- Hero -->
+            <div class="relative tracking-wide">
+            <!-- Image -->
                 <img
                     src="../../assets/Explore.png"
                     alt="Scenic view of a coastline"
-                    class="w-screen h-[350px] object-cover z-0"
+                    class="w-screen h-[350px] object-cover z-0 tracking-wider"
                 />
 
                 <!-- Dropdowns and Search Field on Top of Image -->
@@ -32,12 +33,12 @@
                 >
 
                     <!--Text Part-->
-                    <div class="text-5xl text-cream p-6 mt-10">
+                    <div class="text-5xl text-cream p-6 mt-10 font-semibold">
                         <h1>Popular Places Near Where You Are</h1>
                     </div>
                     <!--Dropdown Part-->
                     <!-- Dropdown for categories -->
-                    <div class="w-full items-center justify-center flex space-x-20">
+                    <div class="font-montseratt w-full items-center justify-center flex space-x-20">
                         <div class="w-full max-w-[300px] ">
                         <select
                             v-model="selectedCategory"
@@ -55,7 +56,7 @@
                     </div>
 
                     <!-- Dropdown for regions -->
-                    <div class="w-full max-w-[300px]">
+                    <div class="w-full max-w-[300px] font-montseratt">
                         <select
                             v-model="selectedRegion"
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
@@ -73,7 +74,7 @@
                     </div>
 
                     <!-- Search Field with Clear Button -->
-            <div class="w-full max-w-md pt-4">
+            <div class="w-full max-w-md pt-4 font-montseratt">
                         <form @submit.prevent="submitSearch" class="flex items-center space-x-2">
                             <input
                                 id="search"
@@ -112,97 +113,109 @@
                 </div>
             </div>
 
+            <!-- Destination Search Result -->
+            <div class="">
+                <div v-if="loading" class="mt-72 relative">.</div>
+                <div v-if="!loading && searchClicked && searchResult.length === 0" class="">
+                    <h1 class="text-4xl text-vaga font-bold col-span-full w-full justify-center items-center mx-auto font-montseratt">Search Result</h1>
+                    <p class="text-xl text-bond font-semibold text-center mt-2 mb-8 font-montseratt">No Destination Found.</p>
+                </div>
+                <div v-else-if="searchClicked && searchResult.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-6 ">
+                    <h1 class="text-4xl text-vaga font-bold col-span-full justify-center items-center mx-auto font-montseratt ">Search Result</h1>
+                    <DestinationCard
+                        v-for="destination in searchResult"
+                        :key="destination.id"
+                        :destination="destination"
+                    />
+                </div>
+            </div>
+            
+            <!--All Destination List -->
+            <div>
+                <div v-if="loading">.</div>         
+                <div v-else-if="destinations.length === 0">
+                    No destinations found.
+                </div>
+                <div v-else class="flex flex-col">
+                    <h1 class="text-4xl font-bold text-vaga justify-center items-center mx-auto font-montseratt">Destinations List</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 ">
+                        <DestinationCard
+                        v-for="destination in destinations"
+                        :key="destination.id"
+                        :destination="destination"
+                    />
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recomended Destination All-->
+            <div class="mt-8">
+            <!-- Destination List -->
+                <div>
+                    <div v-if="loading" class="w-full mx-auto font-montseratt">.</div>
+                        <div v-else-if="recommendeds.length === 0">
+                            No Recomendation destinations found.
+                        </div>
+                    <div v-else>
+                        <div class="mx-auto p-6">
+                            <div class="text-center ">
+                                <h1
+                                    class="text-3xl text-vaga font-bold font-montseratt hover:text-pink-600 transition duration-300"
+                                >
+                                    Travel Recommendations
+                                </h1>
+                                <p class="text-bond font-montseratt">
+                                    The best travel recommendations from around Indonesia
+                                    for you.
+                                </p>
+                                
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <DestinationCard
+                            v-for="destination in recommendeds"
+                            :key="destination.id"
+                            :destination="destination"
+                        />
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Recomended Destination User-->
+            <div class="m-8" >
+                <!-- Destination List -->
+                <div>
+                    <div v-if="loading">.</div>
+                    <div v-else-if="recomendationByUser.length === 0">
+                        No destinations found.
+                    </div>
+                    <div v-else >
+                        <div class="mx-auto p-6">
+                            <div class="text-center">
+                                <h1
+                                    class="text-3xl text-vaga font-bold hover:text-pink-600 transition duration-300"
+                                >
+                                    Destination Recomendation by Your Interest
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <DestinationCard
+                            v-for="destination in recomendationByUser"
+                            :key="destination.id"
+                            :destination="destination"
+                        />
+                        </div>
+                        
+                    </div>
+                </div>        
+            </div>
             
 
-            <!-- Destination Result -->
-            <div v-if="loading">Loading...</div>
-            <div v-if="!loading && searchClicked && searchResult.length === 0">
-                <h1 class="text-3xl text-bond font-bold col-span-full w-full justify-center items-center">Search Result</h1>
-                <p class="text-xl text-bond font-semibold text-center">No Destination Found</p>
-            </div>
-            <div v-else-if="searchClicked && searchResult.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <h1 class="text-3xl  font-bold col-span-full justify-center items-center">Search Result</h1>
-                <DestinationCard
-                    v-for="destination in searchResult"
-                    :key="destination.id"
-                    :destination="destination"
-                />
-            </div>
-
-
-
-            <!-- Ordinary Recomendation -->
-            <h1 class="text-4xl font-bold text-blue-900">Destinations List</h1>
-
-            <!-- Destination List -->
-            <div v-if="loading">Loading...</div>
-            <div v-else-if="destinations.length === 0">
-                No destinations found.
-            </div>
-            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                <DestinationCard
-                    v-for="destination in destinations"
-                    :key="destination.id"
-                    :destination="destination"
-                />
-            </div>
-
-            <!-- Recomended Destination -->
-            <div class="mx-auto p-6">
-                <div class="text-center mb-8">
-                    <h1
-                        class="text-3xl font-bold hover:text-pink-600 transition duration-300"
-                    >
-                        Travel Recommendations
-                    </h1>
-                    <p class="text-gray-500">
-                        The best travel recommendations from around the world
-                        for you.
-                    </p>
-                    <button
-                        class="mt-4 px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-full transition duration-300 transform hover:scale-105"
-                    >
-                        Explore more
-                    </button>
-                </div>
-            </div>
-
-            <!-- Destination List -->
-            <div v-if="loading">Loading...</div>
-            <div v-else-if="recommendeds.length === 0">
-                No Recomendation destinations found.
-            </div>
-            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <DestinationCard
-                    v-for="destination in recommendeds"
-                    :key="destination.id"
-                    :destination="destination"
-                />
-            </div>
-
-            <!-- Recomended Destination -->
-            <div class="mx-auto p-6">
-                <div class="text-center mb-8">
-                    <h1
-                        class="text-3xl font-bold hover:text-pink-600 transition duration-300"
-                    >
-                        Destination Recomendation by Your Interest
-                    </h1>
-                </div>
-            </div>
-
-            <!-- Destination List -->
-            <div v-if="loading">Loading...</div>
-            <div v-else-if="recomendationByUser.length === 0">
-                No destinations found.
-            </div>
-            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <DestinationCard
-                    v-for="destination in recomendationByUser"
-                    :key="destination.id"
-                    :destination="destination"
-                />
-            </div>
+                
         </div>
     </GuestLayout>
 </template>
@@ -369,4 +382,6 @@ onMounted(() => {
             loading.value = false;
         });
 });
+
+
 </script>

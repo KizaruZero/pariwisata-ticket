@@ -1,15 +1,15 @@
 <template>
-  <footer data-layername="footer" class="flex flex-wrap gap-10 items-start px-40 py-24 font-semibold leading-none bg-bond max-md:px-5 max-md:pb-24">
-    <div data-layername="logoFooter" class="flex flex-col grow shrink text-2xl text-white whitespace-nowrap w-[134px]">
-      <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/d21763be61fd1653a3cad4b2ad1c423de359f92b34cab0ff53aba97f7dcdfc39?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Vagabond logo" class="object-contain aspect-[1.63] w-[168px]" />
-      <h2 data-layername="vagabond" class="mt-1 mr-2.5 ml-3 max-md:ml-2.5">VAGABOND</h2>
+  <footer data-layername="footer" class="flex flex-wrap gap-10 items-start px-40 py-24  leading-none bg-bond max-md:px-5 max-md:pb-24">
+    <div data-layername="logoFooter" class="flex flex-col grow shrink text-3xl text-white whitespace-nowrap w-[134px]">
+      <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/d21763be61fd1653a3cad4b2ad1c423de359f92b34cab0ff53aba97f7dcdfc39?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Vagabond logo" class="object-contain w-[168px]" />
+      <h2 data-layername="vagabond" class="max-md:ml-3 -ml-0.5 font-bodoni font-thin ">VAGABOND</h2>
     </div>
-    <nav data-layername="columnGroup" class="flex flex-wrap grow shrink gap-4 items-start text-2xl text-cyan-50 min-h-[146px] min-w-[240px] w-[638px] max-md:max-w-full">
-      <ul data-layername="linkColumn1" class="flex flex-col grow shrink min-w-[240px] w-[413px] max-md:max-w-full">
+    <nav data-layername="columnGroup" class="flex flex-wrap grow shrink items-start text-2xl text-cream min-h-[146px] min-w-[240px] w-[400px] max-md:max-w-full">
+      <ul data-layername="linkColumn1" class="flex flex-col grow shrink min-w-[240px] w-[413px] max-md:max-w-full py-2 gap-2 font-montseratt ">
         <li><a href="/" data-layername="linkColumnItem11">Home</a></li>
-        <li><a href="/explore" data-layername="linkColumnTitle1" class="mt-4">Explore</a></li>
-        <li><a href="/article" data-layername="linkColumnItem11" class="mt-4">Article</a></li>
-        <li><a href="/about" data-layername="linkColumnItem12" class="mt-4">About Us</a></li>
+        <li><a href="/explore" data-layername="linkColumnTitle1">Explore</a></li>
+        <li><a href="/article" data-layername="linkColumnItem11">Article</a></li>
+        <li><a href="/about" data-layername="linkColumnItem12" >About Us</a></li>
       </ul>
       <div class="flex gap-4">
         <a href="#" aria-label="Facebook">

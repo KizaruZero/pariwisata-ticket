@@ -3,8 +3,8 @@
     <Link
         :href="href"
         :class="[
-            'text-white hover:text-blue-200 transition duration-150 ease-in-out',
-            { 'text-[#f7c06d]': active }, { 'font-bold': active },
+            'text-white hover:text-blue-300 transition duration-150 ease-in-out',
+            , { 'font-bold': active },
         ]"
         
     >
@@ -26,8 +26,10 @@ export default {
         },
         active: {
             type: Boolean,
-            default: false,
+            default: true,
         },
     },
 };
 </script>
+
+

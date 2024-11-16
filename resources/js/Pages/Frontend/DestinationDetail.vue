@@ -24,9 +24,41 @@
                         <div
                             class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl"
                         >
-                            <StarRating
-                                class="absolute w-16 h-16 mt-2 right-[150px]"
+                        <!--Star Component-->
+                        <span 
+                            class="absolute w-16 h-16 mt-2 right-[150px] flex  items-center justify-center rounded-full bg-bond cursor-pointer border"
+                            :class="destination.isLiked ? 'border-yellow-400' : 'border-black'"
+                            @click="handleStar"
+                         
+                            
+                        >
+                            <svg 
+                            
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24" 
+                            class="w-5 h-5"
+                            :fill="destination.isLiked ? 'yellow' : 'transparent'"
+                            :stroke="destination.isLiked ? 'yellow' : 'white'"
+                            stroke-width="2"
+                            >
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                        </span>
+                        <!--
+                        <StarRating
+                            @click="toggleLike(destination)"
+                            :class="[
+                            'absolute w-16 h-16 mt-2 right-[150px]',
+                            destination.isLiked
+                                ? 'border-yellow-400 text-white'
+                                : 'bg-blue-500 text-white',
+                        ]"  :fill="clicked ? 'yellow' : 'transparent'"
+      :stroke="clicked ? 'yellow' : 'white'"
+                                class="a"
                             ></StarRating>
+                        
+                        -->
+                            
                         </div>
                     </section>
                 </div>
@@ -49,8 +81,8 @@
                         </p>
                     </div>
 
-                    <div class="flex flex-col">
-                        <p class="flex text-gray-500 mt-2">
+                    <div class="flex flex-row space-x-2 my-4">
+                        <p class="flex text-gray-500">
                             Region: {{ destination.region.name }}
                         </p>
                         <p class="flex text-gray-500">
@@ -62,20 +94,26 @@
                         {{ destination.description }}
                     </p>
 
-                    <div v-if="destination.reviews.length > 0" class="mt-4">
-                        <h2 class="text-xl font-semibold">Reviews</h2>
+                    <h2 class="text-xl font-semibold mt-8">LATEST REVIEW</h2>
+                    <div v-if="destination.reviews.length > 0" class="flex flex-grow h-[200px]">
+                        
                         <div
-                            v-for="review in destination.reviews"
+                            v-for="review in destination.reviews.slice(-4).reverse()"
                             :key="review.id"
-                            class="mt-2 p-4 bg-gray-100 rounded-lg"
+                            class="my-2 mx-2 p-2 shadow-lg border-gray-900/5 border-2 bg-cream rounded-lg flex-grow  "
                         >
+                            <div class="flex items-center">
+                                <!-- Loop to display 5 stars -->
+                                <span v-for="n in 5" :key="n" class="text-yellow-500">
+                                    <i :class="n <= review.rating ? 'fas fa-star text-yellow-500' : 'fas fa-star text-gray-300 opacity-50'"></i>
+                                </span>
+                                <span class="ml-2 text-gray-700">{{ review.rating }}/5</span>
+                            </div>
                             <p class="font-bold">{{ review.user.name }}</p>
-                            <p class="text-yellow-500">
-                                Rating: {{ review.rating }}/5
-                            </p>
                             <p class="mt-2">{{ review.review_text }}</p>
                         </div>
                     </div>
+
 
                     <!-- Order form -->
                     <form @submit.prevent="submitOrder">
@@ -205,7 +243,8 @@
                         </div>
                     </form>
 
-                    <ReviewComponent :destinationId="destinationId" />
+                    <!--Ini Apa?-->
+                    <ReviewComponent :destinationId="destinationId" /> 
                     <div class="mt-8">
                         <ArticleCard
                             v-for="article in destination.articles"
@@ -251,16 +290,14 @@ const props = defineProps({
     },
 });
 
-// Define reactive refs
 const destination = ref(null);
+const favoriteDestination = ref([]);
 const destinationId = props.id;
 const fileInput = ref(null);
-const imagePreview = ref(null);
 const errors = ref({
     payment_proof: null,
 });
 const formErrors = ref([]);
-
 const order = ref({
     destination_id: props.id,
     quantity: 1,
@@ -269,11 +306,19 @@ const order = ref({
     booking_date: null,
 });
 
+
+
+// Currency formatter
 const formatCurrency = (value) => {
     return new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
     }).format(value);
+};
+
+// Rating formatter
+const formatRating = (rating) => {
+    return parseFloat(rating).toFixed(1); // Formats rating to one decimal
 };
 
 // Minimum date for booking
@@ -282,20 +327,32 @@ const minDate = computed(() => {
     return today.toISOString().split("T")[0];
 });
 
-// Fetch destination data
+// Fetch favorite destinations and destination data on mount
 onMounted(async () => {
     try {
+        const favoriteResponse = await axios.get(`/api/profile/favorite`);
+        favoriteDestination.value = favoriteResponse.data.data;
+
         const response = await axios.get(`/api/destination/${props.id}`);
         destination.value = response.data;
+
+        destination.value.isLiked = favoriteDestination.value.some(
+            (fav) => fav.id === destination.value.id
+        );
     } catch (error) {
         console.error("Error fetching data:", error);
     }
 });
 
-const formatRating = (rating) => {
-    return parseFloat(rating).toFixed(1);
+// Handle file upload
+const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        order.value.payment_proof = file;
+    }
 };
 
+// Submit order
 const submitOrder = async () => {
     formErrors.value = [];
 
@@ -305,7 +362,6 @@ const submitOrder = async () => {
             return;
         }
 
-        // Create FormData for file upload
         const formData = new FormData();
         formData.append("destination_id", order.value.destination_id);
         formData.append("quantity", order.value.quantity);
@@ -315,14 +371,12 @@ const submitOrder = async () => {
             formData.append("payment_proof", order.value.payment_proof);
         }
 
-        // Submit order request
         const response = await axios.post("/api/orders", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         });
         alert("Order submitted successfully");
-        console.log(response.data);
     } catch (error) {
         if (error.response?.status === 422) {
             formErrors.value = Object.values(error.response.data.errors).flat();
@@ -334,19 +388,28 @@ const submitOrder = async () => {
     }
 };
 
-const goBack = () => {
-    window.history.back();
+const clicked = ref(); // Use ref for reactive state
+
+const handleStar = () => {
+    toggleStar();
+    toggleLike(destination);
 };
 
-const toggleLike = async (destination) => {
+const toggleStar = () => {
+  clicked.value = !clicked.value; // Toggle the clicked state
+};
+
+// Toggle like
+const toggleLike = async () => {
     try {
         const response = await axios.post(`/api/destination/${props.id}/like`);
-        destination.isLiked = response.data.isLiked;
-        if (destination.isLiked) {
-            destination.total_likes++;
+        destination.value.isLiked = response.data.isLiked;
+
+        if (destination.value.isLiked) {
+            destination.value.total_likes++;
             alert("Destination liked!");
         } else {
-            destination.total_likes--;
+            destination.value.total_likes--;
             alert("Destination unliked!");
         }
     } catch (error) {
@@ -358,6 +421,11 @@ const toggleLike = async (destination) => {
     }
 };
 </script>
+
+<style scoped>
+/* Add any custom styles if needed */
+</style>
+
 
 <style scoped>
 /* Styling for layout */
