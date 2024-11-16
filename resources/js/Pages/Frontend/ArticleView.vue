@@ -11,8 +11,8 @@
                     <div class="absolute inset-0 flex flex-col items-center text-center bg-black bg-opacity-50 space-y-4">
                         <!--Text Part-->
                         <transition name="fade-in-bottom">
-                            <div v-if="show" class="text-5xl text-cream p-6 mt-10 font-semibold">
-                                <h1>Popular Places Near Where You Are</h1>
+                            <div v-if="show" class="text-5xl text-cream p-6 mt-20 font-semibold">
+                                <h1>Our Latest Articles About Travel</h1>
                             </div>
                         </transition>
                         <section class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]">
@@ -21,25 +21,18 @@
                         </section>
                     </div>
                 </div>
-                <div class="text-center mb-12 bg-cream px-72">
-                    <h1 class="text-4xl font-bold mb-2">Our Latest Articles About Travel</h1>
-                    <p class="text-gray-500">Know the latest articles about travel</p>
-                    <div class="grid grid-cols-2 ">
+                <div class="text-center bg-cream px-72 py-12">
+
+                    <div class="grid grid-cols-2 gap-6 ">
                         <ArticleBox 
                         v-for="article in articles" 
                         :key="article.id" 
                         :article="article"
-                        class="bg-cream "></ArticleBox>
+                        class="bg-cream  h-full w-full"></ArticleBox>
                     </div>
                     
-                    <div>
-                    
-                    </div>
-                    <div class="text-center mb-12">
-                        <button class="custom-button px-8 py-3 transition-all transform hover:scale-110 hover:bg-pink-500 bg-pink-400 text-white font-bold rounded-full">
-                            Explore More
-                        </button>
-                    </div>
+                   
+    
                 </div>
                 
             </div>

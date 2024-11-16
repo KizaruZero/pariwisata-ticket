@@ -99,7 +99,11 @@
             
             <!-- Recomended Destination -->
             <section class="bg-vaga pb-10 relative -mt-10" id="app">
-                <div v-if="loading">Loading...</div>
+                <div v-if="loading">
+                    <div
+                    class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900 mx-auto"
+                    ></div>
+                </div>
                 <div v-else-if="errorMessage">{{ errorMessage }}</div>
                 <div v-else-if="recommendeds.length === 0">No recommended destinations found.</div>
                     <Carousel v-bind="config" v-if="recommendeds.length > 0"  >
@@ -128,18 +132,24 @@
             </section>
 
             <!-- Article Section -->
+             
             <div class="bg-bond text-center py-2 " id="app">
-                <div class="grid grid-cols-3 ">
-                        <ArticleBox 
-                        v-for="article in articles" 
-                        :key="article.id" 
-                        :article="article"
-                        class="mx-5"></ArticleBox>
-                    </div>
+                <div v-if="loading">
+                    <div
+                    class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900 mx-auto my-auto"
+                    ></div>
+                </div>
+                <div class="grid grid-cols-3 items-center justify-center">
+                    <ArticleBox 
+                    v-for="article in articles.slice(0, 3)" 
+                    :key="article.id" 
+                    :article="article"
+                    class="ml-5 mr-5"></ArticleBox>
+                </div>
                 <NavLink 
                 :href="route('destinations')"
                 :active="route().current('destinations')"
-                class="flex flex-row w-full justify-center items-center pb-10 text-cream text-[18px] hover:text-white hover:opacity-90 transition-transform transform hover:scale-105"
+                class="flex flex-row w-full justify-center items-center pb-10 pt-5 text-cream text-[18px] hover:text-white hover:opacity-90 transition-transform transform hover:scale-105"
                     >
                     <h3 class="mr-2">READ MORE</h3>
                     <img src="../../assets/logo/SearchLogo.png">
@@ -230,7 +240,7 @@ const articles = ref([]);
 
 const fetchArticles = async () => {
     try {
-        const response = await axios.get("/api/articles");
+        const response = await axios.get("/api/articles/latest");
         articles.value = response.data;
     } catch (error) {
         console.error("Error fetching articles:", error);
