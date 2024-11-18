@@ -16,7 +16,7 @@
                 <span class="block sm:inline">{{ error }}</span>
             </div>
 
-            <article v-else class="mx-auto">
+            <article v-else class="mx-auto px-36 py-6">
                 <header class="mb-8">
                     <h1 class="text-4xl font-bold mb-4 text-gray-800">
                         {{ article.title }}
@@ -27,27 +27,53 @@
                     </div>
                 </header>
 
-                <img
+                <!-- <img
                     :src="`/storage/${article.image_url}`"
                     :alt="article.title"
-                    class="w-full h-96 object-cover rounded-lg shadow-lg mb-8"
+                    class=" h-96 object-cover rounded-lg shadow-lg mb-8"
+                /> -->
+
+                <img
+                    src="../../assets/home.png"
+                    :alt="article.title"
+                    class="mx-auto h-96 object-cover rounded-lg shadow-lg mb-8"
                 />
+
 
                 <div
                     class="prose prose-lg max-w-none"
                     v-html="article.content"
                 ></div>
+                
+                <div class="mt-8 ">
+                    <button
+                        @click="goBack"
+                        class="px-4 py-2 bg-blue-600 hover:bg-blue-900 text-white rounded-full"
+                    >
+                        Go Back
+                    </button>
+                </div>
+                
 
                 <!-- Add Destination Component -->
                 <div class="mt-8">
-                    <DestinationCard :destination="article.destination" />
+                    <div class="max-w-6xl mx-auto p-6">
+                    <div class="text-center">
+                        <h1
+                            class="text-3xl text-vaga font-bold hover:text-pink-600 transition duration-300"
+                        >
+                            Travel Recommendations
+                        </h1>
+                    </div>
+                </div>
+                    <DestinationCard :destination="article.destination" class="mx-auto"/>
                 </div>
 
                 <!-- Recomended Destination -->
-                <div class="max-w-6xl mx-auto p-6">
+                <div class="max-w-6xl mx-auto p-6 mt-6">
                     <div class="text-center">
                         <h1
-                            class="text-3xl font-bold hover:text-pink-600 transition duration-300"
+                            class="text-3xl font-bold text-vaga hover:text-pink-600 transition duration-300"
                         >
                             Travel Recommendations
                         </h1>
@@ -59,21 +85,12 @@
                 <div v-else-if="recommendeds.length === 0">
                     No destinations found.
                 </div>
-                <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4 ">
                     <DestinationCard
                         v-for="destination in recommendeds"
                         :key="destination.id"
                         :destination="destination"
                     />
-                </div>
-
-                <div class="mt-8">
-                    <button
-                        @click="goBack"
-                        class="px-4 py-2 bg-blue-600 hover:bg-blue-900 text-white rounded-full"
-                    >
-                        Go Back
-                    </button>
                 </div>
             </article>
         </div>

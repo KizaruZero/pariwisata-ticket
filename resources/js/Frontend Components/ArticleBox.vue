@@ -25,6 +25,7 @@
                     ? article.title.slice(0, 25) + "..."
                     : article.title
             }}
+            
             </h2>
           </div>
           

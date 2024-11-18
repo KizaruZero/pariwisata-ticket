@@ -53,7 +53,7 @@
                                 ? 'border-yellow-400 text-white'
                                 : 'bg-blue-500 text-white',
                         ]"  :fill="clicked ? 'yellow' : 'transparent'"
-      :stroke="clicked ? 'yellow' : 'white'"
+                        :stroke="clicked ? 'yellow' : 'white'"
                                 class="a"
                             ></StarRating>
                         
@@ -223,7 +223,7 @@
                             </p>
                         </div>
 
-                        <button type="submit" class="mt-4 btn-primary">
+                        <button type="submit" class="mt-4 bg-lime-600 p-4 rounded-full" id="submitOrderButton" onclick="disableButton()">
                             Submit Order
                         </button>
 
@@ -243,7 +243,7 @@
                         </div>
                     </form>
 
-                    <!--Ini Apa?-->
+                    <!--Review-->
                     <ReviewComponent :destinationId="destinationId" /> 
                     <div class="mt-8">
                         <ArticleCard
@@ -253,21 +253,9 @@
                         />
                     </div>
 
-                    <button
-                        @click="toggleLike(destination)"
-                        :class="[
-                            'mt-4 p-2 rounded-lg',
-                            destination.isLiked
-                                ? 'bg-red-500 text-white'
-                                : 'bg-blue-500 text-white',
-                        ]"
-                    >
-                        {{ destination.isLiked ? "Unlike" : "Like" }}
-                    </button>
-
-                    <button @click="goBack" class="mt-4 btn-primary">
+                    <!-- <button @click="goBack" class="mt-4 btn-primary">
                         Back to Destinations
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
@@ -289,6 +277,15 @@ const props = defineProps({
         required: true,
     },
 });
+
+function disableButton() {
+        // Disable the button to prevent further clicks
+        const button = document.getElementById('submitOrderButton');
+        button.disabled = true;
+        // Optional: change button style to indicate it's disabled
+        button.classList.add('bg-gray-400', 'cursor-not-allowed');
+        button.classList.remove('bg-lime-600');
+    }
 
 const destination = ref(null);
 const favoriteDestination = ref([]);
