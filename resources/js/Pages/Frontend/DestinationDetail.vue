@@ -24,27 +24,36 @@
                         <div
                             class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl"
                         >
-                        <!--Star Component-->
-                        <span 
-                            class="absolute w-16 h-16 mt-2 right-[150px] flex  items-center justify-center rounded-full bg-bond cursor-pointer border"
-                            :class="destination.isLiked ? 'border-yellow-400' : 'border-black'"
-                            @click="handleStar"
-                         
-                            
-                        >
-                            <svg 
-                            
-                            xmlns="http://www.w3.org/2000/svg" 
-                            viewBox="0 0 24 24" 
-                            class="w-5 h-5"
-                            :fill="destination.isLiked ? 'yellow' : 'transparent'"
-                            :stroke="destination.isLiked ? 'yellow' : 'white'"
-                            stroke-width="2"
+                            <!--Star Component-->
+                            <span
+                                class="absolute w-16 h-16 mt-2 right-[150px] flex items-center justify-center rounded-full bg-bond cursor-pointer border"
+                                :class="
+                                    destination.isLiked
+                                        ? 'border-yellow-400'
+                                        : 'border-black'
+                                "
+                                @click="handleStar"
                             >
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                            </svg>
-                        </span>
-                        <!--
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    class="w-5 h-5"
+                                    :fill="
+                                        destination.isLiked
+                                            ? 'yellow'
+                                            : 'transparent'
+                                    "
+                                    :stroke="
+                                        destination.isLiked ? 'yellow' : 'white'
+                                    "
+                                    stroke-width="2"
+                                >
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                    />
+                                </svg>
+                            </span>
+                            <!--
                         <StarRating
                             @click="toggleLike(destination)"
                             :class="[
@@ -57,9 +66,7 @@
                                 class="a"
                             ></StarRating>
                         
-                        -->
-                            
-                        </div>
+                        --></div>
                     </section>
                 </div>
 
@@ -95,28 +102,43 @@
                     </p>
 
                     <h2 class="text-xl font-semibold mt-8">LATEST REVIEW</h2>
-                    <div v-if="destination.reviews.length > 0" class="flex flex-grow h-[200px]">
-                        
+                    <div
+                        v-if="destination.reviews.length > 0"
+                        class="flex flex-grow h-[200px]"
+                    >
                         <div
-                            v-for="review in destination.reviews.slice(-4).reverse()"
+                            v-for="review in destination.reviews
+                                .slice(-4)
+                                .reverse()"
                             :key="review.id"
-                            class="my-2 mx-2 p-2 shadow-lg border-gray-900/5 border-2 bg-cream rounded-lg flex-grow  "
+                            class="my-2 mx-2 p-2 shadow-lg border-gray-900/5 border-2 bg-cream rounded-lg flex-grow"
                         >
                             <div class="flex items-center">
                                 <!-- Loop to display 5 stars -->
-                                <span v-for="n in 5" :key="n" class="text-yellow-500">
-                                    <i :class="n <= review.rating ? 'fas fa-star text-yellow-500' : 'fas fa-star text-gray-300 opacity-50'"></i>
+                                <span
+                                    v-for="n in 5"
+                                    :key="n"
+                                    class="text-yellow-500"
+                                >
+                                    <i
+                                        :class="
+                                            n <= review.rating
+                                                ? 'fas fa-star text-yellow-500'
+                                                : 'fas fa-star text-gray-300 opacity-50'
+                                        "
+                                    ></i>
                                 </span>
-                                <span class="ml-2 text-gray-700">{{ review.rating }}/5</span>
+                                <span class="ml-2 text-gray-700"
+                                    >{{ review.rating }}/5</span
+                                >
                             </div>
                             <p class="font-bold">{{ review.user.name }}</p>
                             <p class="mt-2">{{ review.review_text }}</p>
                         </div>
                     </div>
 
-
                     <!-- Order form -->
-                    <form @submit.prevent="submitOrder">
+                    <form @submit.prevent="submitOrder" class="mt-8">
                         <div class="mt-4">
                             <label for="quantity" class="block">Quantity</label>
                             <input
@@ -135,7 +157,9 @@
                             <select
                                 v-model="order.payment_method"
                                 class="mt-1 p-2 border rounded"
+                                required
                             >
+                                <option value="">Select payment method</option>
                                 <option value="credit_card">Credit Card</option>
                                 <option value="bank_transfer">
                                     Bank Transfer
@@ -143,11 +167,8 @@
                             </select>
                         </div>
 
-                        <!-- Date -->
                         <div class="mt-4">
-                            <label for="date" class="block" name="date"
-                                >Date</label
-                            >
+                            <label for="date" class="block">Date</label>
                             <input
                                 v-model="order.booking_date"
                                 type="date"
@@ -159,8 +180,7 @@
                         </div>
 
                         <!-- Payment Proof -->
-                        <!-- Payment Proof -->
-                        <div>
+                        <div class="mt-4">
                             <label
                                 for="payment_proof"
                                 class="block text-sm font-medium text-gray-700 mb-2"
@@ -172,14 +192,12 @@
                                     type="file"
                                     id="payment_proof"
                                     accept="image/*"
-                                    @change="handleFileUpload"
+                                    @change="handleFilePreview"
                                     ref="fileInput"
                                     class="hidden"
-                                    :class="{
-                                        'border-red-500': errors.payment_proof,
-                                    }"
                                 />
                                 <button
+                                    type="button"
                                     @click="$refs.fileInput.click()"
                                     class="w-full px-4 py-2.5 rounded-xl border-2 border-dashed border-orange-200 hover:border-orange-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-500 hover:text-orange-600"
                                 >
@@ -196,6 +214,7 @@
                                         class="w-full h-full object-cover rounded-xl"
                                     />
                                     <button
+                                        type="button"
                                         @click="removeImage"
                                         class="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition-colors"
                                     >
@@ -223,8 +242,14 @@
                             </p>
                         </div>
 
-                        <button type="submit" class="mt-4 bg-lime-600 p-4 rounded-full" id="submitOrderButton" onclick="disableButton()">
-                            Submit Order
+                        <button
+                            type="submit"
+                            class="mt-4 bg-lime-600 text-white p-4 rounded-full disabled:bg-gray-400 disabled:cursor-not-allowed"
+                            :disabled="isSubmitting || !isFormValid"
+                        >
+                            {{
+                                isSubmitting ? "Processing..." : "Submit Order"
+                            }}
                         </button>
 
                         <div
@@ -244,7 +269,7 @@
                     </form>
 
                     <!--Review-->
-                    <ReviewComponent :destinationId="destinationId" /> 
+                    <ReviewComponent :destinationId="destinationId" />
                     <div class="mt-8">
                         <ArticleCard
                             v-for="article in destination.articles"
@@ -279,22 +304,19 @@ const props = defineProps({
 });
 
 function disableButton() {
-        // Disable the button to prevent further clicks
-        const button = document.getElementById('submitOrderButton');
-        button.disabled = true;
-        // Optional: change button style to indicate it's disabled
-        button.classList.add('bg-gray-400', 'cursor-not-allowed');
-        button.classList.remove('bg-lime-600');
-    }
+    // Disable the button to prevent further clicks
+    const button = document.getElementById("submitOrderButton");
+    button.disabled = true;
+    // Optional: change button style to indicate it's disabled
+    button.classList.add("bg-gray-400", "cursor-not-allowed");
+    button.classList.remove("bg-lime-600");
+}
 
 const destination = ref(null);
 const favoriteDestination = ref([]);
 const destinationId = props.id;
 const fileInput = ref(null);
-const errors = ref({
-    payment_proof: null,
-});
-const formErrors = ref([]);
+
 const order = ref({
     destination_id: props.id,
     quantity: 1,
@@ -303,7 +325,23 @@ const order = ref({
     booking_date: null,
 });
 
+const imagePreview = ref(null);
+const formErrors = ref([]);
+const isSubmitting = ref(false);
+const errors = ref({
+    payment_proof: null,
+});
 
+// Computed property to check if form is valid
+const isFormValid = computed(() => {
+    return (
+        order.value.quantity > 0 &&
+        order.value.payment_method &&
+        order.value.booking_date &&
+        order.value.payment_proof &&
+        !errors.value.payment_proof
+    );
+});
 
 // Currency formatter
 const formatCurrency = (value) => {
@@ -342,16 +380,45 @@ onMounted(async () => {
 });
 
 // Handle file upload
-const handleFileUpload = (event) => {
+const handleFilePreview = (event) => {
     const file = event.target.files[0];
     if (file) {
+        if (file.size > 5 * 1024 * 1024) {
+            // 5MB limit
+            errors.value.payment_proof = "File size should not exceed 5MB";
+            return;
+        }
+
+        if (!file.type.startsWith("image/")) {
+            errors.value.payment_proof = "Please upload an image file";
+            return;
+        }
+
+        errors.value.payment_proof = null;
         order.value.payment_proof = file;
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagePreview.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+// Remove image
+const removeImage = () => {
+    order.value.payment_proof = null;
+    imagePreview.value = null;
+    if (fileInput.value) {
+        fileInput.value.value = "";
     }
 };
 
 // Submit order
 const submitOrder = async () => {
     formErrors.value = [];
+    isSubmitting.value = true;
 
     try {
         if (new Date(order.value.booking_date) < new Date(minDate.value)) {
@@ -368,12 +435,21 @@ const submitOrder = async () => {
             formData.append("payment_proof", order.value.payment_proof);
         }
 
-        const response = await axios.post("/api/orders", formData, {
+        const response = await axios.post("/api/order", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         });
         alert("Order submitted successfully");
+
+        order.value = {
+            destination_id: props.id,
+            quantity: 1,
+            payment_method: null,
+            payment_proof: null,
+            booking_date: null,
+        };
+        imagePreview.value = null;
     } catch (error) {
         if (error.response?.status === 422) {
             formErrors.value = Object.values(error.response.data.errors).flat();
@@ -393,7 +469,7 @@ const handleStar = () => {
 };
 
 const toggleStar = () => {
-  clicked.value = !clicked.value; // Toggle the clicked state
+    clicked.value = !clicked.value; // Toggle the clicked state
 };
 
 // Toggle like
@@ -422,7 +498,6 @@ const toggleLike = async () => {
 <style scoped>
 /* Add any custom styles if needed */
 </style>
-
 
 <style scoped>
 /* Styling for layout */

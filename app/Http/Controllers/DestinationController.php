@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class DestinationController extends Controller
 {
 
+    private const CACHE_TTL = 300; // 5 minutes
+
+
     public function getDestinationDetail($id)
     {
         $destination = Destination::with('region', 'category', 'reviews.user', 'articles')->findOrFail($id);
