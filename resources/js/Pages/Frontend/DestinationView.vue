@@ -3,7 +3,10 @@
         <div
             class="flex flex-col items-center justify-center min-h-screen bg-cream"
         >
-            <div v-if="loading" class="flex justify-center items-center h-64 absolute">
+            <div
+                v-if="loading"
+                class="flex justify-center items-center h-64 absolute"
+            >
                 <div
                     class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
                 ></div>
@@ -20,7 +23,7 @@
 
             <!-- Hero -->
             <div class="relative tracking-wide">
-            <!-- Image -->
+                <!-- Image -->
                 <img
                     src="../../assets/Explore.png"
                     alt="Scenic view of a coastline"
@@ -31,51 +34,55 @@
                 <div
                     class="absolute inset-0 flex flex-col items-center text-center bg-black bg-opacity-50 space-y-4"
                 >
-
                     <!--Text Part-->
                     <div class="text-5xl text-cream p-6 mt-10 font-semibold">
                         <h1>Popular Places Near Where You Are</h1>
                     </div>
                     <!--Dropdown Part-->
                     <!-- Dropdown for categories -->
-                    <div class="font-montseratt w-full items-center justify-center flex space-x-20">
-                        <div class="w-full max-w-[300px] ">
-                        <select
-                            v-model="selectedCategory"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="">All Categories</option>
-                            <option
-                                v-for="category in categories"
-                                :key="category.id"
-                                :value="category.id"
+                    <div
+                        class="font-montseratt w-full items-center justify-center flex space-x-20"
+                    >
+                        <div class="w-full max-w-[300px]">
+                            <select
+                                v-model="selectedCategory"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                             >
-                                {{ category.name }}
-                            </option>
-                        </select>
-                    </div>
+                                <option value="">All Categories</option>
+                                <option
+                                    v-for="category in categories"
+                                    :key="category.id"
+                                    :value="category.id"
+                                >
+                                    {{ category.name }}
+                                </option>
+                            </select>
+                        </div>
 
-                    <!-- Dropdown for regions -->
-                    <div class="w-full max-w-[300px] font-montseratt">
-                        <select
-                            v-model="selectedRegion"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="">All Regions</option>
-                            <option
-                                v-for="region in regions"
-                                :key="region.id"
-                                :value="region.id"
+                        <!-- Dropdown for regions -->
+                        <div class="w-full max-w-[300px] font-montseratt">
+                            <select
+                                v-model="selectedRegion"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                             >
-                                {{ region.name }}
-                            </option>
-                        </select>
-                    </div>
+                                <option value="">All Regions</option>
+                                <option
+                                    v-for="region in regions"
+                                    :key="region.id"
+                                    :value="region.id"
+                                >
+                                    {{ region.name }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Search Field with Clear Button -->
-            <div class="w-full max-w-md pt-4 font-montseratt">
-                        <form @submit.prevent="submitSearch" class="flex items-center space-x-2">
+                    <div class="w-full max-w-md pt-4 font-montseratt">
+                        <form
+                            @submit.prevent="submitSearch"
+                            class="flex items-center space-x-2"
+                        >
                             <input
                                 id="search"
                                 type="text"
@@ -84,7 +91,7 @@
                                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                             />
                             <button
-                            v-if="search"
+                                v-if="search"
                                 type="submit"
                                 class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
@@ -101,27 +108,46 @@
                             </button>
                         </form>
                     </div>
-                    
 
-                    
-                    <section class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]">
-                                <div class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl">
-                                    
-                                </div>
-                            </section>
-                    
+                    <section
+                        class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]"
+                    >
+                        <div
+                            class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl"
+                        ></div>
+                    </section>
                 </div>
             </div>
 
             <!-- Destination Search Result -->
             <div class="">
                 <div v-if="loading" class="mt-72 relative">.</div>
-                <div v-if="!loading && searchClicked && searchResult.length === 0" class="">
-                    <h1 class="text-4xl text-vaga font-bold col-span-full w-full justify-center items-center mx-auto font-montseratt">Search Result</h1>
-                    <p class="text-xl text-bond font-semibold text-center mt-2 mb-8 font-montseratt">No Destination Found.</p>
+                <div
+                    v-if="
+                        !loading && searchClicked && searchResult.length === 0
+                    "
+                    class=""
+                >
+                    <h1
+                        class="text-4xl text-vaga font-bold col-span-full w-full justify-center items-center mx-auto font-montseratt"
+                    >
+                        Search Result
+                    </h1>
+                    <p
+                        class="text-xl text-bond font-semibold text-center mt-2 mb-8 font-montseratt"
+                    >
+                        No Destination Found.
+                    </p>
                 </div>
-                <div v-else-if="searchClicked && searchResult.length > 0" class="grid grid-cols-1 md:grid-cols-3 gap-6 ">
-                    <h1 class="text-4xl text-vaga font-bold col-span-full justify-center items-center mx-auto font-montseratt ">Search Result</h1>
+                <div
+                    v-else-if="searchClicked && searchResult.length > 0"
+                    class="grid grid-cols-1 md:grid-cols-3 gap-6"
+                >
+                    <h1
+                        class="text-4xl text-vaga font-bold col-span-full justify-center items-center mx-auto font-montseratt"
+                    >
+                        Search Result
+                    </h1>
                     <DestinationCard
                         v-for="destination in searchResult"
                         :key="destination.id"
@@ -129,70 +155,73 @@
                     />
                 </div>
             </div>
-            
+
             <!--All Destination List -->
             <div>
-                <div v-if="loading">.</div>         
+                <div v-if="loading">.</div>
                 <div v-else-if="destinations.length === 0">
                     No destinations found.
                 </div>
                 <div v-else class="flex flex-col">
-                    <h1 class="text-4xl font-bold text-vaga justify-center items-center mx-auto font-montseratt">Destinations List</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 ">
+                    <h1
+                        class="text-4xl font-bold text-vaga justify-center items-center mx-auto font-montseratt"
+                    >
+                        Destinations List
+                    </h1>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                         <DestinationCard
-                        v-for="destination in destinations"
-                        :key="destination.id"
-                        :destination="destination"
-                    />
+                            v-for="destination in destinations"
+                            :key="destination.id"
+                            :destination="destination"
+                        />
                     </div>
                 </div>
             </div>
-            
+
             <!-- Recomended Destination All-->
             <div class="mt-8">
-            <!-- Destination List -->
+                <!-- Destination List -->
                 <div>
-                    <div v-if="loading" class="w-full mx-auto font-montseratt">.</div>
-                        <div v-else-if="recommendeds.length === 0">
-                            No Recomendation destinations found.
-                        </div>
+                    <div v-if="loading" class="w-full mx-auto font-montseratt">
+                        .
+                    </div>
+                    <div v-else-if="recommendeds.length === 0">
+                        No Recomendation destinations found.
+                    </div>
                     <div v-else>
                         <div class="mx-auto p-6">
-                            <div class="text-center ">
+                            <div class="text-center">
                                 <h1
                                     class="text-3xl text-vaga font-bold font-montseratt hover:text-pink-600 transition duration-300"
                                 >
                                     Travel Recommendations
                                 </h1>
                                 <p class="text-bond font-montseratt">
-                                    The best travel recommendations from around Indonesia
-                                    for you.
+                                    The best travel recommendations from around
+                                    Indonesia for you.
                                 </p>
-                                
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <DestinationCard
-                            v-for="destination in recommendeds"
-                            :key="destination.id"
-                            :destination="destination"
-                        />
+                                v-for="destination in recommendeds"
+                                :key="destination.id"
+                                :destination="destination"
+                            />
                         </div>
-                        
                     </div>
                 </div>
             </div>
 
-
             <!-- Recomended Destination User-->
-            <div class="m-8" >
+            <div class="m-8">
                 <!-- Destination List -->
                 <div>
                     <div v-if="loading">.</div>
                     <div v-else-if="recomendationByUser.length === 0">
                         No destinations found.
                     </div>
-                    <div v-else >
+                    <div v-else>
                         <div class="mx-auto p-6">
                             <div class="text-center">
                                 <h1
@@ -204,18 +233,14 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <DestinationCard
-                            v-for="destination in recomendationByUser"
-                            :key="destination.id"
-                            :destination="destination"
-                        />
+                                v-for="destination in recomendationByUser"
+                                :key="destination.id"
+                                :destination="destination"
+                            />
                         </div>
-                        
                     </div>
-                </div>        
+                </div>
             </div>
-            
-
-                
         </div>
     </GuestLayout>
 </template>
@@ -316,16 +341,17 @@ const fetchRecommendedByUser = async () => {
     }
 };
 
-
 const search = ref("");
 const searchResult = ref([]);
 const searchClicked = ref(false);
 
 const submitSearch = async () => {
     loading.value = true;
-    searchClicked.value = true;  // Set to true when search is initiated
+    searchClicked.value = true; // Set to true when search is initiated
     try {
-        const response = await axios.get(`/api/destination/search/${search.value}`);
+        const response = await axios.get(
+            `/api/destination/search/${search.value}`
+        );
         searchResult.value = response.data;
         console.log(searchResult.value);
     } catch (error) {
@@ -348,10 +374,8 @@ const clearSearch = async () => {
     }
 
     search.value = "";
-    searchClicked.value = false;  // Reset searchClicked when clearing the search
-}
-
-
+    searchClicked.value = false; // Reset searchClicked when clearing the search
+};
 
 watch([selectedCategory, selectedRegion], () => {
     fetchDestinations();
@@ -382,6 +406,4 @@ onMounted(() => {
             loading.value = false;
         });
 });
-
-
 </script>

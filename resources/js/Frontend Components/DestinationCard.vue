@@ -18,26 +18,29 @@
             >
                 <i class="fas fa-star text-yellow-500"></i>
                 {{ formatRating(destination?.rating || 0) }} / 5
-        </div>
+            </div>
             <!--Star Component-->
-            <div 
-                class="absolute right-4 w-10 h-10  z-50 flex  items-center justify-center rounded-full bg-bond cursor-pointer border"
-                :class="destination.isLiked ? 'border-yellow-400' : 'border-black'"
+            <!-- <div
+                class="absolute right-4 w-10 h-10 z-50 flex items-center justify-center rounded-full bg-bond cursor-pointer border"
+                :class="
+                    destination.isLiked ? 'border-yellow-400' : 'border-black'
+                "
                 @click="handleStar"
             >
-                <svg 
-                
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 24 24" 
-                class="w-5 h-5"
-                :fill="destination.isLiked ? 'yellow' : 'transparent'"
-                :stroke="destination.isLiked ? 'yellow' : 'white'"
-                stroke-width="2"
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    class="w-5 h-5"
+                    :fill="destination.isLiked ? 'yellow' : 'transparent'"
+                    :stroke="destination.isLiked ? 'yellow' : 'white'"
+                    stroke-width="2"
                 >
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    <path
+                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                    />
                 </svg>
-            </div>
-        </div>   
+            </div> -->
+        </div>
 
         <!-- Content overlaying the image -->
         <div
@@ -47,18 +50,17 @@
                 <h3 class="text-lg font-bold mb-1 text-gray-100">
                     {{
                         destination.name.length > 20
-                        ? destination.name.slice(0, 20) + "..."
-                        : destination?.name || 'Unknown Destination' 
+                            ? destination.name.slice(0, 20) + "..."
+                            : destination?.name || "Unknown Destination"
                     }}
                 </h3>
                 <span
                     class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded"
                 >
-                    
                     {{
                         destination.location.length > 25
-                        ? destination.location.slice(0, 25) + "..."
-                        : destination.location || 'Unknown Location' 
+                            ? destination.location.slice(0, 25) + "..."
+                            : destination.location || "Unknown Location"
                     }}
                 </span>
             </div>
@@ -84,29 +86,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import NavLink from '../Components/NavLink.vue';
-import StarRating from '../Frontend Components/StarRating.vue';
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import NavLink from "../Components/NavLink.vue";
+import StarRating from "../Frontend Components/StarRating.vue";
 
 const props = defineProps({
     destination: {
         type: Object,
         default: () => ({}), // Default to an empty object to avoid null reference errors
     },
-
 });
 
 const destination = ref(props.destination);
 const favoriteDestination = ref([]);
 
-
-
 // Format currency for display
 const formatCurrency = (value) => {
-    return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
     }).format(value);
 };
 
@@ -117,38 +116,41 @@ const formatRating = (rating) => {
 
 const clicked = ref(); // Use ref for reactive state
 
-const handleStar = () => {
-    toggleStar();
-    toggleLike(destination);
-};
+// const handleStar = () => {
+//     toggleStar();
+//     toggleLike(destination);
+// };
 
 const toggleStar = () => {
-  clicked.value = !clicked.value; // Toggle the clicked state
+    clicked.value = !clicked.value; // Toggle the clicked state
 };
 
+// onMounted(async () => {
+//     try {
+//         // Fetch user's favorite destinations
+//         // const favoriteResponse = await axios.get(`/api/profile/favorite`);
+//         // favoriteDestination.value = favoriteResponse.data.data;
 
-onMounted(async () => {
-    try {
-        // Fetch user's favorite destinations
-        const favoriteResponse = await axios.get(`/api/profile/favorite`);
-        favoriteDestination.value = favoriteResponse.data.data;
+//         // Fetch the latest data for the destination
+//         const response = await axios.get(
+//             `/api/destination/${destination.value.id}`
+//         );
+//         destination.value = response.data;
 
-        // Fetch the latest data for the destination
-        const response = await axios.get(`/api/destination/${destination.value.id}`);
-        destination.value = response.data;
-
-        // Set isLiked based on user's favorite destinations
-        destination.value.isLiked = favoriteDestination.value.some(
-            (fav) => fav.id === destination.value.id
-        );
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
-});
+//         // // Set isLiked based on user's favorite destinations
+//         // destination.value.isLiked = favoriteDestination.value.some(
+//         //     (fav) => fav.id === destination.value.id
+//         // );
+//     } catch (error) {
+//         console.error("Error fetching data:", error);
+//     }
+// });
 // Toggle like
 const toggleLike = async () => {
     try {
-        const response = await axios.post(`/api/destination/${props.destination.id}/like`);
+        const response = await axios.post(
+            `/api/destination/${props.destination.id}/like`
+        );
         destination.value.isLiked = response.data.isLiked;
 
         if (destination.value.isLiked) {
@@ -166,7 +168,4 @@ const toggleLike = async () => {
         }
     }
 };
-
-console.log("props.id:", props.id);
-
 </script>
