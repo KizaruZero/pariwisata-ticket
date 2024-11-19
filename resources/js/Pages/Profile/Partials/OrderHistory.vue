@@ -23,14 +23,24 @@
                 class="bg-white shadow-lg rounded-lg overflow-hidden"
             >
                 <!-- Card Header -->
-                <div class="bg-green-500 p-4">
+                <div
+                    class="p-4"
+                    :class="{
+                        'bg-green-500': order.status === 'approved',
+                        'bg-yellow-500': order.status === 'pending',
+                        'bg-red-500': order.status === 'cancelled'
+                    }"
+                >
                     <h2 class="text-white text-lg font-semibold">
                         Order #{{ order.id }}
                     </h2>
-                    <p class="text-white text-sm">
-                        Status:
-                        <span class="font-bold">{{ order.status }}</span>
-                    </p>
+                    <div class="">
+                        <p class="text-lg font-semibold text-white">Date:
+                            {{
+                                formatDate(order.booking_date)
+                            }}
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Card Body -->
@@ -41,6 +51,8 @@
                             {{ order.destination.name }}
                         </p>
                     </div>
+
+                    
 
                     <div class="mb-4">
                         <p class="text-gray-700 text-sm">Package Price:</p>
@@ -58,24 +70,25 @@
                         </p>
                     </div>
 
-                    <div class="mb-4">
-                        <p class="text-gray-700 text-sm">Approved At:</p>
-                        <p class="text-lg font-semibold text-gray-900">
-                            {{
-                                order.approved_at
-                                    ? formatDate(order.approved_at)
-                                    : order.status
-                            }}
-                        </p>
-                    </div>
+                    
                 </div>
 
                 <!-- Card Footer with CTA button -->
-                <div class="p-4 bg-gray-100">
+                <div
+                    class="p-4"
+                    :class="{
+                        'bg-green-500': order.status === 'approved',
+                        'bg-yellow-500': order.status === 'pending',
+                        'bg-red-500': order.status === 'cancelled'
+                    }"
+                >
                     <button
-                        class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
+                        class="w-full text-white py-2 rounded-lg hover:opacity-75 transition"
                     >
-                        View Details
+                        <p class="text-white text-lg">
+                            Status:
+                            <span class="font-bold">{{ order.status }}</span>
+                        </p>
                     </button>
                 </div>
             </div>
