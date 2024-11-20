@@ -1,8 +1,11 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Destination extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['name', 'description', 'location', 'category_id', 'region_id', 'image_url', 'price', 'rating', 'total_riviews', 'total_orders', 'total_views', 'total_likes', 'popularity'];
 
     public function category()

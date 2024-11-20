@@ -14,7 +14,8 @@ Route::get('/api/destination/recommendationByUser', [DestinationController::clas
 Route::get('/api/regions', [RegionController::class, 'getRegion']);
 Route::get('/api/destination/{id}', [DestinationController::class, 'getDestinationDetail']);
 Route::get('/api/packages/{id}', [PackageController::class, 'getPackageDetail']);
-Route::post('api/order', [OrderController::class, 'store']);
+Route::post('api/order', [OrderController::class, 'store'])->name('order.store');
+Route::post('api/order/approve', [OrderController::class, 'store'])->name('order.approve');
 Route::get('api/orders/history', [OrderController::class, 'orderHistory']);
 Route::get('api/categories', [CategoryController::class, 'getCategory']);
 Route::get('/api/destinations/{category}', [DestinationController::class, 'filterByCategory']);
