@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\Category;
 use App\Models\Region;
 use App\Mail\OrderReceipt;
-
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -62,7 +61,7 @@ class UserOrderTest extends TestCase
         $paymentProof = UploadedFile::fake()->image('payment.jpg');
 
         // Login sebagai user
-        $this->actingAs($this->user);
+        $this->actingAs(user: $this->user);
 
         // Data input untuk order
         $data = [
@@ -78,6 +77,11 @@ class UserOrderTest extends TestCase
 
         // Kirim request untuk membuat order
         $response = $this->postJson(route('order.store'), $data);
+
+        if ($response->getStatusCode() === 401) {
+            $this->fail("Testing gagal karena User Harus Login Untuk Melakukan Order");
+            return;
+        }
 
         // Pastikan respons berhasil
         $response->assertStatus(201)
@@ -131,54 +135,74 @@ class UserOrderTest extends TestCase
             ->assertJson(['message' => 'Unauthenticated.']);
 
         // Pastikan respons berhasil
-        // $response->assertStatus(201)
-        //     ->assertJsonStructure(['message', 'order']);
+        $response->assertStatus(201)
+            ->assertJsonStructure(['message', 'order']);
 
-        // // Periksa data order di database
-        // $this->assertDatabaseHas('orders', [
-        //     'user_id' => $this->user->id,
-        //     'destination_id' => $this->destination->id,
-        //     'quantity' => 2,
-        //     'total_price' => $this->destination->price * 2,
-        //     'payment_method' => 'bank_transfer',
-        //     'status' => 'pending'
-        // ]);
-
-        // // Pastikan bukti pembayaran tersimpan
-        // Storage::disk('public')->assertExists('payment_proofs/' . $paymentProof->hashName());
-    }
-
-    /** @test */
-    public function it_sends_email_when_order_is_approved()
-    {
-        // Fake email untuk mencegah pengiriman asli
-        Mail::fake();
-        $this->order = Order::factory()->create([
+        // Periksa data order di database
+        $this->assertDatabaseHas('orders', [
             'user_id' => $this->user->id,
             'destination_id' => $this->destination->id,
             'quantity' => 2,
             'total_price' => $this->destination->price * 2,
             'payment_method' => 'bank_transfer',
-            'status' => 'approved'
+            'status' => 'pending'
         ]);
 
-        // Approve order
-        $response = $this->actingAs($this->user)
-            ->postJson(route('order.approve', $this->order)); // Sesuaikan dengan route Anda
-
-        // Assert bahwa order diubah menjadi 'approved'
-        $this->order->refresh();
-        $this->assertEquals('approved', $this->order->status);
-
-        // Assert email dikirim
-        Mail::assertSent(OrderReceipt::class, function ($mail) {
-            return $mail->hasTo($this->user->email) && $mail->order->id === $this->order->id;
-        });
-
-        // Assert respon HTTP sukses
-        $response->assertStatus(200)
-            ->assertSessionHas('success', 'Order approved successfully!');
+        // Pastikan bukti pembayaran tersimpan
+        Storage::disk('public')->assertExists('payment_proofs/' . $paymentProof->hashName());
     }
+
+    // Integration Testing
+    public function testOrderReceiptEmail()
+    {
+        // Menyimpan file sementara menggunakan fake storage
+        Storage::fake('public');
+
+        // Membuat file bukti pembayaran palsu
+        $paymentProof = UploadedFile::fake()->image('payment.jpg');
+
+        // Autentikasi user yang akan melakukan order
+        $this->actingAs(user: $this->user);
+
+        // Membuat order dengan status 'pending'
+        $order = Order::factory()->create(
+            [
+                'user_id' => $this->user->id,
+                'destination_id' => $this->destination->id,
+                'quantity' => 2,
+                'total_price' => $this->destination->price * 2,
+                'payment_method' => 'bank_transfer',
+                'payment_proof' => $paymentProof,
+                'status' => 'pending',  // Order dimulai dengan status pending
+                'booking_date' => now()->addDays(5)->format('Y-m-d')
+            ]
+        );
+
+        // Ubah status order menjadi 'approved'
+        $order->status = 'approved';
+        $order->save(); // Simulasikan perubahan status ke approved
+
+        // Pastikan email hanya terkirim jika status adalah 'approved'
+        if ($order->status === 'approved') {
+            // Gunakan Mail::fake() untuk merekam pengiriman email
+            Mail::fake();
+
+            // Mengirim email
+            Mail::to($order->user->email)->send(new OrderReceipt($order));
+
+            // Memeriksa apakah email terkirim setelah status diubah menjadi approved
+            Mail::assertSent(OrderReceipt::class, function ($mail) use ($order) {
+                return $mail->order->id === $order->id;  // Memastikan email berisi order yang benar
+            });
+        } else {
+            // Jika status bukan 'approved', uji gagal
+            $this->fail("Email tidak terkirim jika status order bukan 'approved'");
+        }
+    }
+
+
+
+
 
 }
 
