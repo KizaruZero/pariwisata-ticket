@@ -14,7 +14,7 @@
             -->
                 <div class="relative">
                     <img
-                        src="../../assets/home.png"
+                        :src="`/storage/${destination.image_url}`"
                         alt="Image"
                         class="w-full h-[400px] object-cover"
                     />
