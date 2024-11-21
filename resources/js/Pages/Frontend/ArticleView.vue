@@ -4,9 +4,9 @@
             <div class="mx-auto" id="app">
                 <div class="relative tracking-wide">
                     <img
-                        src="../../assets/Explore.png"
+                        src="../../assets/articles.jpg"
                         alt="Scenic view of a coastline"
-                        class="w-screen h-[350px] object-cover z-0 tracking-wider"
+                        class="w-screen h-[350px] object-cover z-0 tracking-wider bg-no-repeat bg-bottom"
                     />
                     <div class="absolute inset-0 flex flex-col items-center text-center bg-black bg-opacity-50 space-y-4">
                         <!--Text Part-->
