@@ -48,8 +48,8 @@
 
             <!-- Auth Links for Desktop -->
             <div class="hidden md:flex space-x-4">
+                <!-- Guest links: Login / Register -->
                 <div v-if="!user">
-                    <!-- Guest links: Login / Register -->
                     <Link
                         :href="route('login')"
                         class="text-white px-4 py-2 hover:bg-blue-500 rounded"
@@ -63,8 +63,9 @@
                         Register
                     </Link>
                 </div>
+                <!-- Authenticated user links: Profile / Logout -->
                 <div v-else>
-                    <!-- Authenticated user links: Profile / Logout -->
+                    
                     <Link
                         v-if="isAdmin"
                         @click="goToDashboard"
