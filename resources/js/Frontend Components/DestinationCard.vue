@@ -46,17 +46,30 @@
         <div
             class="absolute bottom-3 left-3 right-3 z-10 px-2 py-1 rounded-xl content bg-white/40 backdrop-blur-md"
         >
-            <div class="flex flex-row justify-between items-start">
-                <h3 class="text-lg font-bold mb-1 text-gray-100">
+            <div class="flex flex-row justify-between items-start py-1">
+                <h3 class="font-bold mb-1 text-gray-100"
+                style="
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              ">
                     {{
-                        destination.name.length > 20
+                        destination.name.length > 22
                             ? destination.name.slice(0, 20) + "..."
                             : destination?.name || "Unknown Destination"
                     }}
                 </h3>
                 <span
                     class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded"
-                >
+                    style="
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              ">
                     {{
                         destination.location.length > 25
                             ? destination.location.slice(0, 25) + "..."

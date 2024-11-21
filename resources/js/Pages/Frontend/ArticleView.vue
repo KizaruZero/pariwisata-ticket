@@ -4,7 +4,7 @@
             <div class="mx-auto" id="app">
                 <div class="relative tracking-wide">
                     <img
-                        src="../../assets/articles.jpg"
+                        src="../../assets/home.png"
                         alt="Scenic view of a coastline"
                         class="w-screen h-[350px] object-cover z-0 tracking-wider bg-no-repeat bg-bottom"
                     />

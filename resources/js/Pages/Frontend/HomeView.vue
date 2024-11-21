@@ -164,50 +164,50 @@
                 Why Should Choose Us?
                 </h2>
                 <div class="flex flex-wrap gap-12 items-center pr-5 pl-2.5 mt-12 w-full text-black max-w-[1317px] max-md:mt-10 max-md:max-w-full">
-                <article data-layername="userFriendlyInterface" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
-                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ea07a98de67556211deb19c7c72c4d7535502c2fb65fa9e435279bd6edeb6ef?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="User-friendly interface icon" class="object-contain shrink-0 aspect-[0.91] w-[93px]" />
-                    <div class="flex flex-col grow shrink justify-center min-w-[240px] w-[439px] max-md:max-w-full">
-                    <h3 data-layername="userFriendlyInterface" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                        User-Friendly Interface
-                    </h3>
-                    <p data-layername="ourPlatformIsDesignedWithSimplicityAndUsabilityInMindMakingItEasyForAnyoneToSearchBookAndManageTheirTravelTickets" class="text-xl font-medium leading-6 max-md:max-w-full">
-                        Our platform is designed with simplicity and usability in mind, making it easy for anyone to search, book, and manage their travel tickets.
-                    </p>
-                    </div>
-                </article>
-                <article data-layername="trustworthyReputable" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
-                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/d9c3e9059d44bf8037141ebcdbadd520317e02707769bebc212e52f5bd60c656?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Trustworthy and reputable icon" class="object-contain shrink-0 aspect-square w-[97px]" />
-                    <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                    <h3 data-layername="trustworthyReputable" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                        Trustworthy & Reputable
-                    </h3>
-                    <p data-layername="weHaveEstablishedAStrongReputationInTheIndustryForProvidingReliableAndHighQualityServiceToTravelersAcrossTheCountry" class="text-xl font-medium leading-6 max-md:max-w-full">
-                        We have established a strong reputation in the industry for providing reliable and high-quality service to travelers across the country.
-                    </p>
-                    </div>
-                </article>
-                <article data-layername="securePaymentSystem" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
-                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0932222950a0ed7b6345aedf4ef29309a0eda7b46f04395de30d2ffd16eca2a?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Secure payment system icon" class="object-contain shrink-0 aspect-square w-[97px]" />
-                    <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                    <h3 data-layername="securePaymentSystem" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                        Secure Payment System
-                    </h3>
-                    <p data-layername="ourPlatformUtilizesAdvancedSecurityMeasuresToEnsureThatYourTransactionsAreSafeAndYourPersonalDataIsProtected" class="text-xl font-medium leading-6 max-md:max-w-full">
-                        Our platform utilizes advanced security measures to ensure that your transactions are safe and your personal data is protected.
-                    </p>
-                    </div>
-                </article>
-                <article data-layername="247CustomerSupport" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[500px] max-md:max-w-full">
-                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e27632703d67b99218a6f90694aa18dce8b3b2a6ce468a2e7a48e0cba4cc6528?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="24/7 Customer support icon" class="object-contain shrink-0 aspect-square w-[102px]" />
-                    <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                    <h3 data-layername="247CustomerSupport" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                        24/7 Customer Support
-                    </h3>
-                    <p data-layername="ourDedicatedCustomerSupportTeamIsAvailableAroundTheClockToAssistYouWithAnyIssuesOrInquiriesEnsuringASmoothTravelExperience" class="text-xl font-medium leading-6 max-md:max-w-full">
-                        Our dedicated customer support team is available around the clock to assist you with any issues or inquiries, ensuring a smooth travel experience.
-                    </p>
-                    </div>
-                </article>
+                    <article data-layername="userFriendlyInterface" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ea07a98de67556211deb19c7c72c4d7535502c2fb65fa9e435279bd6edeb6ef?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="User-friendly interface icon" class="object-contain shrink-0 aspect-[0.91] w-[93px]" />
+                        <div class="flex flex-col grow shrink justify-center min-w-[240px] w-[439px] max-md:max-w-full">
+                        <h3 data-layername="userFriendlyInterface" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                            User-Friendly Interface
+                        </h3>
+                        <p data-layername="ourPlatformIsDesignedWithSimplicityAndUsabilityInMindMakingItEasyForAnyoneToSearchBookAndManageTheirTravelTickets" class="text-xl font-medium leading-6 max-md:max-w-full">
+                            Our platform is designed with simplicity and usability in mind, making it easy for anyone to search, book, and manage their travel tickets.
+                        </p>
+                        </div>
+                    </article>
+                    <article data-layername="trustworthyReputable" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/d9c3e9059d44bf8037141ebcdbadd520317e02707769bebc212e52f5bd60c656?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Trustworthy and reputable icon" class="object-contain shrink-0 aspect-square w-[97px]" />
+                        <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
+                        <h3 data-layername="trustworthyReputable" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                            Trustworthy & Reputable
+                        </h3>
+                        <p data-layername="weHaveEstablishedAStrongReputationInTheIndustryForProvidingReliableAndHighQualityServiceToTravelersAcrossTheCountry" class="text-xl font-medium leading-6 max-md:max-w-full">
+                            We have established a strong reputation in the industry for providing reliable and high-quality service to travelers across the country.
+                        </p>
+                        </div>
+                    </article>
+                    <article data-layername="securePaymentSystem" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0932222950a0ed7b6345aedf4ef29309a0eda7b46f04395de30d2ffd16eca2a?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Secure payment system icon" class="object-contain shrink-0 aspect-square w-[97px]" />
+                        <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
+                        <h3 data-layername="securePaymentSystem" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                            Secure Payment System
+                        </h3>
+                        <p data-layername="ourPlatformUtilizesAdvancedSecurityMeasuresToEnsureThatYourTransactionsAreSafeAndYourPersonalDataIsProtected" class="text-xl font-medium leading-6 max-md:max-w-full">
+                            Our platform utilizes advanced security measures to ensure that your transactions are safe and your personal data is protected.
+                        </p>
+                        </div>
+                    </article>
+                    <article data-layername="247CustomerSupport" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[500px] max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e27632703d67b99218a6f90694aa18dce8b3b2a6ce468a2e7a48e0cba4cc6528?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="24/7 Customer support icon" class="object-contain shrink-0 aspect-square w-[102px]" />
+                        <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
+                        <h3 data-layername="247CustomerSupport" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                            24/7 Customer Support
+                        </h3>
+                        <p data-layername="ourDedicatedCustomerSupportTeamIsAvailableAroundTheClockToAssistYouWithAnyIssuesOrInquiriesEnsuringASmoothTravelExperience" class="text-xl font-medium leading-6 max-md:max-w-full">
+                            Our dedicated customer support team is available around the clock to assist you with any issues or inquiries, ensuring a smooth travel experience.
+                        </p>
+                        </div>
+                    </article>
                 </div>
             </section>
             </div>

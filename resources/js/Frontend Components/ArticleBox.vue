@@ -47,14 +47,9 @@
           <div class="text-sm bottom-3 text-gray-500">
             {{ formatDate(article.created_at) }}
           </div>
-          
-          
       </div>
     </div>
-
   </NavLink>
-
-  
 </template>
 
 <script setup>
