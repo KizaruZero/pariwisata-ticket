@@ -16,7 +16,7 @@ class FavoriteController extends Controller
             $user = Auth::user();
 
             if (!$user) {
-                return response()->json(['message' => 'User not authenticated'], 401);
+                return redirect()->route('login');
             }
 
             if ($user->likedDestinations()->where('destination_id', $id)->exists()) {
@@ -40,7 +40,7 @@ class FavoriteController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return response()->json(['message' => 'User not authenticated'], 401);
+            return redirect()->route('login');
         }
 
         $favoriteDestinations = $user->likedDestinations()->get();
