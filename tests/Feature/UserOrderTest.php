@@ -179,7 +179,7 @@ class UserOrderTest extends TestCase
         );
 
         // Ubah status order menjadi 'approved'
-        $order->status = 'approved';
+        $order->status = 'pending';
         $order->save(); // Simulasikan perubahan status ke approved
 
         // Pastikan email hanya terkirim jika status adalah 'approved'
@@ -199,6 +199,57 @@ class UserOrderTest extends TestCase
             $this->fail("Email tidak terkirim jika status order bukan 'approved'");
         }
     }
+
+
+    public function testUserLoginAndOrderIncreasesPopularity()
+{
+    // **1. Setup Data Awal**
+    $user = User::factory()->create();
+    $category = Category::factory()->create();
+    $region = Region::factory()->create();
+
+    // Membuat destinasi/produk
+    $destination = Destination::factory()->create([
+        'category_id' => $category->id,
+        'region_id' => $region->id,
+        'price' => 250000,
+        'total_orders' => 0,
+        'total_views' => 0,
+        'total_likes' => 0,
+        'popularity' => 0,
+    ]);
+
+    $initialPopularity = $destination->popularity;
+    $paymentProof = UploadedFile::fake()->image('payment.jpg');
+
+    // **2. Simulasi Login User**
+    $this->actingAs($user);
+
+    // **3. Simulasi Order**
+    $order = Order::factory()->create([
+        'user_id' => $user->id,
+        'destination_id' => $destination->id,
+        'quantity' => 2,
+        'total_price' => $destination->price * 2,
+        'payment_method' => 'bank_transfer',
+        'payment_proof' => $paymentProof,
+        'status' => 'approved', // Pastikan status adalah approved
+        'booking_date' => now()->addDays(5)->format('Y-m-d')
+    ]);
+
+    if ($order->status === 'approved') {
+        // Update total orders dan popularitas destinasi
+        $destination->updateTotalOrders();
+    }
+
+    // **4. Assert - Cek Popularitas Bertambah**
+    $destination->refresh();
+    $this->assertGreaterThan($initialPopularity, $destination->popularity);
+
+    // **5. Assert - Cek Total Orders Bertambah**
+    $this->assertEquals(2, $destination->total_orders);
+}
+
 
 
 
