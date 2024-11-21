@@ -125,8 +125,8 @@
                     </NavLink>
                     <div class="h-[150px]"></div>
                     <section class="absolute bottom-0 w-full h-[150px] bg-bond rounded-tl-[70%] rounded-tr-[70%]">
-                    <div class="h-full flex items-center  justify-center italic text-white text-3xl">
-                        <h1>Find Interesting Articles</h1>
+                    <div class="h-full flex items-center justify-center italic text-white text-3xl">
+                        <h1>Find Latest Articles</h1>
                     </div>
                 </section>  
             </section>
@@ -149,7 +149,7 @@
                 <NavLink 
                 :href="route('destinations')"
                 :active="route().current('destinations')"
-                class="flex flex-row w-full justify-center items-center pb-10 pt-5 text-cream text-[18px] hover:text-white hover:opacity-90 transition-transform transform hover:scale-105"
+                class="flex flex-row w-full justify-center items-center pb-10 pt-10 text-cream text-[18px] hover:text-white hover:opacity-90 transition-transform transform hover:scale-105"
                     >
                     <h3 class="mr-2">READ MORE</h3>
                     <img src="../../assets/logo/SearchLogo.png">

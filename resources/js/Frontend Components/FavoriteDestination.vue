@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div v-if="favoriteDestination.length" class="mt-4">
-            <h2 class="text-xl font-semibold">Favorite Destination</h2>
-            <div
+        <div v-if="favoriteDestination.length" class="my-4">
+            <h2 class="text-xl font-semibold my-4">Favorite Destination</h2>
+            <!-- <div
                 v-for="destination in favoriteDestination"
                 :key="destination.id"
             >
@@ -16,7 +16,17 @@
                 >
                     View Details
                 </NavLink>
+            </div> -->
+            <div class="grid grid-cols-3">
+                <DestinationCard
+                        v-for="destination in favoriteDestination"
+                        :key="destination.id"
+                        :destination="destination"
+                        class="mx-auto"
+                    />
+
             </div>
+            
         </div>
     </div>
 </template>
@@ -24,7 +34,8 @@
 <script setup>
 import axios from "axios";
 import { ref, onMounted } from "vue";
-import NavLink from "../Components/NavLink.vue";
+import NavLink from "../Components/NavLink.vue"
+import DestinationCard from "./DestinationCard.vue";
 
 const favoriteDestination = ref([]);
 

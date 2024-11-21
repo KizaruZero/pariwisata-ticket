@@ -5,7 +5,7 @@ import FooterComponent from "@/Components/FooterComponent.vue";
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-cream">
         <!-- Navbar -->
         <Navbar />
 

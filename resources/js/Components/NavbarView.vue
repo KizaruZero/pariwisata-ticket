@@ -1,6 +1,6 @@
 <template>
     <nav
-        class="bg-vaga p-4 flex justify-between items-center sticky top-0 z-50 font-montseratt"
+        class="bg-vaga p-4 flex justify-between items-center sticky top-0 z-50 font-montseratt shadow-md"
     >
         <div class="flex justify-between items-center w-screen px-8">
             <!-- Desktop Navigation Links -->
