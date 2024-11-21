@@ -1,15 +1,17 @@
 <template>
-    <nav 
-    class="bg-vaga p-4  flex justify-between items-center sticky top-0 z-50 font-montseratt">
+    <nav
+        class="bg-vaga p-4 flex justify-between items-center sticky top-0 z-50 font-montseratt"
+    >
         <div class="flex justify-between items-center w-screen px-8">
             <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex space-x-5 text-sm hover:text-amber-500 ">
+            <div class="hidden md:flex space-x-5 text-sm hover:text-amber-500">
                 <NavLink
                     :href="route('home')"
                     :active="route().current('home')"
                     :class="[
-            { 'text-amber-400': active }, { 'font-bold': active },
-        ]"
+                        { 'text-amber-400': active },
+                        { 'font-bold': active },
+                    ]"
                 >
                     Home
                 </NavLink>
@@ -32,15 +34,17 @@
                     About
                 </NavLink>
             </div>
-            
+
             <!-- Logo -->
             <div class="flex flex-col">
-            <Link :href="route('home')" class="text-white text-4xl font-semibold leading-[44.81px] font-bodoni -ml-2 flex flex-row" >
-                <img src="../assets/logo/vagabond.svg" class="w-[50px]">
-                <h2 >VAGABOND</h2>
-            </Link>
+                <Link
+                    :href="route('home')"
+                    class="text-white text-4xl font-semibold leading-[44.81px] font-bodoni -ml-2 flex flex-row"
+                >
+                    <img src="../assets/logo/vagabond.svg" class="w-[50px]" />
+                    <h2>VAGABOND</h2>
+                </Link>
             </div>
-            
 
             <!-- Auth Links for Desktop -->
             <div class="hidden md:flex space-x-4">
@@ -63,11 +67,20 @@
                 <div v-else>
                     
                     <Link
+                        v-if="isAdmin"
+                        @click="goToDashboard"
+                        class="text-white px-4 py-2 hover:bg-blue-500 rounded"
+                    >
+                        Dashboard
+                    </Link>
+                    <Link
+                        v-else
                         :href="route('profile.edit')"
                         class="text-white px-4 py-2 hover:bg-blue-500 rounded"
                     >
                         Profile
                     </Link>
+
                     <Link
                         :href="route('logout')"
                         method="post"
@@ -165,7 +178,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
 
@@ -178,14 +191,23 @@ export default {
         const mobileMenuOpen = ref(false);
         const { props } = usePage();
         const user = props.auth.user;
+        const isAdmin = computed(() => props.auth.user?.role === "admin");
+        console.log("User Role:", props.auth.user?.role);
+        console.log("Is Admin:", isAdmin.value);
 
         const toggleMobileMenu = () => {
             mobileMenuOpen.value = !mobileMenuOpen.value;
         };
 
+        const goToDashboard = () => {
+            window.location.replace("/dashboard");
+        };
+
         return {
             mobileMenuOpen,
             toggleMobileMenu,
+            isAdmin,
+            goToDashboard,
             user,
         };
     },

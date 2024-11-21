@@ -90,13 +90,13 @@
                                 placeholder="Search for destination..."
                                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                             />
-                            <button
+                            <!-- <button
                                 v-if="search"
                                 type="submit"
                                 class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 Search
-                            </button>
+                            </button> -->
                             <!-- Clear Button -->
                             <button
                                 v-if="search"
@@ -253,6 +253,7 @@ import axios from "axios";
 
 const selectedCategory = ref("");
 const selectedRegion = ref("");
+const search = ref("");
 const destinations = ref([]);
 const recommendeds = ref([]);
 const recomendationByUser = ref([]);
@@ -266,6 +267,7 @@ const fetchDestinations = async () => {
     try {
         const response = await axios.get("/api/destinations", {
             params: {
+                keyword: search.value,
                 category: selectedCategory.value,
                 region: selectedRegion.value,
             },
@@ -341,25 +343,24 @@ const fetchRecommendedByUser = async () => {
     }
 };
 
-const search = ref("");
 const searchResult = ref([]);
 const searchClicked = ref(false);
 
-const submitSearch = async () => {
-    loading.value = true;
-    searchClicked.value = true; // Set to true when search is initiated
-    try {
-        const response = await axios.get(
-            `/api/destination/search/${search.value}`
-        );
-        searchResult.value = response.data;
-        console.log(searchResult.value);
-    } catch (error) {
-        console.error("Error fetching destinations:", error);
-    } finally {
-        loading.value = false;
-    }
-};
+// const submitSearch = async () => {
+//     loading.value = true;
+//     searchClicked.value = true; // Set to true when search is initiated
+//     try {
+//         const response = await axios.get(
+//             `/api/destination/search/${search.value}`
+//         );
+//         searchResult.value = response.data;
+//         console.log(searchResult.value);
+//     } catch (error) {
+//         console.error("Error fetching destinations:", error);
+//     } finally {
+//         loading.value = false;
+//     }
+// };
 
 const clearSearch = async () => {
     loading.value = true;
@@ -377,7 +378,7 @@ const clearSearch = async () => {
     searchClicked.value = false; // Reset searchClicked when clearing the search
 };
 
-watch([selectedCategory, selectedRegion], () => {
+watch([selectedCategory, selectedRegion, search], () => {
     fetchDestinations();
 });
 

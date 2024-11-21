@@ -47,9 +47,18 @@ class DestinationController extends Controller
                 $query->where('region_id', $regionId);
             }
         }
+
+        if ($request->has('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where('name', 'like', "%$keyword%");
+        }
+
+
         $destinations = $query->with([
             'category:id,name',
-            'region:id,name'
+            'region:id,name',
+
+
         ])->get();
 
         return response()->json([

@@ -7,7 +7,7 @@
             <img
                 alt="Image of the destination"
                 class="w-full h-full object-cover"
-                src="../assets/home.png"
+                :src="`/storage/${destination.image_url}`"
             />
         </div>
 

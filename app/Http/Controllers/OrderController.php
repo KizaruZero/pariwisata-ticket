@@ -57,7 +57,7 @@ class OrderController extends Controller
                 'status' => 'pending',
             ]);
 
-            return response()->json(['message' => 'Order created successfully!', 'order' => $order]);
+            return response()->json(['message' => 'Order created successfully!', 'order' => $order], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Order creation failed', 'error' => $e->getMessage()], 500);
         }
@@ -74,4 +74,17 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order history', 'orders' => $orders]);
     }
+
+    // approve order
+    // public function approve(Order $order)
+    // {
+    //     $order->update([
+    //         'status' => 'approved',
+    //         'approved_at' => now(),
+    //     ]);
+    //     // Kirim receipt ke buyer (email dengan PDF)
+    //     \Mail::to($order->user->email)->send(new \App\Mail\OrderReceipt($order));
+    //     $order->destination->updateTotalOrders();
+    //     return response()->route('order.approve')->with('success', 'Order approved successfully!', 200);
+    // }
 }
