@@ -35,15 +35,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $token = JWTAuth::fromUser(Auth::user());
-
-        // Store token in session if you need it later
-        session(['jwt_token' => $token]);
-
         // You can also send it as a cookie
         return redirect()
-            ->intended(route('home', absolute: false))
-            ->withCookie(cookie('jwt_token', $token, 60)); // 60 minutes expiry
+            ->intended(route('home', absolute: false));
     }
 
     /**
@@ -51,14 +45,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        // Invalidate JWT if exists
-        if ($token = JWTAuth::getToken()) {
-            JWTAuth::invalidate($token);
-        }
-
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
+
         $request->session()->regenerateToken();
 
         return redirect('/');
