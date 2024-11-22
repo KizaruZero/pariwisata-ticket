@@ -21,18 +21,19 @@
                         </section>
                     </div>
                 </div>
-                <div class="text-center bg-cream px-72 py-12">
-
-                    <div class="grid grid-cols-2 gap-6 ">
+                <div v-if="loading" class="flex justify-center items-center h-64">
+                <div
+                    class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
+                ></div>
+                </div>
+                <div class="text-center bg-cream  py-12 px-16">
+                    <div class="grid grid-cols-3 gap-6 justify-center items-center ">
                         <ArticleBox 
                         v-for="article in articles" 
                         :key="article.id" 
                         :article="article"
-                        class="bg-cream  h-full w-full"></ArticleBox>
+                        class="bg-cream  w-80 "></ArticleBox>
                     </div>
-                    
-                   
-    
                 </div>
                 
             </div>
@@ -48,6 +49,7 @@ import ArticleCard from "@/Frontend Components/ArticleCard.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 
 const articles = ref([]);
+
 
 const fetchArticles = async () => {
     try {

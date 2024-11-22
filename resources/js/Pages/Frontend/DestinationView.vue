@@ -160,7 +160,16 @@
             <div>
                 <div v-if="loading">.</div>
                 <div v-else-if="destinations.length === 0">
-                    No destinations found.
+                    <h1
+                        class="text-4xl text-vaga font-bold col-span-full w-full justify-center items-center mx-auto font-montseratt"
+                    >
+                        Destinations List
+                    </h1>
+                    <p
+                        class="text-xl text-bond font-semibold text-center mt-2 mb-8 font-montseratt"
+                    >
+                        No Destination Found.
+                    </p>
                 </div>
                 <div v-else class="flex flex-col">
                     <h1

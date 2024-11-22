@@ -139,7 +139,7 @@
                     
                     <div>
                         
-                        <section class="flex overflow-hidden flex-col items-center py-16 mt-12 bg-stone-200 rounded-[30px]">
+                        <section class="flex overflow-hidden flex-col items-center py-16 mt-12 bg-stone-200 rounded-[30px] shadow-xl drop-shadow-md">
                             <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/0e67fc3994fbf8afd00365a5969671e02c70704ccbde629bf9c41c050a1f5fc5?apiKey=ed89e008b7de47e5a3187e8a4c1c72f3&" alt="Vagabond logo" class="object-contain max-w-full aspect-[1.62] w-[193px]" />
                             <h2 class="mt-1 text-3xl font-semibold leading-none text-teal-600">VAGABOND</h2>
                             <div class="flex flex-col self-stretch mx-auto mt-7 w-full max-w-screen-2xl">
@@ -184,12 +184,12 @@
                                 
                                     <div class="flex flex-col">
                                         <div class="mt-4">
-                                            <label for="payment_method" class="block"
+                                            <label for="payment_method" class="flex"
                                                 >Payment Method</label
                                             >
                                             <select
                                                 v-model="order.payment_method"
-                                                class="mt-1 p-2 border rounded"
+                                                class="mt-1 p-2 border rounded w-1/5"
                                                 required
                                             >
                                                 <option value="">Select Payment Method</option>
@@ -203,12 +203,12 @@
                                     
 
                                     <div class="mt-4">
-                                        <label for="date" class="block">Date</label>
+                                        <label for="date" class="flex">Date</label>
                                         <input
                                             v-model="order.booking_date"
                                             type="date"
                                             id="date"
-                                            class="mt-1 p-2 border rounded"
+                                            class="mt-1 p-2 border rounded w-1/5"
                                             :min="minDate"
                                             required
                                         />
