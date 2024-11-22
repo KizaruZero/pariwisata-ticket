@@ -2,39 +2,45 @@
     <GuestLayout>
         <div class=" font-thin tracking-wide">
             <!-- Hero Section -->
-            <section class="relative ">
+            <section class="relative">
                 <!-- Main Image Section -->
                 <img
-                    :src="images[0].src"
-                    alt="Scenic view of a coastline"
-                    class="w-screen h-screen object-cover z-0 my-auto"
+                :src="heroImage"
+                alt="Scenic view of a coastline"
+                class="w-screen h-screen object-cover z-0 my-auto"
+                @load="imageLoaded = true"
                 />
                 
                 <!-- Text and Button Section -->
-                <div class="absolute -top-20 left-[120px] h-full flex flex-col justify-center  text-white leading-[115.49px]">
+                <div 
+                v-if="imageLoaded" 
+                class="absolute -top-20 left-[120px] h-full flex flex-col justify-center text-white leading-[115.49px]"
+                >
+                <transition name="fade-up" appear>
                     <h2 class="text-8xl italic font-semibold font-plex">Plan Your</h2>
+                </transition>
+                <transition name="fade-up" appear>
                     <h2 class="text-8xl italic font-semibold font-plex">Perfect Trip</h2>
-                    
-                    <NavLink 
-                        class="mt-6 w-max px-6 py-2 bg-teal-500 rounded-xl text-lg opacity-100 text-opacity-100 hover:opacity-50"
-                        :href="route('destinations')"
-                        :active="route().current('destinations')"
-                    >
-                        <div class="text-lg hover:text-opacity-10 z-40"> Go Explore > </div> 
-                    </NavLink>
+                </transition>
+                <NavLink 
+                    class="mt-6 w-max px-6 py-2 bg-teal-500 rounded-xl text-lg opacity-100 text-opacity-100 hover:opacity-50"
+                    :href="route('destinations')"
+                    :active="route().current('destinations')"
+                >
+                    <div class="text-lg hover:text-opacity-10 z-40"> Go Explore > </div> 
+                </NavLink>
                 </div>
 
                 <!-- Curved Section -->
-                 <section class="absolute bottom-0 w-full h-[130px] bg-vaga">
-                    <img 
+                <section class="absolute bottom-0 w-full h-[130px] bg-vaga">
+                <img 
                     src="../../assets/Vector 5.png"
                     class="-mt-[95px] w-full"
-                    >
-                    <div class="h-full flex items-center -mt-[57px] justify-center  font-montseratt italic text-white text-3xl">
-                        <h1>Elevate Your Travel</h1>
-                    </div>
-                 </section>
-                
+                >
+                <div class="h-full flex items-center -mt-[57px] justify-center font-montseratt italic text-white text-3xl">
+                    <h1>Elevate Your Travel</h1>
+                </div>
+                </section>
             </section>
 
             <!-- Features Section -->
@@ -139,12 +145,12 @@
                     class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900 mx-auto my-auto"
                     ></div>
                 </div>
-                <div class="grid grid-cols-3 items-center justify-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 items-center justify-center">
                     <ArticleBox 
                     v-for="article in articles.slice(0, 3)" 
                     :key="article.id" 
                     :article="article"
-                    class="ml-5 mr-5"></ArticleBox>
+                    class="ml-5 mr-5 md:my-4"></ArticleBox>
                 </div>
                 <NavLink 
                 :href="route('destinations')"
@@ -226,6 +232,7 @@ import DestinationCard from '@/Frontend Components/DestinationCard.vue';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import ArticleBox from '@/Frontend Components/ArticleBox.vue';
+import heroImage from '@/assets/home.png';
 
 const config = {
   itemsToShow: 3.5,
@@ -237,6 +244,7 @@ const recommendeds = ref([]);
 const loading = ref(false);
 const errorMessage = ref(null);
 const articles = ref([]);
+const imageLoaded = ref(false);
 
 const fetchArticles = async () => {
     try {
@@ -336,32 +344,33 @@ onMounted(() => {
 
 
     <style>
-    @keyframes fadeInDown {
-    0% {
+    @keyframes fadeUp {
+    from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(40px); /* Adjust for the slide distance */
     }
-    100% {
+    to {
         opacity: 1;
         transform: translateY(0);
     }
     }
 
-    @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+    /* Transition classes for Vue */
+    .fade-up-enter-active,
+    .fade-up-appear-active {
+    animation: fadeUp 1.2s ease-out; /* Duration and easing */
     }
 
-    .animate-fadeInDown {
-    animation: fadeInDown 0.8s ease-out;
+    .fade-up-enter-from,
+    .fade-up-appear-from {
+    opacity: 0;
+    transform: translateY(40px);
     }
 
-    .animate-fadeIn {
-    animation: fadeIn 1s ease-out;
+    .fade-up-enter-to,
+    .fade-up-appear-to {
+    opacity: 1;
+    transform: translateY(0);
     }
 
     /* Glass Effect */

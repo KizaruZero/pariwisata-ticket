@@ -1,11 +1,12 @@
 <template>
   <NavLink
   :href="`/article/${article.id}`"
+  
   >
-    <div class="flex flex-row flex-1 shrink gap-5 justify-center object-cover p-5 
-    bg-white rounded-3xl basis-0 w-full h-full shadow-[0px_5px_20px_rgba(17,34,17,0.05)] 
-    transition-transform transform hover:scale-105 hover:shadow-xl mx-auto">
-        <figure class="flex  self-stretch my-auto  w-[114px]">
+    <div class="relative flex flex-row flex-1 shrink gap-5 justify-center object-cover h-full min-h-[450px]  
+    rounded-xl basis-0 w-full shadow-[0px_5px_20px_rgba(17,34,17,0.05)] 
+    transition-transform transform hover:scale-105 hover:shadow-xl mx-auto ">
+        
           <!-- #IMAGE FROM DATABASE
           <img
               :alt="article.alt"
@@ -13,17 +14,21 @@
               :src="`/storage/${article.image_url}`"
           />
           -->
-          <img loading="lazy" src="../assets/Explore.png" alt="Article thumbnail" class="object-cover rounded-xl aspect-square w-[114px]" />
-        </figure>
-        <div class="flex flex-col flex-1 shrink self-stretch my-auto min-w-[240px]  text-neutral-900 max-md:max-w-full justify-start items-start">
+          <img loading="lazy" 
+          src="../assets/home.png" 
+          alt="Article thumbnail" 
+          class="absolute object-cover rounded-xl aspect-square w-full h-full z-0" />
+        <div class="absolute bg-black opacity-25 w-full h-full rounded-xl">
+
+        </div>
+        <div class=" absolute flex flex-col font-montseratt flex-1 left-6 right-3 bottom-5 shrink self-stretch my-auto min-w-[240px]  text-white max-md:max-w-full justify-start items-start z-50">
           
-          <div>
-            <h2 class="text-xl font-semibold  self-stretch opacity-70 max-md:max-w-full ">
+          <div class="justify-start items-start">
+            <h2 class="text-lg line-clamp-2 font-normal self-stretch opacity-100 max-md:max-w-full text-left "
             
+            >            
             {{
-                article.title.length > 25
-                    ? article.title.slice(0, 25) + "..."
-                    : article.title
+                article.title
             }}
             
             </h2>
@@ -31,24 +36,19 @@
           
           <div class="justify-start items-start">
             <p
-              class="gap-2.5 mt-2.5 w-full text-lg font-medium max-md:max-w-full text-left"
-              style="
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              "
+              class="gap-2.5 line-clamp-2 mt-2.5 mb-1  w-full text-base font-medium max-md:max-w-full text-left"
+              
             >
               {{ article.slug }}
             </p>
 
           </div>
-          <div class="text-sm bottom-3 text-gray-500">
+          <div class="text-sm bottom-3 text-white">
             {{ formatDate(article.created_at) }}
           </div>
       </div>
     </div>
+
   </NavLink>
 </template>
 

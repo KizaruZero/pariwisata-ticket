@@ -2,10 +2,13 @@
     <GuestLayout>
         <div class="flex flex-col items-center justify-center min-h-screen bg-cream">
             <div class="">
-                <img
-                src="../../assets/logo/LogoGeneral.png"
-                class="my-32 "
-                >
+                <transition name="fade-up" appear>
+                    <img
+                    src="../../assets/logo/LogoGeneral.png"
+                    class="my-32 "
+                    >
+                </transition>
+                
             </div>
                 <div class="text-center ">
                 
@@ -33,5 +36,32 @@ export default {
 </script>
 
 <style scoped>
-/* Add any additional scoped styles here */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* Adjust for the slide distance */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    /* Transition classes for Vue */
+    .fade-up-enter-active,
+    .fade-up-appear-active {
+    animation: fadeUp 0.8s ease-out; /* Duration and easing */
+    }
+
+    .fade-up-enter-from,
+    .fade-up-appear-from {
+    opacity: 0;
+    transform: translateY(30px);
+    }
+
+    .fade-up-enter-to,
+    .fade-up-appear-to {
+    opacity: 1;
+    transform: translateY(0);
+    }
 </style>
