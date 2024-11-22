@@ -48,35 +48,35 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect(route('profile', absolute: false));
+        return redirect(route('login', absolute: false));
     }
 
 
     // UserController.php
     public function canReview($destinationId)
     {
-    try {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        if (!$user) {
-            return response()->json(['canReview' => false, 'message' => 'User not authenticated'], 401);
+            if (!$user) {
+                return response()->json(['canReview' => false, 'message' => 'User not authenticated'], 401);
+            }
+
+            // Check if the user has an approved order for the given destination
+            $hasOrder = Order::where('user_id', $user->id)
+                ->where('destination_id', $destinationId)
+                ->where('status', 'approved')
+                ->exists();
+
+            return response()->json(['canReview' => $hasOrder]);
+        } catch (\Exception $e) {
+            // Log the error and return a response
+            \Log::error('Error in canReview method: ' . $e->getMessage());
+            return response()->json(['error' => 'An error occurred. Please try again.'], 500);
         }
-
-        // Check if the user has an approved order for the given destination
-        $hasOrder = Order::where('user_id', $user->id)
-            ->where('destination_id', $destinationId)
-            ->where('status', 'approved')
-            ->exists();
-
-        return response()->json(['canReview' => $hasOrder]);
-    } catch (\Exception $e) {
-        // Log the error and return a response
-        \Log::error('Error in canReview method: ' . $e->getMessage());
-        return response()->json(['error' => 'An error occurred. Please try again.'], 500);
     }
-}
 
 
     // buat fungsi cek apakah user sudah login

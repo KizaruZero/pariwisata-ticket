@@ -12,23 +12,31 @@ class CheckJWT
     public function handle($request, Closure $next)
     {
         try {
-            // First check cookie
-            if ($token = $request->cookie('jwt_token')) {
-                JWTAuth::setToken($token);
-                $user = JWTAuth::authenticate();
-            }
-            // Then check Authorization header
-            else {
+            if ($request->hasCookie('jwt_token')) {
+                $token = $request->cookie('jwt_token');
+                // Set token ke header Authorization
+                $request->headers->set('Authorization', 'Bearer ' . $token);
+
+                // Verifikasi token JWT
                 $user = JWTAuth::parseToken()->authenticate();
+
+                if (!$user) {
+                    return response()->json(['message' => 'User not found'], 401);
+                }
+            } else {
+                return response()->json(['message' => 'Authorization token not found'], 401);
             }
-        } catch (TokenExpiredException $e) {
-            return response()->json(['error' => 'Token expired'], 401);
-        } catch (TokenInvalidException $e) {
-            return response()->json(['error' => 'Token invalid'], 401);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Token not found'], 401);
+            if ($e instanceof TokenInvalidException) {
+                return response()->json(['message' => 'Token is invalid'], 401);
+            } else if ($e instanceof TokenExpiredException) {
+                return response()->json(['message' => 'Token has expired'], 401);
+            } else {
+                return response()->json(['message' => 'Authorization token not found'], 401);
+            }
         }
 
         return $next($request);
     }
+
 }

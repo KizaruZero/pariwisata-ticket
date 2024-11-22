@@ -13,7 +13,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -35,6 +35,16 @@ class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
     public function canAccessPanel(Panel $panel): bool
