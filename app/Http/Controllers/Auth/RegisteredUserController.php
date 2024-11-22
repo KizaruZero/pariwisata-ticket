@@ -57,29 +57,27 @@ class RegisteredUserController extends Controller
     // UserController.php
     public function canReview($destinationId)
     {
-        try {
-            $user = Auth::user();
+    try {
+        $user = Auth::user();
 
-            if (!$user) {
-                return response()->json(['canReview' => false, 'message' => 'User not authenticated'], 401);
-            }
-
-            // Memeriksa apakah pengguna memiliki pesanan yang disetujui untuk destinasi tersebut
-            $hasOrder = Order::where('user_id', $user->id)
-                ->whereHas('packagePricing.destination', function ($query) use ($destinationId) {
-                    $query->where('destinations.id', $destinationId);
-                })
-                ->where('status', 'approved')
-                ->exists();
-
-            return response()->json(['canReview' => $hasOrder]);
-        } catch (\Exception $e) {
-            // Log error dan tangani pengecualian
-            \Log::error('Error in canReview method: ' . $e->getMessage());
-
-            return response()->json(['error' => 'User Belum Pernah Order'], 500);
+        if (!$user) {
+            return response()->json(['canReview' => false, 'message' => 'User not authenticated'], 401);
         }
+
+        // Check if the user has an approved order for the given destination
+        $hasOrder = Order::where('user_id', $user->id)
+            ->where('destination_id', $destinationId)
+            ->where('status', 'approved')
+            ->exists();
+
+        return response()->json(['canReview' => $hasOrder]);
+    } catch (\Exception $e) {
+        // Log the error and return a response
+        \Log::error('Error in canReview method: ' . $e->getMessage());
+        return response()->json(['error' => 'An error occurred. Please try again.'], 500);
     }
+}
+
 
     // buat fungsi cek apakah user sudah login
     public function checkUser()
