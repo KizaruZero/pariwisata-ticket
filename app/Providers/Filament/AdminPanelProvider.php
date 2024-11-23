@@ -18,6 +18,11 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Pages\CustomerChat;
+use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
+use App\Filament\Pages\Backups;
+
+
+
 
 
 class AdminPanelProvider extends PanelProvider
@@ -40,6 +45,13 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('VAGABOND')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->plugins([
+                FilamentSpatieLaravelBackupPlugin::make()
+                    ->usingPage(Backups::class)
+                // ->usingQueue('my-queue')
+                // ->usingPolingInterval('10s') // default value is 4s
+                // ->statusListRecordsTable(false) // default value is true
+            ])
             // ->pages([
             //     Pages\Dashboard::class,
             //     CustomerChat::class,  // Tambahkan ini
@@ -62,5 +74,6 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
     }
 }
