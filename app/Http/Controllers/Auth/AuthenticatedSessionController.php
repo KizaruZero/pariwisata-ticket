@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticatedSessionController extends Controller
@@ -30,19 +32,45 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        try {
+            \Log::info('Login attempt', [
+                'token' => $request->input('token'),
+                'ip' => $request->ip()
+            ]);
 
-        $request->authenticate();
-        $user = Auth::user();
-        $token = JWTAuth::fromUser($user);
-        $request->session()->regenerate();
+            $response = Http::post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                'secret' => config('services.turnstile.secret_key'),
+                'response' => $request->input('token'),
+                'remoteip' => $request->ip()
+            ]);
 
-        // You can also send it as a cookie
-        return redirect()
-            ->intended(route('home', absolute: false))
-            ->withCookie(cookie('jwt_token', $token, 60)); // Cookie expires in 60 minutes
+            \Log::info('Turnstile response', [
+                'response' => $response->json()
+            ]);
 
+            if (!$response->json('success')) {
+                throw ValidationException::withMessages([
+                    'token' => 'CAPTCHA verification failed: ' . ($response->json('error-codes')[0] ?? 'Unknown error')
+                ]);
+            }
+
+            $request->authenticate();
+            $user = Auth::user();
+            $token = JWTAuth::fromUser($user);
+            $request->session()->regenerate();
+
+            return redirect()
+                ->intended(route('home', absolute: false))
+                ->withCookie(cookie('jwt_token', $token, 60));
+        } catch (\Exception $e) {
+            \Log::error('Login error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            throw $e;
+        }
     }
-
     /**
      * Destroy an authenticated session.
      */

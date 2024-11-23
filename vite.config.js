@@ -18,4 +18,9 @@ export default defineConfig({
             },
         }),
     ],
+    define: {
+        "import.meta.env.VITE_TURNSTILE_SITE_KEY": JSON.stringify(
+            process.env.TURNSTILE_SITE_KEY
+        ),
+    },
 });
