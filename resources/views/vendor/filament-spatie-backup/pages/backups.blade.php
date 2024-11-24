@@ -1,6 +1,6 @@
 <x-filament-panels::page>
     <div class="flex flex-col gap-y-8">
-        @if($this->shouldDisplayStatusListRecords())
+        @if ($this->shouldDisplayStatusListRecords())
             <div class="mb-10">
                 @livewire(ShuvroRoy\FilamentSpatieLaravelBackup\Components\BackupDestinationStatusListRecords::class)
             </div>
@@ -14,7 +14,7 @@
                 <h3 class="text-xl">{{ __('filament-spatie-backup::backup.pages.backups.modal.label') }}</h3>
             </x-slot>
 
-            <x-slot name="footer" >
+            <x-slot name="footer">
                 <div class="flex gap-x-2">
                     <x-filament::button wire:click="create('only-db')" color="primary" class="w-full">
                         {{ __('filament-spatie-backup::backup.pages.backups.modal.buttons.only_db') }}
