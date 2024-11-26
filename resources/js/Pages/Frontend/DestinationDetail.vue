@@ -102,6 +102,7 @@
                     </p>
 
                     <h2 class="text-xl font-semibold mt-8">LATEST REVIEW</h2>
+                    
                     <div
                         v-if="destination.reviews.length > 0"
                         class="flex flex-grow h-[200px]"
@@ -123,23 +124,57 @@
                                     <i
                                         :class="
                                             n <= review.rating
-                                                ? 'fas fa-star text-yellow-500'
-                                                : 'fas fa-star text-gray-300 opacity-50'
+                                                ? 'fas fa-star mr-1 text-yellow-500'
+                                                : 'fas fa-star mr-1 text-gray-300 opacity-50'
                                         "
                                     ></i>
                                 </span>
                                 <span class="ml-2 text-gray-700"
-                                    >{{ review.rating }}/5</span
+                                    >{{ formatDate(review.created_at) }}</span
                                 >
                             </div>
                             <p class="font-bold">{{ review.user.name }}</p>
                             <p class="mt-2">{{ review.review_text }}</p>
                         </div>
                     </div>
+                    <!-- Review Button
+                    <button @click="toggleReview" class="flex bg-bond w-1/4 px-4 mt-4 p-2 rounded-md font-medium text-white hover:bg-gray-600 ml-2">
+                        Add a review...
+                    </button>
+                    
+
+                    Review Popup
+                    <ReviewComponent
+                        v-if="showReviewPopup"
+                        :destinationId="destinationId"
+                        @close="toggleReview"/> -->
+                        <!--Review-->
+                    <ReviewComponent v-if="showReviewPopup" :destinationId="destinationId" @close="toggleReview" />
+                    <div v-if="canReview">
+
+                        <button @click="toggleReview" class="flex bg-bond opacity-30 w-2/6 border-black border px-4 mt-6 p-2 rounded-md font-medium text-white hover:bg-gray-600 ml-2 hover:scale-105 hover:shadow-2xl">
+                            Add a review...
+                        </button>
+                    </div>
+
+                    <!-- Tampilkan Artikel Tentang Destinasi -->
+                    <div v-if="destination.articles && destination.articles.length > 0">
+                        <h2 class="text-xl font-semibold mt-8 uppercase">LATEST Article About {{ destination.name }}</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 items-center justify-center gap-6" id="app" >
+                                
+                                <ArticleBox
+                                v-for="article in destination.articles.slice(0, 3)"
+                                    :key="article.id"
+                                    :article="article"
+                                    class="my-6">
+                                </ArticleBox>
+                            </div>
+                    </div>
+                    
                     
                     <div>
                         
-                        <section class="flex overflow-hidden flex-col items-center py-16 mt-12 bg-stone-200 rounded-[30px] shadow-xl drop-shadow-md">
+                        <section class="flex overflow-hidden flex-col items-center py-16 mt-12 bg-stone-200 rounded-[30px] shadow-xl drop-shadow-md my-10">
                             <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/0e67fc3994fbf8afd00365a5969671e02c70704ccbde629bf9c41c050a1f5fc5?apiKey=ed89e008b7de47e5a3187e8a4c1c72f3&" alt="Vagabond logo" class="object-contain max-w-full aspect-[1.62] w-[193px]" />
                             <h2 class="mt-1 text-3xl font-semibold leading-none text-teal-600">VAGABOND</h2>
                             <div class="flex flex-col self-stretch mx-auto mt-7 w-full max-w-screen-2xl">
@@ -151,7 +186,7 @@
                                         <div class="flex flex-col max-w-md">
                                             <img 
                                             loading="lazy" 
-                                            src="../../assets/home.png" 
+                                            :src="`/storage/${destination.image_url}`"
                                             alt="Pura Tanah Lot" 
                                             class="object-cover grow w-full h-52 aspect-[1.4] rounded-[30px_0px_0px_30px] " />
                                         </div>
@@ -237,7 +272,7 @@
                                             class="px-4 py-2.5 rounded-xl border-2 border-dashed border-orange-200 hover:border-orange-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-500 hover:text-orange-600"
                                         >
                                             <span v-if="!imagePreview">Upload payment proof</span>
-                                            <div v-if="imagePreview" class="mt-4">
+                                            <div v-if="imagePreview" class="p-2 mt-1">
                                             <div class="relative w-32 h-32">
                                                 <img
                                                 :src="imagePreview"
@@ -313,15 +348,15 @@
                     <!-- Order form -->
                     
 
-                    <!--Review-->
-                    <ReviewComponent :destinationId="destinationId" />
-                    <div class="mt-8">
-                        <ArticleCard
-                            v-for="article in destination.articles"
-                            :key="article.id"
-                            :article="article"
-                        />
-                    </div>
+                    
+                    
+                    
+
+                    <!-- Review Popup
+                    <ReviewComponent
+                        v-if="showReviewPopup"
+                        :destinationId="destinationId"
+                        @close="toggleReview"/>  -->
 
                     <!-- <button @click="goBack" class="mt-4 btn-primary">
                         Back to Destinations
@@ -341,6 +376,7 @@ import ReviewComponent from "../../Frontend Components/ReviewComponent.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import ArticleCard from "@/Frontend Components/ArticleCard.vue";
 import StarRating from "@/Frontend Components/StarRating.vue";
+import ArticleBox from "@/Frontend Components/ArticleBox.vue";
 
 const props = defineProps({
     id: {
@@ -357,7 +393,7 @@ function disableButton() {
     button.classList.add("bg-gray-400", "cursor-not-allowed");
     button.classList.remove("bg-lime-600");
 }
-
+const canReview = ref(false);
 const destination = ref(null);
 const favoriteDestination = ref([]);
 const destinationId = props.id;
@@ -402,6 +438,32 @@ const formatRating = (rating) => {
     return parseFloat(rating).toFixed(1); // Formats rating to one decimal
 };
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diff = Math.floor((now - date) / 1000); // Difference in seconds
+
+    if (diff < 60) {
+        return `${diff} seconds ago`;
+    } else if (diff < 3600) {
+        const minutes = Math.floor(diff / 60);
+        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else if (diff < 86400) {
+        const hours = Math.floor(diff / 3600);
+        return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (diff < 30 * 86400) {
+        const days = Math.floor(diff / 86400);
+        return `${days} day${days > 1 ? 's' : ''} ago`;
+    } else if (diff < 365 * 86400) {
+        const months = Math.floor(diff / (30 * 86400));
+        return `${months} month${months > 1 ? 's' : ''} ago`;
+    } else {
+        const years = Math.floor(diff / (365 * 86400));
+        return `${years} year${years > 1 ? 's' : ''} ago`;
+    }
+    }
+
+
 // Minimum date for booking
 const minDate = computed(() => {
     const today = new Date();
@@ -411,19 +473,28 @@ const minDate = computed(() => {
 // Fetch favorite destinations and destination data on mount
 onMounted(async () => {
     try {
+        // Fetch favorite destinations
         const favoriteResponse = await axios.get(`/api/profile/favorite`);
         favoriteDestination.value = favoriteResponse.data.data;
 
+        // Fetch destination details
         const response = await axios.get(`/api/destination/${props.id}`);
         destination.value = response.data;
 
+        // Check if the destination is liked
         destination.value.isLiked = favoriteDestination.value.some(
             (fav) => fav.id === destination.value.id
         );
+
+        // Check if user can review
+        const reviewResponse = await axios.get(`/user/can-review/${props.id}`);
+        canReview.value = reviewResponse.data.canReview; // Ensure `canReview` is a boolean
+        fetchArticles();
     } catch (error) {
         console.error("Error fetching data:", error);
     }
 });
+
 
 // Handle file upload
 const handleFilePreview = (event) => {
@@ -508,7 +579,10 @@ const submitOrder = async () => {
 };
 
 const clicked = ref(); // Use ref for reactive state
-
+const showReviewPopup = ref(false);
+const toggleReview = () => {
+    showReviewPopup.value = !showReviewPopup.value;
+};
 const handleStar = () => {
     toggleStar();
     toggleLike(destination);
@@ -537,6 +611,17 @@ const toggleLike = async () => {
         } else {
             console.error("Error toggling like:", error);
         }
+    }
+};
+
+//Fetch Article
+const articles = ref([]);
+const fetchArticles = async () => {
+    try {
+        const response = await axios.get("/api/articles/latest");
+        articles.value = response.data;
+    } catch (error) {
+        console.error("Error fetching articles:", error);
     }
 };
 </script>

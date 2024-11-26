@@ -27,7 +27,7 @@
                     :href="route('destinations')"
                     :active="route().current('destinations')"
                 >
-                    <div class="text-lg hover:text-opacity-10 z-40"> Go Explore > </div> 
+                    <div class="text-lg hover:text-opacity-10 z-40"> Go Explore </div> 
                 </NavLink>
                 </div>
 
@@ -37,7 +37,7 @@
                     src="../../assets/Vector 5.png"
                     class="-mt-[95px] w-full"
                 >
-                <div class="h-full flex items-center -mt-[57px] justify-center font-montseratt italic text-white text-3xl">
+                <div class="h-full flex items-center -mt-[55px] justify-center font-montseratt italic text-white text-3xl">
                     <h1>Elevate Your Travel</h1>
                 </div>
                 </section>
@@ -130,8 +130,10 @@
                         <img src="../../assets/logo/SearchLogo.png">
                     </NavLink>
                     <div class="h-[150px]"></div>
-                    <section class="absolute bottom-0 w-full h-[150px] bg-bond rounded-tl-[70%] rounded-tr-[70%]">
-                    <div class="h-full flex items-center justify-center italic text-white text-3xl">
+                    <section class="absolute bottom-0 w-full h-[150px] bg-bond ">
+                        <img loading="lazy" src="../../assets/Vector 6.png" alt="Decorative background image" class="object-contain z-10 self-stretch w-full max-md:max-w-full" />
+                        
+                        <div class="h-full flex items-center justify-center italic text-white text-3xl z-50 -mt-9">
                         <h1>Find Latest Articles</h1>
                     </div>
                 </section>  
@@ -162,65 +164,205 @@
                 </NavLink>          
             </div>
 
-            <!-- Features Section -->
-            <div class="bg-vaga text-center" id="app">
-            <section data-layername="whyShould" class="flex overflow-hidden flex-col items-center pb-20 bg-vaga">
-                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a392959f908f38db0ecebb27d8bd58ced788c72dda83dc640bbae3f426b39e8?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Decorative background image" class="object-contain z-10 self-stretch w-full aspect-[15.15] max-md:max-w-full" />
-                <h2 data-layername="whyShouldChooseUs" class="-mt-4 text-4xl font-semibold leading-tight text-center text-stone-50 max-md:max-w-full">
+            <!-- Features Section/Why Should Choose Us -->
+            <div class="" id="app">
+                <img loading="lazy" 
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a392959f908f38db0ecebb27d8bd58ced788c72dda83dc640bbae3f426b39e8?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" 
+                alt="Decorative background image" 
+                class="object-contain z-10 self-stretch w-full aspect-[15.15] max-md:max-w-full bg-vaga" />
+            <section class="flex overflow-hidden flex-col items-center mx-auto pb-16 bg-vaga font-montseratt">
+
+                <div class="flex flex-row ">
+                    <div class="relative flex w-1/4">
+                        <!-- Image -->
+                        <!-- <img 
+                            src="../../assets/prambanan.jpg" 
+                            alt="Tangkuban Perahu" 
+                            class="rounded-tl-2xl rounded-bl-2xl object-cover"
+                        /> -->
+
+                        <!-- Black Overlay -->
+                        <!-- <div 
+                            class="absolute inset-0 w-full bg-black bg-opacity-20 rounded-tl-2xl rounded-bl-2xl"
+                        >
+                        </div> -->
+                    </div>
+                    <div class="flex flex-col w-1/2 text-4xl  font-serif font-bold leading-tight px-20  text-center my-10">
+                        <div class="flex text-lg text-gray-200 pb-5 -ml-0.5 w-full text justify-center">
+                            Hi!
+                        </div>
+                        <div class="pb-4">
+                            <span class="text-bond">Have you already logged into your account </span>
+                            <span class="text-cream">to access personalized features, and manage your preferences just for you?</span>
+                        </div>
+                        <Link
+                            :href="route('login')"
+                            class="flex p-2 px-4 bg-transparent justify-center mx-auto border-bond mt-6 border-2 w-1/3 text-lg hover:opacity-40 text-white rounded-full transition duration-200 transform hover:scale-105"
+                        >
+                            <p class="flex">Login Now </p>
+                        </Link>
+                                
+                    </div>
+                    <div class="relative flex w-1/4">
+                            <!-- Image -->
+                            <!-- <img 
+                                src="../../assets/prambanan.jpg" 
+                                alt="Tangkuban Perahu" 
+                                class="rounded-tr-2xl rounded-br-2xl object-cover"
+                            /> -->
+
+                            <!-- Black Overlay -->
+                            <!-- <div 
+                                class="absolute inset-0 w-full bg-black bg-opacity-20 rounded-tr-2xl rounded-br-2xl"
+                            >
+                            </div> -->
+                    </div>
+                </div>
+
+            </section>
+                <section class=" bottom-0 w-full h-[150px] bg-bond z-0">
+                        <img loading="lazy" src="../../assets/Vector 6.png" alt="Decorative background image" class="object-contain z-10 self-stretch w-full max-md:max-w-full" />
+                </section>
+            </div>
+            <!-- Another Call Section -->
+            
+            <div class=" bg-bond">
+                <div class="flex flex-col">
+                    <div class="flex flex-row pt-12 pb-28 ">
+                        <div class="relative flex w-2/5 max-w-fit mr-4">
+                            <!-- Image -->
+                            <img 
+                                src="../../assets/jeremy-bishop-QUwLZNchflk-unsplash.jpg" 
+                                alt="Tangkuban Perahu" 
+                                class="rounded-tr-2xl rounded-br-2xl object-cover"
+                            />
+
+                            <!-- Black Overlay -->
+                            <div 
+                                class="absolute inset-0 w-full bg-black bg-opacity-30 rounded-tr-2xl rounded-br-2xl"
+                            >
+                            </div>
+                        </div>
+                    <div class="flex flex-col w-3/5 text-4xl font-serif font-bold leading-tight px-6 pr-20 mt-2">
+                        <div class="flex text-lg text-gray-200 pb-1 -ml-0.5">
+                            Greetings
+                        </div>
+                        <div class="pb-4">
+                            <span class="text-vaga">Vagabond invites you to explore the world</span>
+                            <span class="text-cream"> while preserving its culture and natural beauty for future generations</span>
+                        </div>
+                        <div class="flex text-lg text-white pb-2 text-justify font">
+                            Vagabond memperkenalkan perjalanan yang mendalam dan bermakna. Melalui inovasi, kami berkomitmen untuk melestarikan keindahan budaya dan alam di destinasi yang kami tawarkan, sekaligus meningkatkan kualitas pengalaman perjalanan Anda.
+                        </div>
+                        <Link
+                            :href="route('about')"
+                            class="flex p-1 bg-transparent justify-center border-vaga mt-6 border-2 w-1/4 text-lg hover:opacity-40 text-white rounded-full transition duration-200 transform hover:scale-105"
+                        >
+                            <p class="flex "> More About us </p>
+                        </Link>
+                                
+                    </div>
+                </div>
+
+                </div>      
+            </div>
+            <div class=" bg-vaga pb-20">
+                <img loading="lazy" 
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a392959f908f38db0ecebb27d8bd58ced788c72dda83dc640bbae3f426b39e8?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" 
+                alt="Decorative background image" 
+                class="object-contain z-10 self-stretch w-full aspect-[15.15] max-md:max-w-full" />
+                <h2 data-layername="whyShouldChooseUs" class="text-4xl font-semibold leading-tight text-center text-stone-50 max-md:max-w-full">
                 Why Should Choose Us?
                 </h2>
-                <div class="flex flex-wrap gap-12 items-center pr-5 pl-2.5 mt-12 w-full text-black max-w-[1317px] max-md:mt-10 max-md:max-w-full">
-                    <article data-layername="userFriendlyInterface" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
-                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ea07a98de67556211deb19c7c72c4d7535502c2fb65fa9e435279bd6edeb6ef?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="User-friendly interface icon" class="object-contain shrink-0 aspect-[0.91] w-[93px]" />
-                        <div class="flex flex-col grow shrink justify-center min-w-[240px] w-[439px] max-md:max-w-full">
-                        <h3 data-layername="userFriendlyInterface" class="text-3xl font-semibold leading-tight max-md:max-w-full">
-                            User-Friendly Interface
-                        </h3>
-                        <p data-layername="ourPlatformIsDesignedWithSimplicityAndUsabilityInMindMakingItEasyForAnyoneToSearchBookAndManageTheirTravelTickets" class="text-xl font-medium leading-6 max-md:max-w-full">
-                            Our platform is designed with simplicity and usability in mind, making it easy for anyone to search, book, and manage their travel tickets.
-                        </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mx-auto mt-20 w-full text-black max-w-[1317px]  max-md:max-w-full">
+                    <!--1 -->
+                    <article class="flex flex-row grow shrink gap-4 items-center self-stretch my-auto min-w-[240px] px-6 w-full max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ea07a98de67556211deb19c7c72c4d7535502c2fb65fa9e435279bd6edeb6ef?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="User-friendly interface icon" class="object-contain shrink-0 w-[93px]" />
+                        <div class="flex flex-col grow shrink justify-center ml-2 min-w-[240px] w-[439px] max-md:max-w-full">
+                            <h3 class="text-3xl text-left font-semibold leading-tight max-md:max-w-full">
+                                User-Friendly Interface
+                            </h3>
+                            <p class="text-xl  text-justify italic font-medium leading-6 max-md:max-w-full">
+                                Our platform is designed with simplicity and usability in mind, making it easy for anyone to search, book, and manage their travel tickets.
+                            </p>
                         </div>
                     </article>
-                    <article data-layername="trustworthyReputable" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                    <article class="flex flex-row grow shrink gap-4 items-center self-stretch my-auto min-w-[240px] px-6 w-full max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0932222950a0ed7b6345aedf4ef29309a0eda7b46f04395de30d2ffd16eca2a?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" class="object-contain shrink-0 w-[97px]" />
+                        <div class="flex flex-col grow shrink ml-2 justify-center min-w-[240px] w-[439px] max-md:max-w-full">
+                            <h3 class="text-3xl text-left font-semibold leading-tight max-md:max-w-full">
+                                Trustworthy & Reputable
+                            </h3>
+                            <p class="text-xl  text-justify italic font-medium leading-6 max-md:max-w-full">
+                                We have established a strong reputation in the industry for providing reliable and high-quality service to travelers across the country.
+                            </p>
+                        </div>
+                    </article>
+                    <article class="flex flex-row grow shrink gap-4 items-center self-stretch my-auto min-w-[240px] px-6 w-full max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0932222950a0ed7b6345aedf4ef29309a0eda7b46f04395de30d2ffd16eca2a?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Secure payment system icon" class="object-contain shrink-0 aspect-square w-[97px]" />
+                        <div class="flex flex-col grow shrink ml-2 justify-center min-w-[240px] w-[439px] max-md:max-w-full">
+                            <h3 class="text-3xl text-left font-semibold leading-tight max-md:max-w-full">
+                                Secure Payment System
+                            </h3>
+                            <p class="text-xl  text-justify italic font-medium leading-6 max-md:max-w-full">
+                                Our platform utilizes advanced security measures to ensure that your transactions are safe and your personal data is protected.
+                            </p>
+                        </div>
+                    </article>
+                    <article class="flex flex-row grow shrink gap-4 items-center self-stretch my-auto min-w-[240px] px-6 w-full max-md:max-w-full">
+                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e27632703d67b99218a6f90694aa18dce8b3b2a6ce468a2e7a48e0cba4cc6528?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="24/7 Customer support icon" class="object-contain shrink-0 aspect-square w-[102px]" />
+                        <div class="flex flex-col grow shrink ml-2 justify-center min-w-[240px] w-[439px] max-md:max-w-full">
+                            <h3 class="text-3xl text-left font-semibold leading-tight max-md:max-w-full">
+                                24/7 Customer Support
+                            </h3>
+                            <p class="text-xl  text-justify italic font-medium leading-6 max-md:max-w-full">
+                                Our dedicated customer support team is available around the clock to assist you with any issues or inquiries, ensuring a smooth travel experience.
+                            </p>
+                        </div>
+                    </article>
+                    <!-- 
+                    <article  class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
                         <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/d9c3e9059d44bf8037141ebcdbadd520317e02707769bebc212e52f5bd60c656?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Trustworthy and reputable icon" class="object-contain shrink-0 aspect-square w-[97px]" />
                         <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                        <h3 data-layername="trustworthyReputable" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                        <h3 class="text-3xl font-semibold leading-tight max-md:max-w-full">
                             Trustworthy & Reputable
                         </h3>
-                        <p data-layername="weHaveEstablishedAStrongReputationInTheIndustryForProvidingReliableAndHighQualityServiceToTravelersAcrossTheCountry" class="text-xl font-medium leading-6 max-md:max-w-full">
+                        <p class="text-xl font-medium leading-6 max-md:max-w-full">
                             We have established a strong reputation in the industry for providing reliable and high-quality service to travelers across the country.
                         </p>
                         </div>
                     </article>
-                    <article data-layername="securePaymentSystem" class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
+                    
+                    <article  class="flex grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[444px] max-md:max-w-full">
                         <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b0932222950a0ed7b6345aedf4ef29309a0eda7b46f04395de30d2ffd16eca2a?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="Secure payment system icon" class="object-contain shrink-0 aspect-square w-[97px]" />
                         <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                        <h3 data-layername="securePaymentSystem" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                        <h3 class="text-3xl font-semibold leading-tight max-md:max-w-full">
                             Secure Payment System
                         </h3>
-                        <p data-layername="ourPlatformUtilizesAdvancedSecurityMeasuresToEnsureThatYourTransactionsAreSafeAndYourPersonalDataIsProtected" class="text-xl font-medium leading-6 max-md:max-w-full">
+                        <p class="text-xl font-medium leading-6 max-md:max-w-full">
                             Our platform utilizes advanced security measures to ensure that your transactions are safe and your personal data is protected.
                         </p>
                         </div>
                     </article>
-                    <article data-layername="247CustomerSupport" class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[500px] max-md:max-w-full">
+                    
+                    <article class="flex flex-wrap grow shrink gap-4 items-start self-stretch my-auto min-w-[240px] w-[500px] max-md:max-w-full">
                         <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e27632703d67b99218a6f90694aa18dce8b3b2a6ce468a2e7a48e0cba4cc6528?placeholderIfAbsent=true&apiKey=ed89e008b7de47e5a3187e8a4c1c72f3" alt="24/7 Customer support icon" class="object-contain shrink-0 aspect-square w-[102px]" />
                         <div class="flex flex-col justify-center min-w-[240px] w-[456px] max-md:max-w-full">
-                        <h3 data-layername="247CustomerSupport" class="text-3xl font-semibold leading-tight max-md:max-w-full">
+                        <h3 class="text-3xl font-semibold leading-tight max-md:max-w-full">
                             24/7 Customer Support
                         </h3>
-                        <p data-layername="ourDedicatedCustomerSupportTeamIsAvailableAroundTheClockToAssistYouWithAnyIssuesOrInquiriesEnsuringASmoothTravelExperience" class="text-xl font-medium leading-6 max-md:max-w-full">
+                        <p class="text-xl font-medium leading-6 max-md:max-w-full">
                             Our dedicated customer support team is available around the clock to assist you with any issues or inquiries, ensuring a smooth travel experience.
                         </p>
                         </div>
-                    </article>
+                    </article> -->
+                    
                 </div>
-            </section>
+                
             </div>
-            
         </div>
     </GuestLayout>
-    </template>
+</template>
 
 
 <script setup>

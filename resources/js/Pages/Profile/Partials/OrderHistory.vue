@@ -28,12 +28,10 @@
                     :class="{
                         'bg-green-500': order.status === 'approved',
                         'bg-yellow-500': order.status === 'pending',
-                        'bg-red-500': order.status === 'cancelled'
+                        'bg-red-500': order.status === 'rejected'
                     }"
                 >
-                    <h2 class="text-white text-lg font-semibold">
-                        Order #{{ order.id }}
-                    </h2>
+                    
                     <div class="">
                         <p class="text-lg font-semibold text-white">Date:
                             {{
@@ -41,6 +39,9 @@
                             }}
                         </p>
                     </div>
+                    <h2 class="text-white text-lg font-semibold">
+                        Order Code #{{ order.id }}
+                    </h2>
                 </div>
 
                 <!-- Card Body -->
@@ -79,18 +80,40 @@
                     :class="{
                         'bg-green-500': order.status === 'approved',
                         'bg-yellow-500': order.status === 'pending',
-                        'bg-red-500': order.status === 'cancelled'
+                        'bg-red-500': order.status === 'rejected'
                     }"
                 >
+                <div class="flex justify-between">
                     <button
-                        class="w-full text-white py-2 rounded-lg hover:opacity-75 transition"
+                        class="flex justify-center items-center  text-white  rounded-lg hover:opacity-75 transition"
                     >
                         <p class="text-white text-lg">
                             Status:
-                            <span class="font-bold">{{ order.status }}</span>
+                            <span class="font-bold capitalize">{{ order.status }}</span>
                         </p>
                     </button>
+
+                    <!-- Add Review Button for Approved Status -->
+                    <!-- <ReviewComponent
+                    v-if="showReviewPopup"
+                    :destinationId="destinationId"
+                    @close="toggleReview"
+                />
+                    <button
+                        v-if="order.status === 'approved'"
+                        @click="toggleReview(order.destination.id)" 
+                        class="flex bg-cyan-600 shadow-sm p-2 rounded-md font-medium text-white hover:bg-gray-600"
+                    >
+                        Add a review
+                    </button> -->
+                    
+                
                 </div>
+                </div>
+
+                <!-- Review Popup -->
+                
+
             </div>
         </div>
 
@@ -105,20 +128,36 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
+import ReviewComponent from "@/Frontend Components/ReviewComponent.vue";
 import axios from "axios";
 
 // State management
 const orders = ref([]);
 const loading = ref(true);
 
+defineProps({
+    destinationId: {
+        type: [Number, String], // Adjust the type to match your data
+        required: true,
+    },
+    
+});
+
 // Fetch order data on component mount
 onMounted(async () => {
     try {
         const response = await axios.get("api/orders/history");
         orders.value = response.data.orders;
+
+        if (props.destinationId) {
+            const reviewResponse = await axios.get(
+                `/user/can-review/${props.destinationId}`
+            );
+            canReview.value = reviewResponse.data.canReview; // Ensure `canReview` is a boolean
+        }
     } catch (error) {
-        console.error("Error fetching order history:", error);
+        console.error("Error fetching data:", error);
     } finally {
         loading.value = false;
     }
@@ -138,6 +177,29 @@ const formatDate = (dateString) => {
         month: "long",
         year: "numeric",
     });
+};
+
+// Reactive state for the review popup
+const showReviewPopup = ref(false);
+
+
+const destinationId = ref(null); // Track the current destinationId
+
+const reviewedDestinations = ref(new Set());
+
+const toggleReview = async (id = null) => {
+    destinationId.value = id;
+    showReviewPopup.value = !showReviewPopup.value;
+
+    if (id && !reviewedDestinations.value.has(id)) {
+        try {
+            const response = await axios.get(`/user/can-review/${id}`);
+            canReview.value = response.data.canReview; // Ensure `canReview` is a boolean
+            reviewedDestinations.value.add(id); // Mark as fetched
+        } catch (error) {
+            console.error("Error fetching can-review:", error);
+        }
+    }
 };
 </script>
 

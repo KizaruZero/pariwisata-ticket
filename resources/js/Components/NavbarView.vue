@@ -4,7 +4,7 @@
     >
         <div class="flex justify-between items-center w-screen px-8">
             <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex space-x-5 text-sm hover:text-amber-500">
+            <div class="hidden md:flex space-x-5 text-sm hover:text-amber-500 ">
                 <NavLink
                     :href="route('home')"
                     :active="route().current('home')"
@@ -18,6 +18,7 @@
                 <NavLink
                     :href="route('destinations')"
                     :active="route().current('destinations')"
+                    
                 >
                     Explore
                 </NavLink>
