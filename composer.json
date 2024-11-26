@@ -2,10 +2,14 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "anhskohbo/no-captcha": "^3.6",
         "barryvdh/laravel-dompdf": "^3.0",
         "filament/filament": "3.2.57",
         "flowframe/laravel-trend": "^0.3.0",
@@ -18,7 +22,10 @@
         "nesbot/carbon": "^3.8",
         "psr/simple-cache": "2.0",
         "pxlrbt/filament-excel": "^2.3",
-        "tightenco/ziggy": "^2.0"
+        "shuvroroy/filament-spatie-laravel-backup": "^2.2",
+        "spatie/laravel-backup": "^8.0",
+        "tightenco/ziggy": "^2.0",
+        "tymon/jwt-auth": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

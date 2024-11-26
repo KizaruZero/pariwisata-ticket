@@ -18,11 +18,17 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "-": "^0.0.1",
         "@fortawesome/fontawesome-free": "^6.6.0",
         "@heroicons/vue": "^2.1.5",
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
+        "@unhead/vue": "^1.11.11",
         "marked": "^14.1.2",
-        "vue3-carousel": "^0.5.1"
+        "save": "^2.9.0",
+        "vue-recaptcha": "^3.0.0-alpha.2",
+        "vue-turnstile": "^1.0.11",
+        "vue3-carousel": "^0.5.1",
+        "vue3-recaptcha-v2": "^2.1.0"
     }
 }

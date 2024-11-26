@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,25 +32,69 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        try {
+            \Log::info('Login attempt', [
+                'token' => $request->input('token'),
+                'ip' => $request->ip()
+            ]);
 
-        $request->authenticate();
+            $response = Http::post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                'secret' => config('services.turnstile.secret_key'),
+                'response' => $request->input('token'),
+                'remoteip' => $request->ip()
+            ]);
 
-        $request->session()->regenerate();
+            \Log::info('Turnstile response', [
+                'response' => $response->json()
+            ]);
 
-        return redirect()->intended(route('home', absolute: false));
+            if (!$response->json('success')) {
+                throw ValidationException::withMessages([
+                    'token' => 'CAPTCHA verification failed: ' . ($response->json('error-codes')[0] ?? 'Unknown error')
+                ]);
+            }
+
+            $request->authenticate();
+            $user = Auth::user();
+            $token = JWTAuth::fromUser($user);
+            $request->session()->regenerate();
+
+            return redirect()
+                ->intended(route('home', absolute: false))
+                ->withCookie(cookie('jwt_token', $token, 60));
+        } catch (\Exception $e) {
+            \Log::error('Login error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            throw $e;
+        }
     }
-
     /**
      * Destroy an authenticated session.
      */
     public function destroy(Request $request): RedirectResponse
     {
+        try {
+            // Periksa apakah token ada di header atau cookie
+            if (!$token = JWTAuth::getToken()) {
+                $token = $request->cookie('jwt_token'); // Ambil dari cookie
+                JWTAuth::setToken($token); // Set token ke JWTAuth
+            }
+
+            // Invalidasi token JWT
+            JWTAuth::invalidate($token);
+        } catch (\Exception $e) {
+            // Token tidak ditemukan atau invalid, abaikan
+        }
+
+        // Logout dari session Laravel
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // Hapus cookie JWT
+        return redirect('/')->withCookie(cookie('jwt_token', null, -1));
     }
 }

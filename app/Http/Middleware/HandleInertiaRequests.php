@@ -33,6 +33,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                // 'jwt_token' => session(key: 'jwt_token'), // Add this
             ],
         ];
     }
