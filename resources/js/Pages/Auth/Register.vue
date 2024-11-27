@@ -84,21 +84,21 @@ const submit = () => {
                 VAGABOND
             </h1>
 
-            <form @submit.prevent="submit" class="space-y-6">
-                <div>
-                    <InputLabel for="name" />
-                    <TextInput
-                        id="name"
-                        type="text"
-                        class="px-7 py-4 w-full whitespace-nowrap bg-stone-200 rounded-[50px] text-neutral-600 max-md:px-5 max-md:max-w-full"
-                        v-model="form.name"
-                        required
-                        autofocus
-                        autocomplete="name"
-                        placeholder="Name"
-                    />
-                    <InputError class="mt-2" :message="form.errors.name" />
-                </div>
+                    <form @submit.prevent="submit" class="space-y-6">
+                        <div>
+                            <InputLabel for="name" />
+                            <TextInput
+                                id="name"
+                                type="text"
+                                class="px-7 py-4 w-full whitespace-nowrap bg-stone-200 rounded-[50px] text-neutral-600 max-md:px-5 max-md:max-w-full"
+                                v-model="form.name"
+                                required
+                                autofocus
+                                autocomplete="name"
+                                placeholder="Name"
+                            />
+                            <InputError class="mt-2" :message="form.errors.name" />
+                        </div>
 
                 <div>
                     <InputLabel for="email" />
@@ -114,19 +114,19 @@ const submit = () => {
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
 
-                <div>
-                    <InputLabel for="password" />
-                    <TextInput
-                        id="password"
-                        type="password"
-                        class="px-7 py-4 w-full whitespace-nowrap bg-stone-200 rounded-[50px] text-neutral-600 max-md:px-5 max-md:max-w-full"
-                        v-model="form.password"
-                        required
-                        autocomplete="new-password"
-                        placeholder="Password"
-                    />
-                    <InputError class="mt-2" :message="form.errors.password" />
-                </div>
+                        <div>
+                            <InputLabel for="password" />
+                            <TextInput
+                                id="password"
+                                type="password"
+                                class="px-7 py-4 w-full whitespace-nowrap bg-stone-200 rounded-[50px] text-neutral-600 max-md:px-5 max-md:max-w-full"
+                                v-model="form.password"
+                                required
+                                autocomplete="new-password"
+                                placeholder="Password"
+                            />
+                            <InputError class="mt-2" :message="form.errors.password" />
+                        </div>
 
                 <div>
                     <InputLabel for="password_confirmation" />

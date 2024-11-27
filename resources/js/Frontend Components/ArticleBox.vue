@@ -15,7 +15,8 @@
           />
           -->
           <img loading="lazy" 
-          src="../assets/home.png" 
+          
+          :src="`/storage/${article.image_url}`" 
           alt="Article thumbnail" 
           class="absolute object-cover rounded-xl aspect-square w-full h-full z-0" />
         <div class="absolute bg-black opacity-25 w-full h-full rounded-xl">

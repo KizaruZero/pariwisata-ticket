@@ -10,11 +10,11 @@
                     />
                     <div class="absolute inset-0 flex flex-col items-center text-center bg-black bg-opacity-50 space-y-4">
                         <!--Text Part-->
-                        <transition name="fade-in-bottom">
-                            <div v-if="show" class="text-5xl text-cream p-6 mt-20 font-semibold">
-                                <h1>Our Latest Articles About Travel</h1>
-                            </div>
-                        </transition>
+                            <transition name="fade-up" appear>
+                                <div class="text-5xl text-cream p-6 mt-20 font-semibold">
+                                    <h1>Our Latest Articles About Travel</h1>
+                                </div>
+                            </transition>
                         <section class="absolute bottom-0 w-full h-[50px] bg-cream rounded-t-[91px]">
                             <div class="h-full flex items-center -mt-8 justify-center italic text-white text-3xl">
                             </div>
@@ -70,34 +70,62 @@ onMounted(() => {
 </script>
 
 <style scoped>
-body {
-    font-family: "Roboto", sans-serif;
-}
+    @keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px); /* Adjust for the slide distance */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
 
-.custom-button {
-    background-color: #ff4b5c;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    /* Transition classes for Vue */
+    .fade-up-enter-active,
+    .fade-up-appear-active {
+    animation: fadeUp 1.2s ease-out; /* Duration and easing */
+    }
 
-.custom-button:hover {
-    background-color: #ff6b7c;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.fade-in-bottom-enter-active {
-    transition: opacity 2.0s ease, transform 2.0s ease;
-}
-
-.fade-in-bottom-enter {
+    .fade-up-enter-from,
+    .fade-up-appear-from {
     opacity: 0;
-    transform: translateY(100px);
-}
+    transform: translateY(40px);
+    }
+
+    .fade-up-enter-to,
+    .fade-up-appear-to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+    body {
+        font-family: "Roboto", sans-serif;
+    }
+
+    .custom-button {
+        background-color: #ff4b5c;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .custom-button:hover {
+        background-color: #ff6b7c;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .fade-in-bottom-enter-active {
+        transition: opacity 2.0s ease, transform 2.0s ease;
+    }
+
+    .fade-in-bottom-enter {
+        opacity: 0;
+        transform: translateY(100px);
+    }
 </style>

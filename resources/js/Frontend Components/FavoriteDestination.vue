@@ -22,7 +22,7 @@
                         v-for="destination in favoriteDestination"
                         :key="destination.id"
                         :destination="destination"
-                        class="mx-auto"
+                        class=" mx-auto m-2 scale-90 "
                     />
 
             </div>

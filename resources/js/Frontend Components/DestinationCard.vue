@@ -46,8 +46,8 @@
         <div
             class="absolute bottom-3 left-3 right-3 z-10 px-2 py-1 rounded-xl content bg-white/40 backdrop-blur-md"
         >
-            <div class="flex flex-row justify-between items-start py-1">
-                <h3 class="font-bold mb-1 text-gray-100"
+            <div class="flex flex-row justify-between items-start py-2 gap-2">
+                <h3 class="font-bold text-gray-100 p-1 px-2  text-base rounded-xl bg-bond line-clamp-1"
                 style="
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
@@ -55,14 +55,15 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
               ">
+                
                     {{
                         destination.name.length > 22
-                            ? destination.name.slice(0, 20) + "..."
+                            ? destination.name.slice(0, 22) + "..."
                             : destination?.name || "Unknown Destination"
                     }}
                 </h3>
                 <span
-                    class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded"
+                    class="bg-gray-200 text-gray-700 text-xs px-2 py-1 my-auto rounded"
                     style="
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
@@ -83,16 +84,16 @@
                 <span class="text-sm font-bold">
                     {{ formatCurrency(destination?.price || 0) }} / Orang
                 </span>
-                <NavLink
+                <Link
                     :href="`/destination/${destination?.id || ''}`"
-                    class="flex flex-row-reverse p-1 bg-green-500 w-32/5 space-x-3 hover:opacity-40 text-white rounded-full transition duration-300 transform hover:scale-110"
+                    class="flex flex-row-reverse p-1 bg-vaga w-32/5 space-x-3 hover:opacity-40 text-white rounded-full transition duration-300 transform hover:scale-110"
                 >
                     <img
                         src="../assets/BookLogo.png"
                         class="w-[30px] h-[30px] flex mx-3"
                     />
                     <p class="flex mt-0.5">Book Now</p>
-                </NavLink>
+                </Link>
             </div>
         </div>
     </div>
