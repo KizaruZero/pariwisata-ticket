@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Http;
 
 class AuthenticationTest extends TestCase
 {
@@ -19,16 +20,28 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
+        // Mock Turnstile CAPTCHA response
+        Http::fake([
+            'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response(['success' => true], 200),
+        ]);
+
         $user = User::factory()->create();
 
         $response = $this->post('/login', [
             'email' => $user->email,
             'password' => 'password',
+            'token' => 'mock-captcha-token', // Simulate a CAPTCHA token
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+
+        // Assert that the JWT token is included as a cookie
+        $response->assertCookie('jwt_token');
+
+        // Assert redirection to the intended route
+        $response->assertRedirect(route('home', absolute: false));
     }
+
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
@@ -46,9 +59,22 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post('/logout');
+        // Simulate the user being logged in with a JWT cookie
+        $this->withCookie('jwt_token', 'mock-jwt-token')
+            ->actingAs($user);
 
+        $response = $this->post('/logout');
+
+        // Assert that the JWT cookie is removed by checking its value and expiration
+        $response->assertCookie('jwt_token', null)
+            ->assertCookieExpired('jwt_token');
+
+        // Assert the user is logged out
         $this->assertGuest();
+
+        // Assert redirection to the homepage
         $response->assertRedirect('/');
     }
+
+
 }

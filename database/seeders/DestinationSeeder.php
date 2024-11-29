@@ -178,7 +178,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Klaten, Yogyakarta',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
-                'image_url' => 'https://example.com/prambanan.jpg',
+                'image_url' => 'prambanan.jpg',
                 'total_views' => 58000,
                 'total_likes' => 2800,
                 'popularity' => 0,
@@ -200,7 +200,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
-                'image_url' => 'pantai_baron.jpg',
+                'image_url' => 'pantai_baron.jpeg',
                 'total_views' => 38000,
                 'total_likes' => 2300,
                 'popularity' => 0,
@@ -426,7 +426,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Malang, Jawa Timur',
                 'category_id' => $categories->where('name', 'Danau')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,
-                'image_url' => 'ranu_kumbolo.jpg',
+                'image_url' => 'ranu_kumbolo.jpeg',
                 'total_views' => 46000,
                 'total_likes' => 2800,
                 'popularity' => 0,
