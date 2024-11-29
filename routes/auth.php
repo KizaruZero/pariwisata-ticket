@@ -36,8 +36,6 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth', 'jwt.verify'])->group(function () {
-
-
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('password.confirm');
 

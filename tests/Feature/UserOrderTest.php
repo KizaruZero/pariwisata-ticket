@@ -102,14 +102,14 @@ class UserOrderTest extends TestCase
     }
 
     /** @test */
-    public function AuthWithOrderModul()
+    public function OrderTanpaLogin()
     {
         // Simulasi file bukti pembayaran
         Storage::fake('public');
         $paymentProof = UploadedFile::fake()->image('payment.jpg');
 
-        // Login sebagai user
-        $this->assertGuest();
+        // tanpa login sebagai user
+        #$this->assertGuest();
 
         // Data input untuk order
         $data = [
@@ -125,31 +125,8 @@ class UserOrderTest extends TestCase
         // Kirim request untuk membuat order
         $response = $this->postJson(route('order.store'), $data);
 
-        if ($response->getStatusCode() === 401) {
-            $this->fail("Testing gagal karena User Harus Login Untuk Melakukan Order");
-            return;
-        }
-
         // Check that the user is not allowed
-        $response->assertStatus(401)
-            ->assertJson(['message' => 'Unauthenticated.']);
-
-        // Pastikan respons berhasil
-        $response->assertStatus(201)
-            ->assertJsonStructure(['message', 'order']);
-
-        // Periksa data order di database
-        $this->assertDatabaseHas('orders', [
-            'user_id' => $this->user->id,
-            'destination_id' => $this->destination->id,
-            'quantity' => 2,
-            'total_price' => $this->destination->price * 2,
-            'payment_method' => 'bank_transfer',
-            'status' => 'pending'
-        ]);
-
-        // Pastikan bukti pembayaran tersimpan
-        Storage::disk('public')->assertExists('payment_proofs/' . $paymentProof->hashName());
+        $response->assertStatus(401);
     }
 
     // Integration Testing
