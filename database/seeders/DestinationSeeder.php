@@ -200,7 +200,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
-                'image_url' => 'pantai_baron.jpeg',
+                'image_url' => 'pantai_baron.jpg',
                 'total_views' => 38000,
                 'total_likes' => 2300,
                 'popularity' => 0,

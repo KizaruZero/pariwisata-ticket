@@ -177,7 +177,7 @@
                     >
                         Destinations List
                     </h1>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                         <DestinationCard
                             v-for="destination in destinations"
                             :key="destination.id"
@@ -212,7 +212,7 @@
                             </div>
                         </div>
                         <div
-                            class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-auto"
+                            class="grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto"
                         >
                             <DestinationCard
                                 v-for="destination in recommendeds"
@@ -242,7 +242,7 @@
                                 </h1>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <DestinationCard
                                 v-for="destination in recomendationByUser"
                                 :key="destination.id"
