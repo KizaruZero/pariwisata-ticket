@@ -18,7 +18,7 @@ class PasswordUpdateTest extends TestCase
         ]);
 
         $response = $this
-            ->withCookie('jwt_token', 'mock-jwt-token')
+            ->withCookie('jwt_token', value: 'mock-jwt-token')
             ->actingAs($user)
             ->from('/profile')
             ->put('/password', [
@@ -28,8 +28,8 @@ class PasswordUpdateTest extends TestCase
             ]);
 
         $response
-            ->assertSessionHasNoErrors();
-        // ->assertRedirect('/profile');
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/profile');
 
         $this->assertTrue(Hash::check('new-password', $user->fresh()->password));
 

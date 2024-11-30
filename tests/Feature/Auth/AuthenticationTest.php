@@ -59,20 +59,12 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        // Simulate the user being logged in with a JWT cookie
         $this->withCookie('jwt_token', 'mock-jwt-token')
             ->actingAs($user);
-
         $response = $this->post('/logout');
-
-        // Assert that the JWT cookie is removed by checking its value and expiration
         $response->assertCookie('jwt_token', null)
             ->assertCookieExpired('jwt_token');
-
-        // Assert the user is logged out
         $this->assertGuest();
-
-        // Assert redirection to the homepage
         $response->assertRedirect('/');
     }
 
