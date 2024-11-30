@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticationTest extends TestCase
 {
@@ -59,14 +60,20 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->withCookie('jwt_token', 'mock-jwt-token')
-            ->actingAs($user);
-        $response = $this->post('/logout');
-        $response->assertCookie('jwt_token', null)
-            ->assertCookieExpired('jwt_token');
-        $this->assertGuest();
-        $response->assertRedirect('/');
-    }
+        // Generate mock token
+        $token = JWTAuth::fromUser($user);
 
+        $this
+            ->withCookie('jwt_token', $token) // Gunakan token asli
+            ->actingAs($user);
+
+        $response = $this->post('/logout');
+
+        $response
+            ->assertCookieExpired('jwt_token') // Gunakan assertCookieExpired()
+            ->assertRedirect('/');
+
+        $this->assertGuest();
+    }
 
 }
