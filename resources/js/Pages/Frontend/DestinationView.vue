@@ -156,37 +156,6 @@
                 </div>
             </div>
 
-            <!--All Destination List -->
-            <div>
-                <div v-if="loading">.</div>
-                <div v-else-if="destinations.length === 0">
-                    <h1
-                        class="text-4xl text-vaga font-bold col-span-full w-full justify-center items-center mx-auto font-montseratt"
-                    >
-                        Destinations List
-                    </h1>
-                    <p
-                        class="text-xl text-bond font-semibold text-center mt-2 mb-8 font-montseratt"
-                    >
-                        No Destination Found.
-                    </p>
-                </div>
-                <div v-else class="flex flex-col">
-                    <h1
-                        class="text-4xl font-bold text-vaga justify-center items-center mx-auto font-montseratt"
-                    >
-                        Destinations List
-                    </h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                        <DestinationCard
-                            v-for="destination in destinations"
-                            :key="destination.id"
-                            :destination="destination"
-                        />
-                    </div>
-                </div>
-            </div>
-
             <!-- Recomended Destination All-->
             <div class="mt-8">
                 <!-- Destination List -->
@@ -249,6 +218,36 @@
                                 :destination="destination"
                             />
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!--All Destination List -->
+            <div>
+                <div v-if="loading">.</div>
+                <div v-else-if="destinations.length === 0">
+                    <h1
+                        class="text-4xl text-vaga font-bold col-span-full w-full justify-center items-center mx-auto font-montseratt"
+                    >
+                        Destinations List
+                    </h1>
+                    <p
+                        class="text-xl text-bond font-semibold text-center mt-2 mb-8 font-montseratt"
+                    >
+                        No Destination Found.
+                    </p>
+                </div>
+                <div v-else class="flex flex-col">
+                    <h1
+                        class="text-4xl font-bold text-vaga justify-center items-center mx-auto font-montseratt"
+                    >
+                        Destinations List
+                    </h1>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <DestinationCard
+                            v-for="destination in destinations"
+                            :key="destination.id"
+                            :destination="destination"
+                        />
                     </div>
                 </div>
             </div>
