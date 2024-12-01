@@ -323,7 +323,6 @@
                     <HowItWorks />
                 </div>
             </div>
-
             <div class="bg-vaga">
                 <div class="mx-32 py-20">
                     <ClosingSection />
