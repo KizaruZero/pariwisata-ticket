@@ -1,8 +1,12 @@
 <template>
     <nav
-        class="bg-vaga p-4 flex justify-between items-center sticky top-0 z-50 font-montseratt shadow-md"
+    :class="[
+      'p-4 flex justify-between items-center top-0 z-50 font-montseratt',
+      transparent ? 'bg-transparent relative' : 'bg-vaga shadow-md sticky'
+    ]"
+  
     >
-        <div class="flex justify-between items-center w-screen px-8">
+        <div class="flex justify-between items-center w-full px-8">
             <!-- Desktop Navigation Links -->
             <div class="hidden md:flex space-x-5 text-sm hover:text-amber-500">
                 <NavLink
@@ -176,37 +180,34 @@
     </nav>
 </template>
 
-<script>
+<script setup>
 import { ref, computed } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import NavLink from "./NavLink.vue";
 
-export default {
-    components: {
-        Link,
-        NavLink,
-    },
-    setup() {
-        const mobileMenuOpen = ref(false);
-        const { props } = usePage();
-        const user = props.auth.user;
-        const isAdmin = computed(() => props.auth.user?.role === "admin");
+// Props
+defineProps({
+  transparent: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-        const toggleMobileMenu = () => {
-            mobileMenuOpen.value = !mobileMenuOpen.value;
-        };
+// State and Composables
+const mobileMenuOpen = ref(false);
+const { props } = usePage();
+const user = props.auth.user;
+const isAdmin = computed(() => props.auth.user?.role === "admin");
 
-        const goToDashboard = () => {
-            window.location.replace("/dashboard");
-        };
-
-        return {
-            mobileMenuOpen,
-            toggleMobileMenu,
-            isAdmin,
-            goToDashboard,
-            user,
-        };
-    },
+// Methods
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value;
 };
+
+const goToDashboard = () => {
+  window.location.replace("/dashboard");
+};
+
+// Expose to the template
 </script>
+
