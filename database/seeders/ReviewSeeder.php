@@ -19,8 +19,8 @@ class ReviewSeeder extends Seeder
                 Review::create([
                     'user_id' => $users->random()->id,
                     'destination_id' => $destination->id,
-                    'rating' => rand(1, 5),
-                    'review_text' => 'This is a review for ' . $destination->name,
+                    'rating' => rand(4, 5),
+                    'review_text' => 'This ' . $destination->name . ' is amazing!, I would love to visit again!. ' . $destination->name . ' is a great place to visit with family and friends.',
                 ]);
             }
         }
