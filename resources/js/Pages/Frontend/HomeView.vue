@@ -37,7 +37,7 @@
                     src="../../assets/Vector 5.png"
                     class="-mt-[95px] w-full"
                 >
-                <div class="h-full flex items-center -mt-[55px] justify-center font-montseratt italic text-white text-3xl">
+                <div class="h-full flex items-center -mt-[55px] justify-center font-montseratt italic text-white text-3xl font-medium">
                     <h1>Elevate Your Travel</h1>
                 </div>
                 </section>
