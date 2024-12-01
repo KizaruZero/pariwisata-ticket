@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticationTest extends TestCase
 {
@@ -59,22 +60,20 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        // Simulate the user being logged in with a JWT cookie
-        $this->withCookie('jwt_token', 'mock-jwt-token')
+        // Generate mock token
+        $token = JWTAuth::fromUser($user);
+
+        $this
+            ->withCookie('jwt_token', $token) // Gunakan token asli
             ->actingAs($user);
 
         $response = $this->post('/logout');
 
-        // Assert that the JWT cookie is removed by checking its value and expiration
-        $response->assertCookie('jwt_token', null)
-            ->assertCookieExpired('jwt_token');
+        $response
+            ->assertCookieExpired('jwt_token') // Gunakan assertCookieExpired()
+            ->assertRedirect('/');
 
-        // Assert the user is logged out
         $this->assertGuest();
-
-        // Assert redirection to the homepage
-        $response->assertRedirect('/');
     }
-
 
 }

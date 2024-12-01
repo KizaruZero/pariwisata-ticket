@@ -23,6 +23,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Tabanan, Bali',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id, // Budaya
                 'region_id' => $regions->where('name', operator: 'Bali')->first()->id,   // Bali
+                'price' => 60000,
                 'image_url' => 'tanah_lot.jpg',
                 'total_views' => 45000,
                 'total_likes' => 2700,
@@ -34,6 +35,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Tabanan, Bali',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id, // Budaya
                 'region_id' => $regions->where('name', operator: 'Bali')->first()->id,  // Bali
+                'price' => 50000,
                 'image_url' => 'pura_ulun.png',
                 'total_views' => 42000,
                 'total_likes' => 2600,
@@ -45,6 +47,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Bangli, Bali',
                 'category_id' => $categories->where('name', 'Gunung')->first()->id, // Budaya
                 'region_id' => $regions->where('name', operator: 'Bali')->first()->id,   // Bali
+                'price' => 20000,
                 'image_url' => 'kintamani.jpg',
                 'total_views' => 38000,
                 'total_likes' => 2200,
@@ -56,6 +59,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Kuta, Bali',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id, // Alam
                 'region_id' => $regions->where('name', operator: 'Bali')->first()->id,   // Bali
+                'price' => 60000,
                 'image_url' => 'pantai_kuta.jpg',
                 'total_views' => 50000,
                 'total_likes' => 2500,
@@ -67,6 +71,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Pecatu, Bali',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 30000,
                 'image_url' => 'pura_uluwatu.jpg',
                 'total_views' => 47000,
                 'total_likes' => 2800,
@@ -78,6 +83,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Ubud, Bali',
                 'category_id' => $categories->where('name', 'Gua')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 30000,
                 'image_url' => 'goa_gajah.jpeg',
                 'total_views' => 39000,
                 'total_likes' => 2100,
@@ -89,6 +95,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Nusa Dua, Bali',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 50000,
                 'image_url' => 'Nusadua.jpg',
                 'total_views' => 52000,
                 'total_likes' => 2700,
@@ -100,6 +107,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Ubud, Bali',
                 'category_id' => $categories->where('name', 'Hutan')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 80000,
                 'image_url' => 'monkey_forest.jpg',
                 'total_views' => 46000,
                 'total_likes' => 2300,
@@ -111,6 +119,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Ubud, Bali',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 25000,
                 'image_url' => 'taman_saraswati.jpg',
                 'total_views' => 28000,
                 'total_likes' => 1900,
@@ -122,6 +131,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Jimbaran, Bali',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 25000,
                 'image_url' => 'pantai_jimbaran.jpg',
                 'total_views' => 50000,
                 'total_likes' => 2600,
@@ -133,6 +143,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Tanjung Benoa, Bali',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 50000,
                 'image_url' => 'tanjung_benoa.jpg',
                 'total_views' => 45000,
                 'total_likes' => 2200,
@@ -144,6 +155,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Badung, Bali',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Bali')->first()->id,
+                'price' => 8000,
                 'image_url' => 'pantai_pandawa.jpg',
                 'total_views' => 27000,
                 'total_likes' => 1300,
@@ -156,6 +168,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Magelang, Yogyakarta',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 120000,
                 'image_url' => 'candi_borobudur.jpg',
                 'total_views' => 60000,
                 'total_likes' => 3000,
@@ -167,6 +180,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Parangtritis, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta,   // Yogyakarta
+                'price' => 15000,
                 'image_url' => 'pantai_parangtritis.jpg',
                 'total_views' => 35000,
                 'total_likes' => 2200,
@@ -178,6 +192,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Klaten, Yogyakarta',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 50000,
                 'image_url' => 'prambanan.jpg',
                 'total_views' => 58000,
                 'total_likes' => 2800,
@@ -189,6 +204,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Yogyakarta, Indonesia',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 15000,
                 'image_url' => 'taman_sari.jpg',
                 'total_views' => 42000,
                 'total_likes' => 2500,
@@ -200,6 +216,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 15000,
                 'image_url' => 'pantai_baron.jpg',
                 'total_views' => 38000,
                 'total_likes' => 2300,
@@ -211,6 +228,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 8000,
                 'image_url' => 'pantai_wediombo.jpg',
                 'total_views' => 24300,
                 'total_likes' => 2300,
@@ -222,6 +240,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 10000,
                 'image_url' => 'pantai_indrayanti.jpg',
                 'total_views' => 28000,
                 'total_likes' => 2500,
@@ -233,6 +252,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 10000,
                 'image_url' => 'pantai_krakal.jpg',
                 'total_views' => 32000,
                 'total_likes' => 2400,
@@ -244,6 +264,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 10000,
                 'image_url' => 'Pantai_Sadranan.jpg',
                 'total_views' => 29000,
                 'total_likes' => 2300,
@@ -255,6 +276,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunung Kidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,   // Yogyakarta
+                'price' => 15000,
                 'image_url' => 'pantai_sundak.jpg',
                 'total_views' => 27000,
                 'total_likes' => 2200,
@@ -266,6 +288,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Gunungkidul, Yogyakarta',
                 'category_id' => $categories->where('name', 'Gua')->first()->id,
                 'region_id' => $regions->where('name', 'Yogyakarta')->first()->id,
+                'price' => 45000,
                 'image_url' => 'goa_pindul.jpg',
                 'total_views' => 48000,
                 'total_likes' => 2700,
@@ -280,6 +303,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Bandung, Jawa Barat',
                 'category_id' => $categories->where('name', 'Danau')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Barat')->first()->id,   // Jawa Barat
+                'price' => 28000,
                 'image_url' => 'Kawah_Putih.jpg',
                 'total_views' => 42000,
                 'total_likes' => 2500,
@@ -291,6 +315,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Bandung, Jawa Barat',
                 'category_id' => $categories->where('name', 'Gunung')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Barat')->first()->id,   // Jawa Barat
+                'price' => 17000,
                 'image_url' => 'tebing_keraton.jpg',
                 'total_views' => 38000,
                 'total_likes' => 2300,
@@ -303,6 +328,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Bandung, Jawa Barat',
                 'category_id' => $categories->where('name', 'Gunung')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Barat')->first()->id,   // Jawa Barat
+                'price' => 30000,
                 'image_url' => 'tangkuban_perahu.jpg',
                 'total_views' => 45000,
                 'total_likes' => 2600,
@@ -314,6 +340,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Pangandaran, Jawa Barat',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Barat')->first()->id,   // Jawa Barat
+                'price' => 20000,
                 'image_url' => 'Pantai_Pangandaran.jpg',
                 'total_views' => 50000,
                 'total_likes' => 2800,
@@ -326,6 +353,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Sukabumi, Jawa Barat',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Barat')->first()->id,   // Jawa Barat
+                'price' => 10000,
                 'image_url' => 'pantai_ujunggenteng.jpg',
                 'total_views' => 42000,
                 'total_likes' => 2500,
@@ -337,6 +365,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Bogor, Jawa Barat',
                 'category_id' => $categories->where('name', 'Kebun Binatang')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Barat')->first()->id,   // Jawa Barat
+                'price' => 255000,
                 'image_url' => 'taman_safari.jpg',
                 'total_views' => 48000,
                 'total_likes' => 2700,
@@ -349,6 +378,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Probolinggo, Jawa Timur',
                 'category_id' => $categories->where('name', 'Gunung')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,     // Jawa Timur
+                'price' => 34000,
                 'image_url' => 'gunung_bromo.jpg',
                 'total_views' => 79030,
                 'total_likes' => 3200,
@@ -360,6 +390,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Pacitan, Jawa Timur',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,
+                'price' => 10000,
                 'image_url' => 'pantai_klayar.jpg',
                 'total_views' => 58000,
                 'total_likes' => 2400,
@@ -371,6 +402,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Banyuwangi, Jawa Timur',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,
+                'price' => 10000,
                 'image_url' => 'Pantai_PulauMerah.jpg',
                 'total_views' => 63000,
                 'total_likes' => 3100,
@@ -382,6 +414,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Lumajang, Jawa Timur',
                 'category_id' => $categories->where('name', 'Gunung')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,
+                'price' => 24000,
                 'image_url' => 'gunung_Semeru.jpg',
                 'total_views' => 87000,
                 'total_likes' => 4500,
@@ -393,6 +426,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Lumajang, Jawa Timur',
                 'category_id' => $categories->where('name', 'Air Terjun')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,
+                'price' => 10000,
                 'image_url' => 'tumpak_Sewu.jpg',
                 'total_views' => 68000,
                 'total_likes' => 4000,
@@ -404,6 +438,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Malang, Jawa Timur',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id, // Jawa Timur
+                'price' => 20000,
                 'image_url' => 'Pantai_Balekambang.png',
                 'total_views' => 50000,
                 'total_likes' => 2800,
@@ -415,6 +450,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Banyuwangi, Jawa Timur',
                 'category_id' => $categories->where('name', 'Gunung')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,
+                'price' => 75000,
                 'image_url' => 'gunung_ijen.jpg',
                 'total_views' => 58000,
                 'total_likes' => 3100,
@@ -426,6 +462,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Malang, Jawa Timur',
                 'category_id' => $categories->where('name', 'Danau')->first()->id,
                 'region_id' => $regions->where('name', 'Jawa Timur')->first()->id,
+                'price' => 24000,
                 'image_url' => 'ranu_kumbolo.jpeg',
                 'total_views' => 46000,
                 'total_likes' => 2800,
@@ -438,6 +475,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Ende, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Danau')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 10000,
                 'image_url' => 'danau_kelimutu.jpg',
                 'total_views' => rand(20000, 60000),
                 'total_likes' => rand(1500, 4000),
@@ -449,6 +487,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Labuan Bajo, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Rekreasi')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 320000,
                 'image_url' => 'pulau_komodo.jpg',
                 'total_views' => rand(40000, 90000),
                 'total_likes' => rand(3000, 6000),
@@ -460,6 +499,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Kupang, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 5000,
                 'image_url' => 'pantai_oetune.jpg',
                 'total_views' => rand(15000, 50000),
                 'total_likes' => rand(1000, 3000),
@@ -471,6 +511,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Manggarai, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Budaya')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 5000,
                 'image_url' => 'desa_wae_rebo.jpg',
                 'total_views' => rand(10000, 40000),
                 'total_likes' => rand(800, 2500),
@@ -482,6 +523,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Kupang, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Air Terjun')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 5000,
                 'image_url' => 'air_terjun_oenesu.jpg',
                 'total_views' => rand(15000, 45000),
                 'total_likes' => rand(1000, 2800),
@@ -493,6 +535,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Kupang, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Gua')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 5000,
                 'image_url' => 'goa_kristal_bolok.jpg',
                 'total_views' => rand(8000, 30000),
                 'total_likes' => rand(600, 2000),
@@ -504,6 +547,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Sumba Barat, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Pantai')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 15000,
                 'image_url' => 'pantai_nihiwatu.jpg',
                 'total_views' => rand(30000, 80000),
                 'total_likes' => rand(2500, 5000),
@@ -515,6 +559,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Sumba Barat Daya, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Danau')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 15000,
                 'image_url' => 'weekuri_lagoon.jpg',
                 'total_views' => rand(25000, 55000),
                 'total_likes' => rand(1500, 3500),
@@ -526,6 +571,7 @@ class DestinationSeeder extends Seeder
                 'location' => 'Ngada, Flores, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Gunung')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 15000,
                 'image_url' => 'gunung_inerie.jpg',
                 'total_views' => rand(20000, 45000),
                 'total_likes' => rand(1200, 3200),
@@ -537,15 +583,13 @@ class DestinationSeeder extends Seeder
                 'location' => 'Labuan Bajo, Nusa Tenggara Timur',
                 'category_id' => $categories->where('name', 'Gua')->first()->id,
                 'region_id' => $regions->where('name', 'Nusa Tenggara Timur')->first()->id,
+                'price' => 20000,
                 'image_url' => 'rangko_cave.jpg',
                 'total_views' => rand(12000, 38000),
                 'total_likes' => rand(900, 2700),
                 'popularity' => 0,
             ],
         ];
-        foreach ($destinations as &$destination) {
-            $destination['price'] = rand(10000, 150000);
-        }
         foreach ($destinations as $destination) {
             $newDestination = Destination::create($destination);
             $newDestination->updatePopularity(); // Memperbarui nilai popularity

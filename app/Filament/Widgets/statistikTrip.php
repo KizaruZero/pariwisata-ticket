@@ -19,15 +19,25 @@ class statistikTrip extends BaseWidget
 
     protected function getStats(): array
     {
-        $startDate = !is_null($this->filters['startDate'] ?? null) ?
+        // $startDate = !is_null($this->filters['startDate'] ?? null) ?
+        //     Carbon::parse($this->filters['startDate']) :
+        //     null;
+
+        // $endDate = !is_null($this->filters['endDate'] ?? null) ?
+        //     Carbon::parse($this->filters['endDate']) :
+        //     now();
+
+        $startDate = isset($this->filters['startDate']) ?
             Carbon::parse($this->filters['startDate']) :
-            null;
+            Carbon::now()->startOfYear();
 
-        $endDate = !is_null($this->filters['endDate'] ?? null) ?
+        // Set default end date to today if not provided
+        $endDate = isset($this->filters['endDate']) ?
             Carbon::parse($this->filters['endDate']) :
-            now();
+            Carbon::now();
 
-        $totalSales = Order::penjualan()->whereBetween('created_at', [$startDate, $endDate])->sum('total_price');
+
+        $totalSales = Order::penjualan()->whereBetween('booking_date', [$startDate, $endDate])->sum('total_price');
         return [
             Stat::make('Total Destinations', Destination::count())
                 ->description('Total Destinasi Wisata yang terdaftar')
