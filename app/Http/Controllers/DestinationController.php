@@ -68,14 +68,14 @@ class DestinationController extends Controller
 
     public function getPopularDestination()
     {
-        $destinations = Destination::orderBy('total_orders', 'desc')->limit(4)->get();
+        $destinations = Destination::orderBy('total_orders', 'desc')->limit(3)->get();
         return response()->json($destinations);
     }
 
     public function getRecommendedDestination()
     {
         // Mengambil destinasi yang disortir berdasarkan popularity, descending
-        $recomendation = Destination::orderBy('popularity', 'desc')->take(4)->get();
+        $recomendation = Destination::orderBy('popularity', 'desc')->take(3)->get();
         ;
         return response()->json($recomendation);
     }
@@ -87,7 +87,7 @@ class DestinationController extends Controller
             $recommendedDestinations = collect($user->getRecommendedDestinations());
         } else {
             // If the user is not logged in, show popular destinations
-            $recommendedDestinations = collect(Destination::orderBy('popularity', 'desc')->take(4)->get());
+            $recommendedDestinations = collect(Destination::orderBy('popularity', 'desc')->take(3)->get());
         }
 
 

@@ -49,7 +49,8 @@ class OrderResource extends Resource
                     ->label('Quantity'),
                 TextColumn::make('payment_method')->label('Payment Method'),
                 ImageColumn::make('payment_proof')->label('Payment Proof'),
-                TextColumn::make('booking_date')->label('Booking Date'),
+                TextColumn::make('booking_date')->label('Booking Date')
+                    ->sortable(),
                 TextColumn::make('total_price')->label('Total Price')->money('idr', true)
                     ->searchable()
                     ->sortable(),

@@ -16,8 +16,6 @@ class PenjualanChart extends LineChartWidget
     protected static ?string $heading = 'Chart Penjualan Tiket Wisata';
     protected int|string|array $columnSpan = 'full';
 
-
-
     protected function getData(): array
     {
         $activeFilter = $this->filter;

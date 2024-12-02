@@ -94,7 +94,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // Hapus cookie JWT
-        return redirect('/')->withCookie(cookie('jwt_token', null, -1));
+        // Hapus cookie JWT dengan metode yang benar
+        return redirect('/')
+            ->withoutCookie('jwt_token'); // Gunakan withoutCookie()
     }
 }

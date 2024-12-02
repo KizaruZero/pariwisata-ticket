@@ -2,12 +2,18 @@
 import Navbar from "@/Components/NavbarView.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import FooterComponent from "@/Components/FooterComponent.vue";
+defineProps({
+    transparentNavbar: {
+        type: Boolean,
+        default: false,
+    },
+});
 </script>
 
 <template>
     <div class="min-h-screen bg-cream">
         <!-- Navbar -->
-        <Navbar />
+        <Navbar :transparent="transparentNavbar" />
 
         <!-- Hero Section -->
         <!-- <div class="relative bg-cover bg-center h-screen">
@@ -33,13 +39,12 @@ import FooterComponent from "@/Components/FooterComponent.vue";
 
         <!-- Content Section -->
         <div class="">
-            <div class=" mx-auto">
+            <div class="mx-auto">
                 <slot></slot>
             </div>
         </div>
-
         <!-- Footer -->
-        <FooterComponent/>
+        <FooterComponent />
     </div>
 </template>
 

@@ -78,7 +78,7 @@ class User extends Authenticatable implements FilamentUser, JWTSubject
         return $this->hasMany(Post::class);
     }
 
-    public function getRecommendedDestinations($limit = 5)
+    public function getRecommendedDestinations($limit = 3)
     {
         // Mendapatkan ID destinasi yang disukai oleh pengguna
         $likedDestinationIds = $this->likedDestinations()->pluck('destination_id')->toArray();

@@ -4,14 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trippin' Vocation - Your Adventure Awaits</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Vagabond - Your Adventure Ticket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-green: #2D9F6B;
+            --secondary-green: #4CAF50;
+            --light-green: #E8F5E9;
+            --accent-green: #81C784;
+        }
+
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #e8f5e9;
+            background-color: var(--light-green);
             margin: 0;
             padding: 20px;
         }
@@ -19,139 +26,108 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #fff;
-            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2);
-            border-radius: 16px;
+            background-color: white;
+            box-shadow: 0 15px 40px rgba(45, 159, 107, 0.15);
+            border-radius: 20px;
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: #fff;
+            background: var(--primary-green);
+            color: white;
             text-align: center;
             padding: 40px 20px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/simpleicons.svg') repeat;
-            opacity: 0.1;
-            transform: rotate(30deg);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
         }
 
         .logo {
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 700;
             letter-spacing: 2px;
+            text-transform: uppercase;
             margin-bottom: 10px;
         }
 
-        .content {
+        .subtitle {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .ticket-section {
             padding: 40px;
-        }
-
-        h1,
-        h2 {
-            color: #2ecc71;
-            margin-top: 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 10px;
-            margin-top: 20px;
-        }
-
-        th,
-        td {
-            padding: 15px;
-            text-align: left;
-            background-color: #f1f8e9;
-            border-radius: 8px;
-        }
-
-        th {
-            font-weight: 600;
-            color: #2ecc71;
-            background-color: #e8f5e9;
-        }
-
-        .total {
-            font-weight: 700;
-            font-size: 20px;
-            color: #2ecc71;
-        }
-
-        .ticket {
-            background-color: #f1f8e9;
-            border: 2px dashed #2ecc71;
-            border-radius: 16px;
-            padding: 30px;
+            background: white;
             position: relative;
-            margin-top: 40px;
         }
 
-        .ticket::before,
-        .ticket::after {
-            content: '';
-            position: absolute;
-            top: -12px;
-            width: 24px;
-            height: 24px;
-            background-color: #e8f5e9;
-            border-radius: 50%;
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed var(--accent-green);
+            padding-bottom: 20px;
         }
 
-        .ticket::before {
-            left: -12px;
+        .ticket-details {
+            background-color: var(--light-green);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
         }
 
-        .ticket::after {
-            right: -12px;
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(45, 159, 107, 0.1);
         }
 
-        .qr-code {
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .detail-value {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .unique-code-section {
             text-align: center;
             margin-top: 30px;
-        }
-
-        .qr-code img {
-            width: 150px;
-            height: 150px;
-            border: 5px solid #2ecc71;
-            border-radius: 10px;
+            padding: 20px;
+            background-color: var(--light-green);
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-green);
+            box-shadow: 0 10px 25px rgba(45, 159, 107, 0.1);
         }
 
         .footer {
+            background: var(--primary-green);
+            color: white;
             text-align: center;
-            padding: 30px;
-            background-color: #2ecc71;
-            color: #fff;
+            padding: 20px;
+            font-size: 14px;
         }
 
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #27ae60;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
+        .adventure-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: var(--primary-green);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #219653;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
         }
     </style>
 </head>
@@ -159,65 +135,51 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">Trippin' Vocation</div>
-            <p>Your Eco-Adventure Awaits!</p>
+            <div class="logo">VAGABOND</div>
+            <p class="subtitle">Your Journey, Your Adventure</p>
+            <span class="adventure-tag">Indonesian Expedition</span>
         </div>
 
-        <div class="content">
-            <h1>🌴 Your Green Getaway Receipt 🌴</h1>
+        <div class="ticket-section">
+            <div class="ticket-header">
+                <h2>Adventure Ticket</h2>
+                <span>{{ $order->booking_date }}</span>
+            </div>
 
-            <p>Thank you for choosing sustainable travel, {{ $order->user->name }}!</p>
+            <div class="ticket-details">
+                <div class="detail-row">
+                    <span class="detail-label">Traveler Name</span>
+                    <span class="detail-value">{{ $order->user->name }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Destination</span>
+                    <span class="detail-value">{{ $order->destination->name }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Tickets</span>
+                    <span class="detail-value">{{ $order->quantity }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Payment Method</span>
+                    <span class="detail-value">{{ $order->payment_method }}</span>
+                </div>
+            </div>
 
-            <table>
-                <tr>
-                    <th>Green Destination</th>
-                    <td>{{ $order->destination->name }}</td>
-                </tr>
-                <tr>
-                    <th>Quantity</th>
-                    <td>{{ $order->quantity }}</td>
-                </tr>
-                <tr>
-                    <th>Earth-Friendly Payment</th>
-                    <td>{{ $order->payment_method }}</td>
-                </tr>
-                <tr class="total">
-                    <th>Total Investment in Nature</th>
-                    <td>{{ $order->total_price }}</td>
-                </tr>
-            </table>
+            <div class="total">
+                Total: Rp{{ $order->total_price }}
+            </div>
 
-            <p><strong>Date of Green Light:</strong> {{ $order->approved_at }}</p>
-        </div>
-
-        <div class="ticket">
-            <h2>🎫 Your Eco-Travel Pass 🎫</h2>
-            <table>
-                <tr>
-                    <th>Earth Explorer</th>
-                    <td>{{ $order->user->name }}</td>
-                </tr>
-                <tr>
-                    <th>Nature's Playground</th>
-                    <td>{{ $order->destination->name }}</td>
-                </tr>
-                <tr>
-                    <th>Departure to Paradise</th>
-                    <td>{{ $order->booking_date }}</td>
-                </tr>
-
-            </table>
-
-            <div class="qr-code">
-                <img src="/api/placeholder/150/150" alt="QR Code">
-                <p>Scan for your digital eco-pass</p>
+            <div class="unique-code-section">
+                Redeem Code:
+                <span>
+                    {{ strtoupper(substr($order->user->name, 0, 3)) }}-{{ strtoupper(substr($order->destination->name, 0, 3)) }}-{{ date('Ymd', strtotime($order->booking_date)) }}-{{ $order->id }}
+                </span>
             </div>
         </div>
 
         <div class="footer">
-            <h3>Trippin' Vocation - Explore Responsibly, Travel Sustainably</h3>
-            <p>Questions about your green adventure? Reach out to our eco-friendly support team:</p>
-            <a href="mailto:support@trippinvocation.com" class="button">Contact Eco-Support</a>
+            <p>Vagabond Travel - Explore Indonesia's Hidden Treasures</p>
+            <p>Support: +62 812 3456 7890 | support@vagabond.travel</p>
         </div>
     </div>
 </body>

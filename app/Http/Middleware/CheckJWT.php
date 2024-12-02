@@ -11,6 +11,9 @@ class CheckJWT
 {
     public function handle($request, Closure $next)
     {
+        // if (app()->environment('testing')) {
+        //     return $next($request);
+        // }
         try {
             if ($request->hasCookie('jwt_token')) {
                 $token = $request->cookie('jwt_token');
