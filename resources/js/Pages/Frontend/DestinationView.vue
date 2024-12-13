@@ -172,11 +172,11 @@
                                 <h1
                                     class="text-3xl text-vaga font-bold font-montseratt hover:text-pink-600 transition duration-300"
                                 >
-                                    Travel Recommendations
+                                    Most Popular Destinations
                                 </h1>
                                 <p class="text-bond font-montseratt">
-                                    The best travel recommendations from around
-                                    Indonesia for you.
+                                    The best destination recommendations from
+                                    around Indonesia for you.
                                 </p>
                             </div>
                         </div>
@@ -205,9 +205,9 @@
                         <div class="mx-auto p-6">
                             <div class="text-center">
                                 <h1
-                                    class="text-3xl text-vaga font-bold hover:text-pink-600 transition duration-300"
+                                    class="text-3xl text-vaga font-bold font-montseratt hover:text-pink-600 transition duration-300"
                                 >
-                                    Destination Recomendation by Your Interest
+                                    Recommended Destinations For You
                                 </h1>
                             </div>
                         </div>

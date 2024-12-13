@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
+            ->spa()
             ->path('dashboard')
             ->login()
             ->colors([

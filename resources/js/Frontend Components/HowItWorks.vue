@@ -5,7 +5,7 @@
             <img
                 src="@/assets/enjoy.jpg"
                 alt="destination"
-                class="w-3/4 h-full p-20 mx-auto rounded-[128px]"
+                class="w-full h-full p-20 mx-auto rounded-[128px]"
             />
         </div>
         <div class="w-1/2 py-20">
