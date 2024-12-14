@@ -26,7 +26,12 @@ Route::middleware('guest')->group(function () {
         ->name('password.reset');
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+    
 });
+
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
 
 Route::middleware(['auth', 'jwt.verify'])->group(function () {
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
