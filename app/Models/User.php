@@ -9,11 +9,13 @@ use Filament\Panel;
 use App\Models\Destination;
 use Auth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 
 
 
-class User extends Authenticatable implements FilamentUser, JWTSubject
+
+class User extends Authenticatable implements FilamentUser, JWTSubject, MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
