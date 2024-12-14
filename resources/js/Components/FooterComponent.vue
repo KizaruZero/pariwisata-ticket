@@ -14,10 +14,9 @@
                             class="w-32"
                         />
                     </Link>
-                    <p class="text-white font-thin">
-                        Menyediakan layanan catering berkualitas dengan cita
-                        rasa tinggi untuk setiap acara istimewa Anda. Nikmati
-                        makanan lezat bersama kami.
+                    <p class="text-white font-thin pr-10">
+                        Plan Your Perfect Trip With Vagabond. Choose Your Dream
+                        Destination & Let Us Take Care Of The Rest.
                     </p>
                 </div>
 
@@ -33,21 +32,21 @@
                                 <Link
                                     href="/about"
                                     class="text-white hover:text-orange-600 transition duration-200"
-                                    >Tentang Kami</Link
+                                    >About Us</Link
                                 >
                             </li>
                             <li>
                                 <Link
-                                    href="/menu"
+                                    href="/destinations"
                                     class="text-white hover:text-orange-600 transition duration-200"
-                                    >Menu</Link
+                                    >Destination</Link
                                 >
                             </li>
                             <li>
                                 <Link
-                                    href="/catering"
+                                    href="/article"
                                     class="text-white hover:text-orange-600 transition duration-200"
-                                    >Layanan Catering</Link
+                                    >Article</Link
                                 >
                             </li>
                         </ul>
@@ -90,13 +89,13 @@
                         </h3>
                         <ul class="space-y-2">
                             <li class="text-white">
-                                Email: info@cateringco.com
+                                Email: vagabondtravel@travel.com
                             </li>
                             <li class="text-white">
                                 Telepon: +62 812-3456-7890
                             </li>
                             <li class="text-white">
-                                Alamat: Jl. Pangan Sejahtera No.123
+                                Alamat: Jl. Jend. Sudirman No. 123, Jakarta
                             </li>
                         </ul>
                     </div>
@@ -107,7 +106,7 @@
             <div
                 class="mt-8 border-t border-gray-200 pt-4 text-center text-white text-sm"
             >
-                <p>&copy; 2024 Catering Co. Semua Hak Dilindungi.</p>
+                <p>&copy; 2024 Vagabond Co. Semua Hak Dilindungi.</p>
             </div>
         </div>
     </footer>
