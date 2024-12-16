@@ -36,7 +36,7 @@
                         /> -->
 
                         <img
-                            src="../../assets/home.png"
+                            :src="`/storage/${article.image_url}`"
                             :alt="article.title"
                             class="mx-auto h-96 object-cover rounded-lg shadow-lg mb-8"
                         />
@@ -78,7 +78,7 @@
                             class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900 mx-auto my-auto"
                             ></div>
                         </div>
-                        <div class="grid grid-rows-1 items-center bg-white justify-center bg-black ">
+                        <div class="grid grid-rows-1 items-center bg-white justify-center ">
                             <ArticleBox 
                             v-for="article in articles" 
                             :key="article.id" 

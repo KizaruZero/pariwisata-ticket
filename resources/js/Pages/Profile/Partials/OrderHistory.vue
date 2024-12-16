@@ -76,7 +76,7 @@
 
                 <!-- Card Footer with CTA button -->
                 <div
-                    class="p-4"
+                    class="p-4 h-full "
                     :class="{
                         'bg-green-500': order.status === 'approved',
                         'bg-yellow-500': order.status === 'pending',
@@ -94,7 +94,7 @@
                     </button>
 
                     <!-- Add Review Button for Approved Status -->
-                    <!-- <ReviewComponent
+                    <ReviewComponent
                     v-if="showReviewPopup"
                     :destinationId="destinationId"
                     @close="toggleReview"
@@ -105,7 +105,7 @@
                         class="flex bg-cyan-600 shadow-sm p-2 rounded-md font-medium text-white hover:bg-gray-600"
                     >
                         Add a review
-                    </button> -->
+                    </button>
                     
                 
                 </div>

@@ -220,7 +220,7 @@
                     class="grid grid-cols-1 md:grid-cols-3 items-center justify-center"
                 >
                     <ArticleBox
-                        v-for="article in articles.slice(0, 3)"
+                        v-for="article in articles(0, 3)"
                         :key="article.id"
                         :article="article"
                         class="ml-5 mr-5 md:my-4"

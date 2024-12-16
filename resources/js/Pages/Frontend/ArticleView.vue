@@ -36,15 +36,15 @@
                         class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
                     ></div>
                 </div>
-                <div class="text-center bg-cream py-12 px-16">
+                <div class="text-center bg-cream py-12 px-16 w-7xl">
                     <div
-                        class="grid grid-cols-4 gap-6 justify-center items-center"
+                        class="grid grid-cols-3 gap-6 justify-center items-center"
                     >
                         <ArticleBox
-                            v-for="article in articles"
+                            v-for="article in sortedArticles"
                             :key="article.id"
                             :article="article"
-                            class="bg-cream w-80"
+                            class="bg-cream w-full"
                         ></ArticleBox>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import axios from "axios";
 import ArticleBox from "@/Frontend Components/ArticleBox.vue";
 import ArticleCard from "@/Frontend Components/ArticleCard.vue";
@@ -70,6 +70,10 @@ const fetchArticles = async () => {
         console.error("Error fetching articles:", error);
     }
 };
+
+const sortedArticles = computed(() => {
+    return articles.value.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+});
 
 const show = ref(false);
 onMounted(() => {
