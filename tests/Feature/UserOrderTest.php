@@ -61,7 +61,7 @@ class UserOrderTest extends TestCase
         $paymentProof = UploadedFile::fake()->image('payment.jpg');
 
         // Login sebagai user
-        $this->actingAs(user: $this->user);
+        // $this->actingAs(user: $this->user);
 
         // Data input untuk order
         $data = [
@@ -156,7 +156,7 @@ class UserOrderTest extends TestCase
         );
 
         // Ubah status order menjadi 'approved'
-        $order->status = 'approved';
+        // $order->status = 'approved';
         $order->save(); // Simulasikan perubahan status ke approved
 
         // Pastikan email hanya terkirim jika status adalah 'approved'
@@ -217,6 +217,10 @@ class UserOrderTest extends TestCase
         if ($order->status === 'approved') {
             // Update total orders dan popularitas destinasi
             $destination->updateTotalOrders();
+        }
+
+        if ($order->status !== 'approved') {
+            $this->fail("Order tidak meningkatkan popularitas jika status bukan 'approved'");
         }
 
         // **4. Assert - Cek Popularitas Bertambah**

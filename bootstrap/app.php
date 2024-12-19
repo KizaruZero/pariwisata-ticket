@@ -20,6 +20,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'jwt.verify' => \App\Http\Middleware\CheckJWT::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            'register',
+            'login',
+            'forgot-password',
+            'reset-password/*'
+        ]);
+
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use ShuvroRoy\FilamentSpatieLaravelBackup\Pages\Backups as BaseBackups;
 use Illuminate\Contracts\Support\Htmlable;
+use Filament\Pages\Page;
 
 
 class Backups extends BaseBackups

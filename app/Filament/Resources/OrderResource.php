@@ -94,7 +94,9 @@ class OrderResource extends Resource
                     ->label('Booking Date')
                     ->date()
                     ->collapsible(),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc'); // Add this line to sort by created_at in descending order
+            
     }
 
     public static function getPages(): array

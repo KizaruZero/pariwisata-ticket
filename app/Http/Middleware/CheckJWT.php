@@ -26,6 +26,11 @@ class CheckJWT
                 if (!$user) {
                     return response()->json(['message' => 'User not found'], 401);
                 }
+                // Refresh the token if it is close to expiration
+                if (JWTAuth::getPayload($token)->get('exp') - time() < 300) { // 5 minutes before expiration
+                    $newToken = JWTAuth::refresh($token);
+                    return $next($request)->withCookie(cookie('jwt_token', $newToken, 120));
+                }
             } else {
                 return response()->json(['message' => 'Authorization token not found'], 401);
             }

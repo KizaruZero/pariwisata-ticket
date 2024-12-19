@@ -37,6 +37,9 @@ class SearchTest extends TestCase
         // Kirim request ke endpoint dengan filter kategori dan region
         $response = $this->getJson('/api/destinations?search=' . $search . '&category=' . $beachCategory->id . '&region=' . $baliRegion->id);
 
+        if ($response->getStatusCode() != 200) {
+           $this->fail('Failed to get response from /api/destinations');
+        }
         // Pastikan responsnya benar
         $response->assertStatus(200)
             ->assertJsonCount(1, 'data')  // Harusnya hanya 1 destinasi

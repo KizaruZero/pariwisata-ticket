@@ -47,6 +47,9 @@ class DestinationResource extends Resource
                 TextInput::make('location')
                     ->label('Location')
                     ->required(),
+                TextInput::make('price')
+                    ->label('Price')
+                    ->required(),
                 Select::make('category_id')
                     ->label('Kategori')
                     ->relationship('category', 'name')
@@ -130,7 +133,8 @@ class DestinationResource extends Resource
                         ->withFilename('destinasi-' . date('Y-m-d'))
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                 ])
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc'); // Add this line to sort by created_at in descending order
     }
 
     public static function getRelations(): array

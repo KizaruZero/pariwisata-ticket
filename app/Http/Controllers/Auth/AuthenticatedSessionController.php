@@ -61,7 +61,7 @@ class AuthenticatedSessionController extends Controller
 
             return redirect()
                 ->intended(route('home', absolute: false))
-                ->withCookie(cookie('jwt_token', $token, 60));
+                ->withCookie(cookie('jwt_token', $token, 120));
         } catch (\Exception $e) {
             \Log::error('Login error', [
                 'message' => $e->getMessage(),
@@ -74,28 +74,42 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+
+     public function destroy(Request $request): RedirectResponse
     {
-        try {
-            // Periksa apakah token ada di header atau cookie
-            if (!$token = JWTAuth::getToken()) {
-                $token = $request->cookie('jwt_token'); // Ambil dari cookie
-                JWTAuth::setToken($token); // Set token ke JWTAuth
-            }
+    // Invalidasi token JWT yang sudah terverifikasi
+    JWTAuth::invalidate(JWTAuth::getToken());
+    
+    // Logout dari session Laravel
+    Auth::guard('web')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-            // Invalidasi token JWT
-            JWTAuth::invalidate($token);
-        } catch (\Exception $e) {
-            // Token tidak ditemukan atau invalid, abaikan
-        }
-
-        // Logout dari session Laravel
-        Auth::guard('web')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        // Hapus cookie JWT dengan metode yang benar
-        return redirect('/')
-            ->withoutCookie('jwt_token'); // Gunakan withoutCookie()
+    // Redirect dan hapus cookie
+    return redirect('/')->withoutCookie('jwt_token');
     }
+    // public function destroy(Request $request): RedirectResponse
+    // {
+    //     try {
+    //         // Periksa apakah token ada di header atau cookie
+    //         if (!$token = JWTAuth::getToken()) {
+    //             $token = $request->cookie('jwt_token'); // Ambil dari cookie
+    //             JWTAuth::setToken($token); // Set token ke JWTAuth
+    //         }
+
+    //         // Invalidasi token JWT
+    //         JWTAuth::invalidate($token);
+    //     } catch (\Exception $e) {
+    //         // Token tidak ditemukan atau invalid, abaikan
+    //     }
+
+    //     // Logout dari session Laravel
+    //     Auth::guard('web')->logout();
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+
+    //     // Hapus cookie JWT dengan metode yang benar
+    //     return redirect('/')
+    //         ->withoutCookie('jwt_token'); // Gunakan withoutCookie()
+    // }
 }
